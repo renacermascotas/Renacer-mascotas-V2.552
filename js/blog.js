@@ -27,13 +27,15 @@ const blogCards = document.getElementById('blog-cards');
 if (blogCards) {
   blogPosts.forEach(post => {
     const card = document.createElement('div');
-    card.className = 'card blog-card reveal';
+    card.className = 'plan-img-box';
     card.tabIndex = 0;
     card.innerHTML = `
-      <a href="${post.link}">
+      <a href="${post.link}" style="text-decoration:none; color:inherit;">
         <img src="${post.img}" alt="${post.alt}" class="plan-image" />
-        <h3>${post.title}</h3>
-        <p>${post.text}</p>
+        <div style="width:100%;text-align:center;margin-top:1.2rem;">
+          <h3 style="color:var(--secondary);font-size:1.15rem;font-weight:800;margin-bottom:0.7rem;">${post.title}</h3>
+          <p style="color:#444;font-size:1.05rem;">${post.text}</p>
+        </div>
       </a>
     `;
     blogCards.appendChild(card);
