@@ -1,0 +1,9 @@
+# Ignorar dependencias y archivos sensibles del backend
+backend/node_modules/
+backend/.env
+# Ignorar dependencias y archivos sensibles del frontend (si existieran)
+node_modules/
+.env
+# Otros archivos temporales
+.DS_Store
+Thumbs.db

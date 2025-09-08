@@ -1,3 +1,110 @@
+@media (max-width: 900px) {
+    .service-card, .plan-card, .card {
+        max-width: 340px !important;
+    }
+}
+@media (max-width: 600px) {
+    .service-card, .plan-card, .card {
+        max-width: 320px !important;
+    }
+}
+@media (max-width: 900px) {
+    .services-munchkin {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 1.2rem;
+        padding: 1rem 0.2rem;
+        overflow-x: visible !important;
+    }
+    .service-card-wrap {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-width: 0 !important;
+        margin: 0 auto 1.2rem auto !important;
+        padding: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+    .service-card, .plan-card, .card {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 420px !important;
+        margin: 0 auto !important;
+        height: auto !important;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+@media (max-width: 600px) {
+    .services-munchkin {
+        gap: 0.7rem;
+        padding: 0.5rem 0.1rem;
+    }
+    .service-card-wrap {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-width: 0 !important;
+        padding: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+    .service-card, .plan-card, .card {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 98vw !important;
+        margin: 0 auto !important;
+        padding: 0.7rem 0.2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+@media (max-width: 900px) {
+    .services-munchkin {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        gap: 1.2rem;
+        padding: 1rem 0.2rem;
+        overflow-x: visible !important;
+    }
+    .service-card-wrap {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-width: 0 !important;
+        margin: 0 auto 1.2rem auto !important;
+        padding: 0 !important;
+    }
+    .service-card, .plan-card, .card {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 99vw !important;
+        height: auto !important;
+        box-sizing: border-box;
+    }
+}
+@media (max-width: 600px) {
+    .services-munchkin {
+        gap: 0.7rem;
+        padding: 0.5rem 0.1rem;
+    }
+    .service-card-wrap {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-width: 0 !important;
+        padding: 0 !important;
+    }
+    .service-card, .plan-card, .card {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100vw !important;
+        padding: 0.7rem 0.2rem;
+    }
+}
 /* ================= MENÚ HAMBURGUESA: VISIBILIDAD Y TRANSICIÓN ================= */
 @media (max-width: 900px) {
     .menu {
