@@ -7,3 +7,5 @@ node_modules/
 # Otros archivos temporales
 .DS_Store
 Thumbs.db
+# Evitar subir archivos de credenciales y claves
+backend/ga-key.json
