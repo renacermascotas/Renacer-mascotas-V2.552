@@ -1,4 +1,7 @@
-// Formulario a WhatsApp con validación
+// =========================================
+// BLOQUE: Inicialización y validación de formulario de contacto
+// Explicación: Este bloque inicializa el formulario de contacto, valida los campos obligatorios y redirige el mensaje a WhatsApp con los datos del usuario.
+// =========================================
 export function initContactForm() {
     const contactForm = document.getElementById("contactForm");
     if (contactForm) {

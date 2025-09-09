@@ -1,0 +1,96 @@
+/* admin-login-modern.css - Login profesional tipo TemplateMonster */
+:root {
+  --primary: #2b3a4a;
+  --accent: #f9b233;
+  --bg: #f4f7fa;
+  --white: #fff;
+  --gray: #e5e9ef;
+  --text: #222;
+}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-container {
+  background: var(--white);
+  border-radius: 18px;
+  box-shadow: 0 4px 32px #0002;
+  padding: 48px 36px 36px 36px;
+  max-width: 370px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.admin-logo {
+  width: 120px;
+  margin-bottom: 18px;
+}
+h2 {
+  color: var(--primary);
+  font-size: 1.5em;
+  margin-bottom: 6px;
+}
+.admin-desc {
+  color: #555;
+  font-size: 1em;
+  margin-bottom: 18px;
+  text-align: center;
+}
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+input[type="text"], input[type="password"] {
+  padding: 10px 14px;
+  border: 1px solid var(--gray);
+  border-radius: 7px;
+  font-size: 1em;
+  background: var(--bg);
+  transition: border 0.2s;
+}
+input[type="text"]:focus, input[type="password"]:focus {
+  border: 1.5px solid var(--accent);
+  outline: none;
+}
+button[type="submit"] {
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  padding: 12px 0;
+  border-radius: 7px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+button[type="submit"]:hover {
+  background: var(--accent);
+  color: var(--primary);
+}
+.error {
+  color: #c00;
+  font-size: 0.98em;
+  margin-top: 4px;
+  min-height: 18px;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .login-container {
+    padding: 28px 8vw 24px 8vw;
+    max-width: 98vw;
+  }
+  .admin-logo {
+    width: 90px;
+  }
+}

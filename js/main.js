@@ -1,4 +1,9 @@
-// Mostrar info de plan al hacer clic en la etiqueta
+// =========================================
+// BLOQUE: Inicialización global de scripts
+// Explicación: Archivo principal que inicializa todos los módulos JS de la web (menú, slider, lightbox, formulario, animaciones, hero carousel, etc) y gestiona interacciones globales.
+// =========================================
+
+// --- Mostrar información de plan al hacer clic en la etiqueta ---
 document.querySelectorAll('.plan-label').forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.plan-info-box').forEach(box => box.classList.remove('active'));
@@ -7,7 +12,8 @@ document.querySelectorAll('.plan-label').forEach(btn => {
         if (infoBox) infoBox.classList.add('active');
     });
 });
-// Scroll-to-top button
+
+// --- Botón para volver arriba (scroll-to-top) ---
 const scrollBtn = document.getElementById('scrollToTop');
 window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
@@ -19,7 +25,8 @@ window.addEventListener('scroll', () => {
 scrollBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
-// Archivo principal para inicializar todos los módulos
+
+// --- Importación de módulos de funcionalidad (menu, slider, lightbox, etc) ---
 import { initMenu } from './menu.js';
 import { initTestimonialSlider } from './slider.js';
 import { initLightbox } from './lightbox.js';
@@ -27,8 +34,7 @@ import { initContactForm } from './form.js';
 import { initReveal } from './reveal.js';
 import { initHeroCarousel } from './hero-carousel.js';
 
-
-
+// --- Inicialización de módulos al cargar el DOM ---
 document.addEventListener('DOMContentLoaded', () => {
     // initLoader(); // loader eliminado
     initMenu();

@@ -1,4 +1,9 @@
-// Slider de testimonios
+// slider.js: Controla el slider/carousel de testimonios en la web
+
+// =========================================
+// BLOQUE: Slider/carousel de testimonios
+// Explicación: Permite navegar entre testimonios con botones prev/next, mostrando uno a la vez. Solo se activa si hay más de un testimonio.
+// =========================================
 export function initTestimonialSlider() {
     const testimonialsContainer = document.querySelector("#testimonials .slider");
     if (testimonialsContainer) {

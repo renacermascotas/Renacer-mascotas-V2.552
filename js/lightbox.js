@@ -1,4 +1,7 @@
-// Lightbox para galería
+// =========================================
+// BLOQUE: Inicialización de lightbox para galería
+// Explicación: Este bloque permite ampliar imágenes de la galería en un modal (lightbox), gestionando la apertura, cierre y accesibilidad con teclado y mouse.
+// =========================================
 export function initLightbox() {
     const galleryLinks = document.querySelectorAll(".gallery a");
     galleryLinks.forEach(link => {

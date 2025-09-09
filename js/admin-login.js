@@ -1,5 +1,7 @@
-// admin-login.js: Lógica de login para empleados
-
+// =========================================
+// BLOQUE: Lógica de login para empleados
+// Explicación: Este bloque gestiona el envío del formulario de login, realiza la petición al backend, guarda el token y redirige o muestra errores según la respuesta.
+// =========================================
 document.getElementById('login-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const username = document.getElementById('username').value;

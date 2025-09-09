@@ -2,6 +2,8 @@
 <html lang="es">
 
 <head>
+    <!-- --- HEAD: Metadatos, fuentes, estilos y scripts globales --- -->
+    <!-- Incluye fuentes, iconos, estilos CSS y scripts principales para toda la web -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"
@@ -21,11 +23,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" type="image/png" href="fotos/favicon.ico" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K88FPQS90X"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-K88FPQS90X');
+    </script>
 </head>
 
 <body>
-    <!-- Loader eliminado -->
-
+    <!-- --- TOPBAR y HEADER: Incluidos dinámicamente para modularidad --- -->
+    <!-- topbar.html y header.html contienen el menú principal y barra superior, se cargan vía fetch para reutilización -->
     <div id="topbar"></div>
     <div id="header"></div>
     <script>
@@ -39,6 +49,8 @@
             });
     </script>
 
+    <!-- --- HERO: Sección principal de bienvenida --- -->
+    <!-- Presenta el mensaje principal y llamado a la acción de Renacer Mascotas -->
     <!-- Hero -->
     <section id="hero" class="hero">
         <div class="container split">
@@ -91,6 +103,7 @@
         </div>
     </section>
 
+    <!-- --- SERVICIOS: Sección de servicios ofrecidos --- -->
     <!-- Servicios -->
     <section id="services">
         <div class="container section-title reveal">
@@ -161,6 +174,7 @@
         </div>
     </section>
 
+    <!-- --- ABOUT: Sección sobre la empresa --- -->
     <!-- About -->
     <section id="about">
         <div class="container section-title reveal active">
@@ -174,9 +188,6 @@
                     cuidado, amor y salud de tus mascotas.<br><br>
                     Ofrecemos servicios veterinarios, spa, nutrición, exequiales y más, con atención personalizada y
                     profesional en Pereira, Dosquebradas y Manizales.<br><br>
-                    ¡Tu mascota es parte de nuestra familia! Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Maxime maiores voluptate ullam deleniti voluptatum amet esse, a ipsa consequatur cupiditate optio.
-                    Explicabo saepe adipisci vel quae omnis, voluptatibus impedit maiores.
                 </p>
             </div>
             <video src="fotos/nosotros.mp4" controls poster="fotos/4.jpg" class="about-video" autoplay muted
@@ -184,6 +195,7 @@
         </div>
     </section>
 
+    <!-- --- PRICING: Sección de planes y precios --- -->
     <!-- Pricing -->
     <section id="pricing">
         <div class="container section-title reveal">
@@ -220,21 +232,18 @@
             </div>
     </section>
 
+    <!-- --- GALLERY: Sección de galería de imágenes --- -->
     <section id="gallery">
         <div class="container section-title reveal">
             <h2>Galería</h2>
             <p>Mascotas felices en acción</p>
         </div>
         <div class="container cards gallery">
-            <a href="fotos/2.jpg" aria-label="Ver imagen de perrito feliz"><img src="fotos/2.jpg" alt="Perrito feliz"
-                    loading="lazy" /></a>
-            <a href="fotos/1.jpg" aria-label="Ver imagen de gatito feliz"><img src="fotos/1.jpg" alt="Gatito feliz"
-                    loading="lazy" /></a>
-            <a href="fotos/perro_jugando.jpg" aria-label="Ver imagen de perritos jugando"><img
-                    src="fotos/perro_jugando.jpg" alt="Perritos jugando" loading="lazy" /></a>
+            <div id="gallery-list-front"><!-- Las imágenes de la galería se cargarán dinámicamente desde el backend --></div>
         </div>
     </section>
 
+    <!-- --- TESTIMONIALS: Sección de testimonios de clientes --- -->
     <!-- Testimonials -->
     <section id="testimonials">
         <div class="container section-title reveal">
@@ -242,48 +251,16 @@
             <p>Lo que dicen nuestros clientes</p>
         </div>
         <div class="container slider reveal" aria-label="Testimonios de clientes">
-            <div class="slides" id="testimonial-slides">
-                <div class="testimonial">
-                    <img src="fotos/4.jpg" alt="Foto del cliente Andrea G." />
-                    <p>“El mejor cuidado para mi perrita, siempre feliz al volver.”</p>
-                    <b class="client-info">- Andrea G.</b>
-                </div>
-                <div class="testimonial">
-                    <img src="fotos/perro_jugando.jpg" alt="Foto del cliente Carlos M." />
-                    <p>“Confío plenamente en Renacer Mascotas, son los mejores.”</p>
-                    <b class="client-info">- Carlos M.</b>
-                </div>
-                <div class="testimonial">
-                    <img src="fotos/1-4.jpg" alt="Foto del cliente Laura P." />
-                    <p>“Excelente atención veterinaria y cariño por los animales.”</p>
-                    <b class="client-info">- Laura P.</b>
-                </div>
-                <div class="testimonial">
-                    <img src="https://via.placeholder.com/70" alt="Foto del cliente Miguel R." />
-                    <p>“El servicio de nutrición ha cambiado la vida de mi perro. ¡Estoy muy agradecido!”</p>
-                    <b class="client-info">- Miguel R.</b>
-                </div>
-                <div class="testimonial">
-                    <img src="fotos/2.jpg" alt="Foto del cliente Paula S." />
-                    <p>“El spa y el baño fueron espectaculares, mi gato quedó feliz.”</p>
-                    <b class="client-info">- Paula S.</b>
-                </div>
-                <div class="testimonial">
-                    <img src="fotos/3.jpg" alt="Foto del cliente David T." />
-                    <p>“La atención personalizada y el amor por los animales es único.”</p>
-                    <b class="client-info">- David T.</b>
-                </div>
-                <div class="testimonial">
-                    <img src="fotos/Anual.jpg" alt="Foto del cliente Camila F." />
-                    <p>“Recomiendo Renacer Mascotas a todos mis amigos.”</p>
-                    <b class="client-info">- Camila F.</b>
-                </div>
+            <div class="slides" id="testimonial-slides-front">
+                <!-- Los testimonios se cargarán dinámicamente desde el backend -->
             </div>
             <button class="carousel-btn prev" aria-label="Anterior" id="testimonial-prev">❮</button>
             <button class="carousel-btn next" aria-label="Siguiente" id="testimonial-next">❯</button>
         </div>
     </section>
 
+    <!-- --- BLOG: Sección de artículos y novedades --- -->
+    <!-- Muestra las últimas entradas del blog, cargadas dinámicamente con js/blog.js -->
     <section id="blog">
 
         <div class="container section-title reveal">
@@ -303,6 +280,8 @@
             .then(html => { document.getElementById('redes-sociales').innerHTML = html; });
     </script>
 
+    <!-- --- CONTACT: Sección de contacto --- -->
+    <!-- Incluye formularios y datos de contacto desde contactos.html y contacto_extra.html -->
     <section id="contact" class="reveal">
         <div class="container section-title">
             <h2>Contáctanos</h2>
@@ -321,6 +300,9 @@
         </script>
     </section>
 
+    <!-- --- FOOTER: Pie de página con información adicional y enlaces útiles --- -->
+    <!-- Incluye footer.html dinámicamente. Aquí encuentras datos de la empresa, links legales, redes, logo, etc. -->
+    <!-- La ola SVG es solo decorativa. -->
     <div class="animated-wave-container footer-wave">
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -343,11 +325,15 @@
             .then(html => { document.getElementById('footer').innerHTML = html; });
     </script>
 
+    <!-- --- BOTÓN WHATSAPP: Enlace directo a chat de WhatsApp de Renacer Mascotas --- -->
+    <!-- Lleva a https://wa.me/573207053536 para atención directa por WhatsApp -->
     <a href="https://wa.me/573207053536?text=Hola,%20quiero%20más%20información%20sobre%20Renacer%20Mascotas"
         class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- --- BOTÓN DAVIVIENDA: Enlace a portal de pagos Davivienda --- -->
+    <!-- Lleva a https://portalpagos.davivienda.com/#/comercio/6269/RENACER%20MASCOTAS%20SAS para pagos en línea -->
     <a href="https://portalpagos.davivienda.com/#/comercio/6269/RENACER%20MASCOTAS%20SAS" class="davi-float"
         target="blank" aria-label="Pagar con Davivienda" title="Pagar con Davivienda">
         <img src="fotos/btn-davivienda.webp" alt="boton Davivienda" />
@@ -355,6 +341,10 @@
     <button id="scrollToTop" class="scroll-to-top" aria-label="Volver arriba" title="Volver arriba">
         <i class="fas fa-chevron-up"></i>
     </button>
+
+    <!-- Script para cargar la galería dinámica -->
+    <script src="js/gallery.js" defer></script>
+    <script src="js/testimonios-index.js" defer></script>
 </body>
 
 </html>

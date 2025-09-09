@@ -1,43 +1,34 @@
-// Genera dinámicamente las tarjetas del blog con imágenes y textos
-const blogPosts = [
-  {
-    img: 'fotos/1.jpg',
-    alt: 'Consejos de alimentación para mascotas',
-    title: 'Tips de Alimentación',
-    text: 'Cómo elegir el mejor alimento para tu mascota.',
-    link: 'consejos.html'
-  },
-  {
-    img: 'fotos/1-4.jpg',
-    alt: 'Guía para bañar a un perro en casa',
-    title: 'Baño en casa',
-    text: 'Guía práctica para bañar a tu perro.',
-    link: 'consejos.html'
-  },
-  {
-    img: 'fotos/3.jpg',
-    alt: 'Mascota feliz',
-    title: 'Juegos y Enriquecimiento',
-    text: 'Ideas para mantener a tu mascota activa y feliz.',
-    link: 'consejos.html'
-  }
-];
-
-const blogCards = document.getElementById('blog-cards');
-if (blogCards) {
-  blogPosts.forEach(post => {
-    const card = document.createElement('div');
-    card.className = 'plan-img-box';
-    card.tabIndex = 0;
-    card.innerHTML = `
-      <a href="${post.link}" style="text-decoration:none; color:inherit;">
-        <img src="${post.img}" alt="${post.alt}" class="plan-image" />
-        <div style="width:100%;text-align:center;margin-top:1.2rem;">
-          <h3 style="color:var(--secondary);font-size:1.15rem;font-weight:800;margin-bottom:0.7rem;">${post.title}</h3>
-          <p style="color:#444;font-size:1.05rem;">${post.text}</p>
+// =========================================
+// BLOQUE: Generación dinámica de tarjetas de blog
+// Explicación: Este bloque define los posts del blog y genera las tarjetas visuales con imagen, título y texto, insertándolas en el contenedor principal de la sección blog.
+// =========================================
+// =========================================
+// BLOQUE: Carga dinámica de entradas de blog desde el backend
+// Explicación: Este bloque obtiene los posts del blog desde la API y los muestra en el frontend, reflejando los cambios hechos en el admin.
+// =========================================
+document.addEventListener('DOMContentLoaded', function () {
+  const blogCards = document.getElementById('blog-cards');
+  if (!blogCards) return;
+  fetch('http://localhost:4000/api/blog')
+    .then(res => res.ok ? res.json() : [])
+    .then(posts => {
+      if (!Array.isArray(posts) || posts.length === 0) {
+        blogCards.innerHTML = '<p>No hay entradas de blog aún.</p>';
+        return;
+      }
+      blogCards.innerHTML = posts.map(post => `
+        <div class="plan-img-box">
+          <a href="#" style="text-decoration:none; color:inherit;">
+            <img src="${post.image || 'fotos/default.jpg'}" alt="${post.title}">
+            <div style="width:100%;text-align:center;margin-top:1.2rem;">
+              <h3 style="color:var(--secondary);font-size:1.15rem;font-weight:800;margin-bottom:0.7rem;">${post.title}</h3>
+              <p style="color:#444;font-size:1.05rem;">${post.content ? post.content.substring(0, 80) + '...' : ''}</p>
+            </div>
+          </a>
         </div>
-      </a>
-    `;
-    blogCards.appendChild(card);
-  });
-}
+      `).join('');
+    })
+    .catch(() => {
+      blogCards.innerHTML = '<p>Error al cargar el blog.</p>';
+    });
+});

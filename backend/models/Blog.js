@@ -1,3 +1,7 @@
+// =========================================
+// MODELO: Blog
+// Explicación: Define el esquema de la colección de entradas de blog, incluyendo título, contenido, imagen y fecha de publicación.
+// =========================================
 const mongoose = require('mongoose');
 
 const blogSchema = new mongoose.Schema({

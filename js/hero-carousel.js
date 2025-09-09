@@ -1,4 +1,7 @@
-// Hero carousel con soporte de teclado y autoplay
+// =========================================
+// BLOQUE: Inicialización del hero carousel
+// Explicación: Este bloque gestiona el slider principal de la portada, permitiendo navegación con botones y teclado, y autoplay con reinicio al interactuar.
+// =========================================
 export function initHeroCarousel() {
     const heroCarousel = document.querySelector('.hero-carousel');
     if (heroCarousel) {

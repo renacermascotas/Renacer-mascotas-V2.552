@@ -14,6 +14,10 @@
 </head>
 
 <body>
+    <!-- =========================================
+    BLOQUE: Inclusión de topbar y header reutilizables
+    Explicación: Carga la barra superior y el encabezado desde archivos externos para mantener la navegación y branding consistentes en todo el sitio.
+  ========================================= -->
     <div id="topbar"></div>
     <div id="header"></div>
     <script>
@@ -26,8 +30,16 @@
                     .then(html => { document.getElementById('header').innerHTML = html; });
             });
     </script>
+    <!-- =========================================
+    BLOQUE: Título y mensaje principal
+    Explicación: Presenta el título de la página y un mensaje informativo sobre el servicio de veterinaria.
+  ========================================= -->
     <h1>Veterinaria</h1>
     <p>Próximamente información sobre el servicio de veterinaria.</p>
+    <!-- =========================================
+    BLOQUE: Sección de contacto
+    Explicación: Incluye los formularios y datos de contacto, cargando componentes reutilizables para mantener la coherencia y facilitar actualizaciones.
+  ========================================= -->
     <section id="contact" class="reveal">
         <div class="container section-title">
             <h2>Contáctanos</h2>
@@ -45,6 +57,10 @@
                 .then(html => { document.getElementById('contacto-extra').innerHTML = html; });
         </script>
     </section>
+    <!-- =========================================
+    BLOQUE: Inclusión del footer reutilizable
+    Explicación: Carga el pie de página común para mantener enlaces de contacto y redes sociales consistentes.
+  ========================================= -->
     <div id="footer"></div>
     <script>
         fetch('footer.html')

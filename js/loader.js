@@ -1,5 +1,7 @@
-// Loader: Oculta el loader al cargar la página
-// Oculta el loader solo cuando todos los includes y la página estén listos
+// =========================================
+// BLOQUE: Loader general del sitio
+// Explicación: Este bloque gestiona la animación de carga global, ocultando el loader solo cuando todos los includes y la página estén listos.
+// =========================================
 export function initLoader() {
     const loader = document.getElementById("loader");
     if (!loader) return;

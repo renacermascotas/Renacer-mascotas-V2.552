@@ -1,24 +1,106 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- =========================================
+    BLOQUE: Inclusión de librerías y estilos
+    Explicación: Carga Chart.js para gráficas, estilos modernos y el favicon de la marca.
+  ========================================= -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/analytics-charts.js" defer></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel de Administración</title>
-  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="icon" type="image/png" href="../fotos/favicon.ico">
+  <link rel="stylesheet" href="../css/admin-modern.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
-  <div class="dashboard-container">
-    <h2>Panel de Administración</h2>
-    <button id="logout-btn">Cerrar sesión</button>
-    <nav>
-      <button class="tab-btn" data-tab="blog">Blog</button>
-      <button class="tab-btn" data-tab="testimonios">Testimonios</button>
-      <button class="tab-btn" data-tab="galeria">Galería</button>
-    </nav>
-  <section id="tab-blog" class="tab-section"></section>
-  <section id="tab-testimonios" class="tab-section" style="display:none"></section>
-  <section id="tab-galeria" class="tab-section" style="display:none"></section>
+  <!-- =========================================
+    BLOQUE: Layout principal del panel admin
+    Explicación: Estructura base con sidebar colapsable, header y área de contenido principal.
+  ========================================= -->
+  <div class="dashboard-layout">
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menú"><i class="fa fa-bars"></i></button>
+    <aside class="sidebar" id="sidebar">
+      <img src="../fotos/nuevo-logo-Rm-300x195.png" alt="Renacer Mascotas" class="logo footer-logo">
+      <nav>
+        <button class="tab-btn active" data-tab="analytics"><i class="fa-solid fa-chart-line"></i> Analítica</button>
+        <button class="tab-btn" data-tab="blog"><i class="fa-solid fa-newspaper"></i> Blog</button>
+        <button class="tab-btn" data-tab="testimonios"><i class="fa-solid fa-quote-left"></i> Testimonios</button>
+        <button class="tab-btn" data-tab="galeria"><i class="fa-solid fa-images"></i> Galería</button>
+      </nav>
+    </aside>
+    <div style="flex:1;">
+      <header class="header">
+        <span class="admin-title">Panel de Administración</span>
+        <button id="logout-btn" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</button>
+      </header>
+      <main class="main-content">
+        <!-- =========================================
+          BLOQUE: Sección de analítica web
+          Explicación: Muestra métricas clave y gráficas de Google Analytics para el sitio.
+        ========================================= -->
+        <section id="tab-analytics" class="tab-section" style="display:block">
+          <h3><i class="fa-solid fa-chart-line"></i> Analítica Web</h3>
+          <div id="analytics-summary" style="display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 24px;">
+            <div style="flex:1; min-width:180px; background:#f9f9f9; border-radius:10px; padding:18px; box-shadow:0 2px 8px #0001;">
+              <div style="font-size:2em; color:#2b3a4a;"><i class="fa-solid fa-users"></i></div>
+              <div style="font-size:1.2em; font-weight:600;">Visitas</div>
+              <div id="analytics-visits" style="font-size:1.5em; color:#f9b233;">-</div>
+            </div>
+            <div style="flex:1; min-width:180px; background:#f9f9f9; border-radius:10px; padding:18px; box-shadow:0 2px 8px #0001;">
+              <div style="font-size:2em; color:#2b3a4a;"><i class="fa-solid fa-clock"></i></div>
+              <div style="font-size:1.2em; font-weight:600;">Tiempo promedio</div>
+              <div id="analytics-avgtime" style="font-size:1.5em; color:#f9b233;">-</div>
+            </div>
+            <div style="flex:1; min-width:180px; background:#f9f9f9; border-radius:10px; padding:18px; box-shadow:0 2px 8px #0001;">
+              <div style="font-size:2em; color:#2b3a4a;"><i class="fa-solid fa-globe"></i></div>
+              <div style="font-size:1.2em; font-weight:600;">Zona más activa</div>
+              <div id="analytics-topzone" style="font-size:1.1em; color:#f9b233;">-</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:32px; flex-wrap:wrap; margin-top:32px;">
+            <div style="flex:2; min-width:320px; background:#fff; border-radius:12px; box-shadow:0 2px 8px #0001; padding:24px;">
+              <h4 style="margin-bottom:12px; color:#2b3a4a;"><i class="fa-solid fa-chart-area"></i> Visitas por día</h4>
+              <canvas id="analytics-visits-chart" height="120"></canvas>
+            </div>
+            <div style="flex:1; min-width:220px; background:#fff; border-radius:12px; box-shadow:0 2px 8px #0001; padding:24px;">
+              <h4 style="margin-bottom:12px; color:#2b3a4a;"><i class="fa-solid fa-earth-americas"></i> Distribución por país</h4>
+              <canvas id="analytics-countries-chart" height="120"></canvas>
+            </div>
+          </div>
+          <div style="margin-top:18px; color:#888; font-size:0.98em;">* Los datos se actualizan automáticamente desde Google Analytics.</div>
+        </section>
+        <!-- =========================================
+          BLOQUE: Secciones de CRUD (blog, testimonios, galería)
+          Explicación: Cada sección se muestra según la pestaña activa y permite gestionar el contenido del sitio.
+        ========================================= -->
+        <section id="tab-blog" class="tab-section" style="display:none"></section>
+        <section id="tab-testimonios" class="tab-section" style="display:none"></section>
+        <section id="tab-galeria" class="tab-section" style="display:none"></section>
+      </main>
+    </div>
   </div>
+  <!-- =========================================
+    BLOQUE: Scripts de funcionalidad admin
+    Explicación: Incluye la lógica para tabs, sidebar colapsable y autenticación.
+  ========================================= -->
   <script src="../js/admin-dashboard.js"></script>
+  <script>
+    // Menú lateral colapsable responsive
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    toggleBtn.addEventListener('click', function() {
+      sidebar.classList.toggle('sidebar-open');
+    });
+    // Cerrar menú al hacer clic fuera en móvil
+    window.addEventListener('click', function(e) {
+      if (window.innerWidth <= 900 && sidebar.classList.contains('sidebar-open')) {
+        if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
+          sidebar.classList.remove('sidebar-open');
+        }
+      }
+    });
+  </script>
 </body>
 </html>

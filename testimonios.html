@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonios | Renacer Mascotas</title>
+  <link rel="icon" type="image/png" href="fotos/favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- =========================================
+    BLOQUE: Inclusión del header reutilizable
+    Explicación: Este bloque carga el encabezado común del sitio desde 'header.html', permitiendo mantener la navegación consistente en todas las páginas.
+  ========================================= -->
+  <div id="header-include"></div>
+
+  <!-- =========================================
+    BLOQUE: Sección principal de testimonios
+    Explicación: Contiene el título y el slider donde se mostrarán dinámicamente los testimonios de clientes cargados desde el backend.
+  ========================================= -->
+  <main>
+    <section class="section-title">
+      <h1>Testimonios</h1>
+      <p>Lo que dicen nuestros clientes</p>
+    </section>
+    <section id="testimonials-page">
+      <div class="container slider" aria-label="Testimonios de clientes">
+        <div class="slides" id="testimonial-slides-page">
+          <!-- Aquí se cargarán los testimonios dinámicamente -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================
+    BLOQUE: Inclusión del footer reutilizable
+    Explicación: Este bloque carga el pie de página común desde 'footer.html', asegurando coherencia visual y enlaces de contacto/redes en todo el sitio.
+  ========================================= -->
+  <div id="footer-include"></div>
+
+  <!-- =========================================
+    BLOQUE: Scripts de carga de header/footer y testimonios
+    Explicación: Estos scripts insertan el header y footer reutilizables y cargan la lógica para mostrar los testimonios desde el backend.
+  ========================================= -->
+  <script>
+    // Cargar header y footer reutilizables
+    fetch('header.html').then(r=>r.text()).then(t=>document.getElementById('header-include').innerHTML=t);
+    fetch('footer.html').then(r=>r.text()).then(t=>document.getElementById('footer-include').innerHTML=t);
+  </script>
+  <script src="js/testimonios.js"></script>
+</body>
+</html>

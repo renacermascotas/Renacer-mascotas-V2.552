@@ -1,4 +1,9 @@
-// Animaciones reveal con Intersection Observer
+// reveal.js: Animaciones reveal para elementos al hacer scroll (Intersection Observer)
+
+// =========================================
+// BLOQUE: Animaciones reveal al hacer scroll
+// Explicación: Usa IntersectionObserver para activar animaciones cuando los elementos con clase .reveal entran en pantalla.
+// =========================================
 export function initReveal() {
     const revealElements = document.querySelectorAll(".reveal");
     if (revealElements.length > 0) {
