@@ -1,0 +1,19 @@
+/*
+ * Archivo styles.css limpio.
+ * Solo contiene estilos base para loader, lightbox y variables globales.
+ * El resto de los estilos han sido migrados a la carpeta css/ en archivos modulares.
+ */
+
+/* ========== Loader ========== */
+#loader {
+    position: fixed;
+    z-index: 5000;
+    background: #fff;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s;}

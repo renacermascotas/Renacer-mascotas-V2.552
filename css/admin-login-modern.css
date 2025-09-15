@@ -1,96 +1,122 @@
-/* admin-login-modern.css - Login profesional tipo TemplateMonster */
-:root {
-  --primary: #2b3a4a;
-  --accent: #f9b233;
-  --bg: #f4f7fa;
-  --white: #fff;
-  --gray: #e5e9ef;
-  --text: #222;
-}
+/* Estilos generales */
 body {
-  margin: 0;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: url('../fotos/Full body portrait of various pets on a light blue background.jpg'); /* Nueva imagen de fondo */
+    background-size: cover;
+    background-position: center;
+
 }
+
+/* Contenedor principal */
 .login-container {
-  background: var(--white);
-  border-radius: 18px;
-  box-shadow: 0 4px 32px #0002;
-  padding: 48px 36px 36px 36px;
-  max-width: 370px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+    background: rgba(255, 255, 255, 0.25); /* Menos opaco para un efecto más cristalino */
+    backdrop-filter: blur(15px); /* Desenfoque más pronunciado */
+    -webkit-backdrop-filter: blur(15px); /* Soporte para Safari */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* Borde más sutil */
+    border-radius: 16px; /* Bordes más redondeados */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Sombra más definida */
+    overflow: hidden;
+    width: 100%;
+    max-width: 420px; /* Un poco más estrecho */
+    padding: 2.5rem;
+    text-align: center;
 }
+
+/* Logo */
 .admin-logo {
-  width: 120px;
-  margin-bottom: 18px;
+    max-width: 140px; /* Un poco más pequeño */
+    margin: 0 auto 1.5rem;
+    display: block;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3)); /* Sombra para el logo */
 }
+
+/* Títulos y descripción */
 h2 {
-  color: var(--primary);
-  font-size: 1.5em;
-  margin-bottom: 6px;
+    color: #fff; /* Texto blanco para mejor contraste */
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto más fuerte */
 }
+
 .admin-desc {
-  color: #555;
-  font-size: 1em;
-  margin-bottom: 18px;
-  text-align: center;
+    color: rgba(255, 255, 255, 0.9); /* Texto blanco semitransparente */
+    font-size: 1rem;
+    margin-bottom: 2rem; /* Más espacio */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
+
+/* Formulario */
 form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem; /* Un poco más de espacio entre campos */
 }
-input[type="text"], input[type="password"] {
-  padding: 10px 14px;
-  border: 1px solid var(--gray);
-  border-radius: 7px;
-  font-size: 1em;
-  background: var(--bg);
-  transition: border 0.2s;
+
+input {
+    padding: 1rem;
+    border-radius: 10px; /* Bordes más redondeados */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15); /* Más transparente */
+    font-size: 1rem;
+    color: #fff; /* Texto del input blanco */
+    transition: all 0.3s ease;
 }
-input[type="text"]:focus, input[type="password"]:focus {
-  border: 1.5px solid var(--accent);
-  outline: none;
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Placeholder más claro */
 }
-button[type="submit"] {
-  background: var(--primary);
-  color: var(--white);
-  border: none;
-  padding: 12px 0;
-  border-radius: 7px;
-  font-size: 1.1em;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 8px;
-  transition: background 0.2s;
+
+input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1); /* Efecto de brillo al enfocar */
 }
-button[type="submit"]:hover {
-  background: var(--accent);
-  color: var(--primary);
+
+button {
+    background: linear-gradient(90deg, #4f46e5, #818cf8); /* Gradiente vibrante */
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    margin-top: 0.5rem; /* Espacio extra arriba del botón */
 }
+
+button:hover {
+    transform: translateY(-3px); /* Efecto de elevación */
+    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4); /* Sombra más pronunciada en hover */
+    background: linear-gradient(90deg, #5a52e9, #9098fa); /* Gradiente más claro en hover */
+}
+
+/* Mensaje de error */
 .error {
-  color: #c00;
-  font-size: 0.98em;
-  margin-top: 4px;
-  min-height: 18px;
-  text-align: center;
+    background: rgba(255, 82, 82, 0.8); /* Fondo rojo para el error */
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    /* Oculto por defecto y preparado para la animación */
+    margin: 0;
+    padding: 0 0.8rem;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
-@media (max-width: 600px) {
-  .login-container {
-    padding: 28px 8vw 24px 8vw;
-    max-width: 98vw;
-  }
-  .admin-logo {
-    width: 90px;
-  }
+
+.error:not(:empty) {
+    margin-top: 0.5rem;
+    padding: 0.8rem;
+    max-height: 5rem; /* Altura suficiente para el mensaje */
+    opacity: 1;
 }

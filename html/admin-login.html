@@ -20,19 +20,22 @@
         Explicación: Muestra el logo, título, descripción y formulario de acceso para empleados.
       ========================================= -->
     <div class="login-container">
-        <img src="../fotos/nuevo-logo-Rm-300x195.png" alt="Renacer Mascotas" class="admin-logo">
-        <h2>Bienvenido Admin R.M</h2>
-        <p class="admin-desc">Accede para gestionar el blog, testimonios y galería de <b>Renacer Mascotas</b></p>
-        <form id="login-form">
-            <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
-            <input type="password" id="password" placeholder="Contraseña" required>
-            <button type="submit">Ingresar</button>
-            <div id="login-error" class="error"></div>
-        </form>
+        <div class="login-form-container">
+            <img src="../fotos/nuevo-logo-Rm-300x195.png" alt="Renacer Mascotas" class="admin-logo">
+            <h2>Bienvenido Admin R.M</h2>
+            <p class="admin-desc">Accede para gestionar el blog, testimonios y galería de <b>Renacer Mascotas</b></p>
+            <form id="login-form">
+                <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
+                <input type="password" id="password" placeholder="Contraseña" required>
+                <button type="submit">Ingresar</button>
+                <div id="login-error" class="error"></div>
+            </form>
+        </div>
     </div>
+
     <!-- =========================================
         BLOQUE: Scripts de funcionalidad login
-        Explicación: Incluye la animación de carga y la lógica de autenticación.
+        Explicación: Incluye la lógica de autenticación.
       ========================================= -->
     <script src="../js/loader-login.js"></script>
     <script src="../js/admin-login.js"></script>
