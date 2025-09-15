@@ -7,11 +7,20 @@
   ========================================= -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../js/analytics-charts.js" defer></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K88FPQS90X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K88FPQS90X');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel de Administración</title>
   <link rel="icon" type="image/png" href="../fotos/favicon.ico">
   <link rel="stylesheet" href="../css/admin-modern.css">
+  <link rel="stylesheet" href="../css/admin-dashboard.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
@@ -79,6 +88,7 @@
         <section id="tab-testimonios" class="tab-section" style="display:none"></section>
         <section id="tab-galeria" class="tab-section" style="display:none"></section>
       </main>
+      <div id="footer" style="margin-top: 4rem;"></div>
     </div>
   </div>
   <!-- =========================================
@@ -101,6 +111,22 @@
         }
       }
     });
+  </script>
+  <!-- Script para cargar el footer -->
+  <script type="module">
+      // Función simple para incluir HTML
+      const includeHTML = (elementId, url) => {
+          fetch(url)
+              .then(response => response.ok ? response.text() : Promise.reject(response.statusText))
+              .then(html => {
+                  const element = document.getElementById(elementId);
+                  if (element) element.innerHTML = html;
+              })
+              .catch(error => console.error(`Error incluyendo HTML desde ${url}:`, error));
+      };
+
+      // Cargar el footer
+      includeHTML('footer', '../footer.html');
   </script>
 </body>
 </html>

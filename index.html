@@ -38,16 +38,6 @@
     <!-- topbar.html y header.html contienen el menú principal y barra superior, se cargan vía fetch para reutilización -->
     <div id="topbar"></div>
     <div id="header"></div>
-    <script>
-        fetch('topbar.html')
-            .then(res => res.text())
-            .then(html => { document.getElementById('topbar').innerHTML = html; })
-            .then(() => {
-                fetch('header.html')
-                    .then(res => res.text())
-                    .then(html => { document.getElementById('header').innerHTML = html; });
-            });
-    </script>
 
     <!-- --- HERO: Sección principal de bienvenida --- -->
     <!-- Presenta el mensaje principal y llamado a la acción de Renacer Mascotas -->
@@ -319,32 +309,41 @@
     </div>
 
     <div id="footer"></div>
+
+    <!-- Script para cargar todos los componentes HTML de forma paralela y eficiente -->
     <script>
-        fetch('footer.html')
-            .then(res => res.text())
-            .then(html => { document.getElementById('footer').innerHTML = html; });
+        const includeHTML = (elementId, url) => {
+            return fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error(`Fallo al cargar ${url}: ${response.statusText}`);
+                    return response.text();
+                })
+                .then(html => {
+                    const element = document.getElementById(elementId);
+                    if (element) element.innerHTML = html;
+                })
+                .catch(error => console.error(`Error incluyendo HTML desde ${url}:`, error));
+        };
+
+        // Carga todos los parciales en paralelo cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            Promise.all([
+                includeHTML('topbar', 'topbar.html'),
+                includeHTML('header', 'header.html'),
+                includeHTML('redes-sociales', 'redes_sociales.html'),
+                includeHTML('contactos', 'contactos.html'),
+                includeHTML('contacto-extra', 'contacto_extra.html'),
+                includeHTML('footer', 'footer.html')
+            ]);
+        });
     </script>
 
-    <!-- --- BOTÓN WHATSAPP: Enlace directo a chat de WhatsApp de Renacer Mascotas --- -->
-    <!-- Lleva a https://wa.me/573207053536 para atención directa por WhatsApp -->
-    <a href="https://wa.me/573207053536?text=Hola,%20quiero%20más%20información%20sobre%20Renacer%20Mascotas"
-        class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- --- BOTÓN DAVIVIENDA: Enlace a portal de pagos Davivienda --- -->
-    <!-- Lleva a https://portalpagos.davivienda.com/#/comercio/6269/RENACER%20MASCOTAS%20SAS para pagos en línea -->
-    <a href="https://portalpagos.davivienda.com/#/comercio/6269/RENACER%20MASCOTAS%20SAS" class="davi-float"
-        target="blank" aria-label="Pagar con Davivienda" title="Pagar con Davivienda">
-        <img src="fotos/btn-davivienda.webp" alt="boton Davivienda" />
-    </a>
     <button id="scrollToTop" class="scroll-to-top" aria-label="Volver arriba" title="Volver arriba">
         <i class="fas fa-chevron-up"></i>
     </button>
 
     <!-- Script para cargar la galería dinámica -->
     <script src="js/gallery.js" defer></script>
-    <script src="js/testimonios-index.js" defer></script>
 </body>
 
 </html>

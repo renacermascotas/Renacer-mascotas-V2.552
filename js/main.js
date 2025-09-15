@@ -33,14 +33,19 @@ import { initLightbox } from './lightbox.js';
 import { initContactForm } from './form.js';
 import { initReveal } from './reveal.js';
 import { initHeroCarousel } from './hero-carousel.js';
+import { loadTestimonials } from './testimonial-loader.js';
 
 // --- Inicialización de módulos al cargar el DOM ---
 document.addEventListener('DOMContentLoaded', () => {
     // initLoader(); // loader eliminado
     initMenu();
-    initTestimonialSlider();
     initLightbox();
     initContactForm();
     initReveal();
     initHeroCarousel();
+
+    // Cargar testimonios en el index y luego inicializar el slider
+    if (document.getElementById('testimonial-slides-front')) {
+        loadTestimonials('testimonial-slides-front').then(initTestimonialSlider);
+    }
 });

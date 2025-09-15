@@ -542,19 +542,26 @@ footer {
 .footer-top {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center; /* Centra las columnas del footer */
     align-items: flex-start;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    gap: 1.5rem;
+    gap: 2rem; /* Aumentamos un poco el espacio entre columnas */
 }
 
 .footer-section {
     flex: 1;
     margin: 20px 0;
     min-width: 200px;
-    text-align: left;
+    text-align: center; /* Centra el texto dentro de cada columna */
+}
+
+/* Ajuste para que los items de contacto se alineen al centro de la columna */
+.footer-section.contact-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Sección de la empresa (logo, texto y redes) */
@@ -632,6 +639,7 @@ footer {
 .contact-item {
     display: flex;
     align-items: flex-start;
+    text-align: left; /* Mantenemos el texto del item alineado a la izquierda para mejor lectura */
     margin-bottom: 15px;
 }
 

@@ -1,0 +1,21 @@
+/* css/admin-dashboard.css */
+body {
+    background-color: #f4f7fa; /* Un gris claro y neutro */
+    background-image: linear-gradient(to bottom, #ffffff, #f4f7fa);
+    font-family: 'Nunito', sans-serif;
+    color: #333;
+    margin: 0;
+}
+
+/* Estilos para que el contenido del admin se vea bien dentro del nuevo fondo */
+.main-content {
+    padding: 2rem;
+}
+
+.header {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.tab-section {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}

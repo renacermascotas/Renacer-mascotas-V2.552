@@ -1,7 +1,7 @@
 // Configuración base de Express y conexión a MongoDB
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose');          v
 const cors = require('cors');
 
 

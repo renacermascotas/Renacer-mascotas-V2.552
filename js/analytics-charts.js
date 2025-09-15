@@ -4,38 +4,31 @@
 // =========================================
 // analytics-charts.js - Gráficos para la sección de analítica
 // Requiere Chart.js
+import { supabase } from './supabase-client.js';
 
 // Cargar y mostrar gráficos de analítica con datos reales
 async function renderAnalyticsCharts() {
-        const ctxVisits = document.getElementById('analytics-visits-chart').getContext('2d');
-        const ctxCountries = document.getElementById('analytics-countries-chart').getContext('2d');
+    const ctxVisits = document.getElementById('analytics-visits-chart')?.getContext('2d');
+    const ctxCountries = document.getElementById('analytics-countries-chart')?.getContext('2d');
 
-        // Visitas por día
-        let days = [];
-        let visitsData = [];
-            const data = await res.json();
-        }
+    if (!ctxVisits || !ctxCountries) return;
 
-        // Ejecutar solo una vez cuando el DOM esté listo
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                if (document.getElementById('analytics-visits-chart')) {
-                    renderAnalyticsCharts();
-                }
-            });
-        } else {
-            if (document.getElementById('analytics-visits-chart')) {
-                renderAnalyticsCharts();
-            }
-        }
-            visitsData = [0, 0, 0, 0, 0, 0, 0];
+    try {
+        const { data: analyticsData, error } = await supabase.functions.invoke('analytics-summary');
+        if (error) throw error;
+
+        // --- Gráfico de Visitas por día ---
+        const visitsByDay = analyticsData.charts?.visitsByDay || [];
+        const visitLabels = visitsByDay.map(d => new Date(d.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }));
+        const visitValues = visitsByDay.map(d => d.users);
+
         new Chart(ctxVisits, {
             type: 'line',
             data: {
-                labels: days,
+                labels: visitLabels,
                 datasets: [{
                     label: 'Visitas',
-                    data: visitsData,
+                    data: visitValues,
                     borderColor: '#f9b233',
                     backgroundColor: 'rgba(249,178,51,0.15)',
                     tension: 0.4,
@@ -46,7 +39,6 @@ async function renderAnalyticsCharts() {
             },
             options: {
                 plugins: { legend: { display: false } },
-
                 scales: {
                     x: { grid: { display: false } },
                     y: { beginAtZero: true, grid: { color: '#e5e9ef' } }
@@ -54,19 +46,11 @@ async function renderAnalyticsCharts() {
             }
         });
 
-        // Países principales
-        let countryLabels = [];
-        let countryData = [];
-        try {
-            const res = await fetch('http://localhost:4000/api/analytics-extended/top-countries');
-            const data = await res.json();
-            countryLabels = data.map(d => d.country);
-            countryData = data.map(d => d.users);
-        } catch {
-            countryLabels = ['Sin datos'];
-            countryData = [0];
-        }
-
+        // --- Gráfico de Países principales ---
+        const topCountries = analyticsData.charts?.topCountries || [];
+        const countryLabels = topCountries.map(d => d.country);
+        const countryData = topCountries.map(d => d.users);
+        
         new Chart(ctxCountries, {
             type: 'doughnut',
             data: {
@@ -81,17 +65,19 @@ async function renderAnalyticsCharts() {
                 plugins: { legend: { position: 'bottom' } }
             }
         });
+    } catch (err) {
+        console.error('Error al renderizar los gráficos de analítica:', err);
+        // Opcional: Mostrar un mensaje de error en los canvas
+        ctxVisits.font = "16px Arial";
+        ctxVisits.fillText("Error al cargar datos.", 10, 50);
+        ctxCountries.font = "16px Arial";
+        ctxCountries.fillText("Error al cargar datos.", 10, 50);
+    }
+}
 
-    document.addEventListener('DOMContentLoaded', function () {
-        if (document.getElementById('analytics-visits-chart')) {
-            renderAnalyticsCharts();
-        }
-    });
-    // Si el DOM ya está cargado, ejecutar inmediatamente
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function () {
-            renderAnalyticsCharts();
-        });
-    } else {
+// Ejecutar cuando el DOM esté listo y el elemento exista
+document.addEventListener('DOMContentLoaded', function () {
+    if (document.getElementById('analytics-visits-chart')) {
         renderAnalyticsCharts();
     }
+});

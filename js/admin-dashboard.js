@@ -1,3 +1,5 @@
+import { supabase } from './supabase-client.js';
+
 // admin-dashboard.js: Panel de administración de Renacer Mascotas
 // Este archivo controla la lógica de autenticación, tabs, CRUD de blog, testimonios y galería, y notificaciones visuales.
 
@@ -10,30 +12,47 @@ async function renderAnalyticsSection() {
   avgTimeEl.textContent = '...';
   topZoneEl.textContent = '...';
   try {
-    const res = await fetch('http://localhost:4000/api/analytics/summary');
-    if (!res.ok) throw new Error('No se pudo obtener analítica');
-    const data = await res.json();
-    visitsEl.textContent = data.visits || '-';
+    // Llamada a la Edge Function de Supabase
+    const { data, error } = await supabase.functions.invoke('analytics-summary');
+    if (error) throw error;
+
+    visitsEl.textContent = data.summary.visits || '-';
     // Mostrar tiempo promedio en minutos y segundos
-    const min = Math.floor((data.avgTime || 0) / 60);
-    const sec = Math.round((data.avgTime || 0) % 60);
+    const min = Math.floor((data.summary.avgTime || 0) / 60);
+    const sec = Math.round((data.summary.avgTime || 0) % 60);
     avgTimeEl.textContent = min + 'm ' + sec + 's';
-    topZoneEl.textContent = data.topZone || '-';
+    topZoneEl.textContent = data.summary.topZone || '-';
   } catch (err) {
+    console.error('Error al cargar la analítica:', err);
     visitsEl.textContent = avgTimeEl.textContent = topZoneEl.textContent = 'Error';
   }
 }
 
-// --- Seguridad: Redirige a login si no hay token ---
-if (!localStorage.getItem('adminToken')) {
-  window.location.href = 'admin-login.html';
+function initializeDashboard() {
+  // Renderiza la sección de analítica por defecto al cargar
+  renderAnalyticsSection();
 }
+
+// --- Seguridad: Redirige a login si no hay token ---
+document.addEventListener('DOMContentLoaded', async () => {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) {
+    window.location.href = 'admin-login.html';
+  } else {
+    // Si hay sesión, inicializamos el dashboard
+    initializeDashboard();
+    // Inicializamos los formularios de las secciones CRUD una sola vez para mejorar el rendimiento.
+    initBlogSection();
+    initTestimonialSection();
+    initGallerySection();
+  }
+});
 
 // --- Logout: Cierra sesión y limpia token ---
 const logoutBtn = document.getElementById('logout-btn');
 if (logoutBtn) {
-  logoutBtn.addEventListener('click', () => {
-    localStorage.removeItem('adminToken');
+  logoutBtn.addEventListener('click', async () => {
+    await supabase.auth.signOut();
     window.location.href = 'admin-login.html';
   });
 }
@@ -46,23 +65,24 @@ tabBtns.forEach(btn => {
     tabBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     tabSections.forEach(sec => sec.style.display = 'none');
-    const section = document.getElementById('tab-' + btn.dataset.tab);
+
+    const sectionId = 'tab-' + btn.dataset.tab;
+    const section = document.getElementById(sectionId);
     section.style.display = 'block';
-    if (btn.dataset.tab === 'analytics') renderAnalyticsSection();
-    if (btn.dataset.tab === 'blog') renderBlogSection();
-    if (btn.dataset.tab === 'testimonios') renderTestimonialSection();
-    if (btn.dataset.tab === 'galeria') renderGallerySection();
+
+    // Al hacer clic, solo recargamos la lista de datos, no todo el formulario.
+    switch (btn.dataset.tab) {
+      case 'analytics': renderAnalyticsSection(); break;
+      case 'blog': renderBlogList(); break;
+      case 'testimonios': renderTestimonialList(); break;
+      case 'galeria': renderGalleryList(); break;
+    }
   });
 });
 
-// --- Utilidad para obtener el token JWT del localStorage ---
-function getToken() {
-  return localStorage.getItem('adminToken');
-}
-
 // --- BLOG: CRUD de entradas de blog, subida de imágenes, edición y borrado ---
 let editingBlogId = null;
-async function renderBlogSection() {
+function initBlogSection() {
   const section = document.getElementById('tab-blog');
     section.innerHTML = `
       <h3>Entradas de Blog</h3>
@@ -114,43 +134,34 @@ async function renderBlogSection() {
     }
     try {
       if (blogImageFile) {
-        const formData = new FormData();
-        formData.append('file', blogImageFile);
-        const res = await fetch('http://localhost:4000/api/upload', {
-          method: 'POST',
-          body: formData
-        });
-        const data = await res.json();
-        image = data.url;
+        const filePath = `blog/${Date.now()}-${blogImageFile.name}`;
+        const { error: uploadError } = await supabase.storage.from('media').upload(filePath, blogImageFile);
+        if (uploadError) throw uploadError;
+        
+        const { data: { publicUrl } } = supabase.storage.from('media').getPublicUrl(filePath);
+        image = publicUrl;
       }
+
+      const postData = { title, content, image_url: image };
+
       if (editingBlogId) {
-        await fetch('http://localhost:4000/api/blog/' + editingBlogId, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getToken()
-          },
-          body: JSON.stringify({ title, image, content })
-        });
+        const { error } = await supabase.from('blog_posts').update(postData).eq('id', editingBlogId);
+        if (error) throw error;
+
         editingBlogId = null;
         submitBtn.textContent = 'Agregar';
         cancelBtn.style.display = 'none';
       } else {
-        await fetch('http://localhost:4000/api/blog', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getToken()
-          },
-          body: JSON.stringify({ title, image, content })
-        });
+        const { error } = await supabase.from('blog_posts').insert([postData]);
+        if (error) throw error;
       }
+
       await renderBlogList();
       form.reset();
       blogImageFile = null;
       const preview = document.getElementById('blog-image-preview');
       if (preview) preview.remove();
-      showToast('Entrada de blog guardada con éxito.');
+      showToast('Entrada de blog guardada con éxito.', 'success');
     } catch (err) {
       showToast('Error al guardar la entrada de blog.', 'error');
     }
@@ -168,8 +179,9 @@ async function renderBlogSection() {
 
 async function renderBlogList() {
   const listDiv = document.getElementById('blog-list');
-  const res = await fetch('http://localhost:4000/api/blog');
-  const blogs = await res.json();
+  const { data: blogs, error } = await supabase.from('blog_posts').select('*').order('created_at', { ascending: false });
+  if (error) { listDiv.innerHTML = '<p>Error al cargar el blog.</p>'; return; }
+
   if (!blogs.length) {
     listDiv.innerHTML = '<p>No hay entradas.</p>';
     return;
@@ -178,10 +190,10 @@ async function renderBlogList() {
     ${blogs.map(blog => `
       <tr>
         <td>${blog.title}</td>
-        <td>${blog.image ? `<img src="${blog.image}" width="60">` : ''}</td>
+        <td>${blog.image_url ? `<img src="${blog.image_url}" width="60">` : ''}</td>
         <td>
-          <button onclick="editBlog('${blog._id}')">Editar</button>
-          <button onclick="deleteBlog('${blog._id}')">Eliminar</button>
+          <button onclick="editBlog('${blog.id}')">Editar</button>
+          <button onclick="deleteBlog('${blog.id}')">Eliminar</button>
         </td>
       </tr>
     `).join('')}
@@ -190,12 +202,11 @@ async function renderBlogList() {
 
 window.editBlog = async function(id) {
   // Obtener datos del blog y llenar el formulario
-  const res = await fetch('http://localhost:4000/api/blog');
-  const blogs = await res.json();
-  const blog = blogs.find(b => b._id === id);
-  if (!blog) return;
+  const { data: blog, error } = await supabase.from('blog_posts').select('*').eq('id', id).single();
+  if (error || !blog) { showToast('No se pudo encontrar la entrada.', 'error'); return; }
+
   document.getElementById('blog-title').value = blog.title;
-  document.getElementById('blog-image').value = blog.image || '';
+  document.getElementById('blog-image').value = blog.image_url || '';
   document.getElementById('blog-content').value = blog.content;
   editingBlogId = id;
   document.getElementById('blog-submit-btn').textContent = 'Guardar';
@@ -204,16 +215,13 @@ window.editBlog = async function(id) {
 
 window.deleteBlog = async function(id) {
   if (!confirm('¿Eliminar esta entrada?')) return;
-  await fetch('http://localhost:4000/api/blog/' + id, {
-    method: 'DELETE',
-    headers: { 'Authorization': 'Bearer ' + getToken() }
-  });
+  await supabase.from('blog_posts').delete().eq('id', id);
   renderBlogList();
 };
 
 // --- TESTIMONIOS: CRUD de testimonios, subida de imágenes, edición y borrado ---
 let editingTestimonialId = null;
-async function renderTestimonialSection() {
+function initTestimonialSection() {
   const section = document.getElementById('tab-testimonios');
     section.innerHTML = `
       <h3>Testimonios</h3>
@@ -269,37 +277,28 @@ async function renderTestimonialSection() {
     }
     try {
       if (testimonialImageFile) {
-        const formData = new FormData();
-        formData.append('file', testimonialImageFile);
-        const res = await fetch('http://localhost:4000/api/upload', {
-          method: 'POST',
-          body: formData
-        });
-        const data = await res.json();
-        image = data.url;
+        const filePath = `testimonials/${Date.now()}-${testimonialImageFile.name}`;
+        const { error: uploadError } = await supabase.storage.from('media').upload(filePath, testimonialImageFile);
+        if (uploadError) throw uploadError;
+        
+        const { data: { publicUrl } } = supabase.storage.from('media').getPublicUrl(filePath);
+        image = publicUrl;
       }
+
+      const testimonialData = { author, text, image_url: image };
+
       if (editingTestimonialId) {
-        await fetch('http://localhost:4000/api/testimonials/' + editingTestimonialId, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getToken()
-          },
-          body: JSON.stringify({ author, text, image })
-        });
+        const { error } = await supabase.from('testimonials').update(testimonialData).eq('id', editingTestimonialId);
+        if (error) throw error;
+
         editingTestimonialId = null;
         submitBtn.textContent = 'Agregar';
         cancelBtn.style.display = 'none';
       } else {
-        await fetch('http://localhost:4000/api/testimonials', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getToken()
-          },
-          body: JSON.stringify({ author, text, image })
-        });
+        const { error } = await supabase.from('testimonials').insert([testimonialData]);
+        if (error) throw error;
       }
+
       await renderTestimonialList();
       form.reset();
       testimonialImageFile = null;
@@ -323,8 +322,9 @@ async function renderTestimonialSection() {
 
 async function renderTestimonialList() {
   const listDiv = document.getElementById('testimonial-list');
-  const res = await fetch('http://localhost:4000/api/testimonials');
-  const testimonials = await res.json();
+  const { data: testimonials, error } = await supabase.from('testimonials').select('*').order('created_at', { ascending: false });
+  if (error) { listDiv.innerHTML = '<p>Error al cargar testimonios.</p>'; return; }
+
   if (!testimonials.length) {
     listDiv.innerHTML = '<p>No hay testimonios.</p>';
     return;
@@ -335,8 +335,8 @@ async function renderTestimonialList() {
         <td>${t.author}</td>
         <td>${t.text}</td>
         <td>
-          <button onclick="editTestimonial('${t._id}')">Editar</button>
-          <button onclick="deleteTestimonial('${t._id}')">Eliminar</button>
+          <button onclick="editTestimonial('${t.id}')">Editar</button>
+          <button onclick="deleteTestimonial('${t.id}')">Eliminar</button>
         </td>
       </tr>
     `).join('')}
@@ -344,12 +344,12 @@ async function renderTestimonialList() {
 }
 
 window.editTestimonial = async function(id) {
-  const res = await fetch('http://localhost:4000/api/testimonials');
-  const testimonials = await res.json();
-  const t = testimonials.find(t => t._id === id);
-  if (!t) return;
+  const { data: t, error } = await supabase.from('testimonials').select('*').eq('id', id).single();
+  if (error || !t) { showToast('No se pudo encontrar el testimonio.', 'error'); return; }
+
   document.getElementById('testimonial-author').value = t.author;
   document.getElementById('testimonial-text').value = t.text;
+  document.getElementById('testimonial-image').value = t.image_url || '';
   editingTestimonialId = id;
   document.getElementById('testimonial-submit-btn').textContent = 'Guardar';
   document.getElementById('testimonial-cancel-btn').style.display = 'inline-block';
@@ -357,23 +357,19 @@ window.editTestimonial = async function(id) {
 
 window.deleteTestimonial = async function(id) {
   if (!confirm('¿Eliminar este testimonio?')) return;
-  await fetch('http://localhost:4000/api/testimonials/' + id, {
-    method: 'DELETE',
-    headers: { 'Authorization': 'Bearer ' + getToken() }
-  });
+  await supabase.from('testimonials').delete().eq('id', id);
   renderTestimonialList();
 };
 
 // --- GALERÍA: CRUD de imágenes de galería, subida, edición y borrado ---
 let editingGalleryId = null;
-async function renderGallerySection() {
+function initGallerySection() {
   const section = document.getElementById('tab-galeria');
     section.innerHTML = `
       <h3>Galería</h3>
       <form id="gallery-form">
         <div class="file-row">
           <input type="file" id="gallery-image-file" accept="image/*">
-          <input type="text" id="gallery-image" placeholder="URL de imagen o subir archivo" required>
         </div>
         <input type="text" id="gallery-description" placeholder="Descripción">
         <button type="submit" id="gallery-submit-btn">Agregar</button>
@@ -393,8 +389,8 @@ async function renderGallerySection() {
             preview = document.createElement('img');
             preview.id = 'gallery-image-preview';
             preview.style.maxWidth = '80px';
-            preview.style.margin = '8px 0';
-            document.getElementById('gallery-form').insertBefore(preview, document.getElementById('gallery-image').parentNode.nextSibling);
+            preview.style.margin = '8px 0 16px';
+            document.getElementById('gallery-form').insertBefore(preview, document.getElementById('gallery-description'));
           }
           preview.src = ev.target.result;
         };
@@ -408,45 +404,38 @@ async function renderGallerySection() {
   form.onsubmit = async function(e) {
     e.preventDefault();
     e.stopPropagation();
-    let image = document.getElementById('gallery-image').value;
     const description = document.getElementById('gallery-description').value;
-    if (!galleryImageFile && !image) {
-      showToast('Debes subir una imagen o ingresar la URL.','error');
+    // Solo requerir una imagen si es un nuevo elemento, no al editar.
+    if (!galleryImageFile && !editingGalleryId) {
+      showToast('Debes subir una imagen.','error');
       return;
     }
     try {
+      const galleryData = { description };
+
+      // Si se subió un archivo nuevo, procesarlo y añadir la URL a los datos.
       if (galleryImageFile) {
-        const formData = new FormData();
-        formData.append('file', galleryImageFile);
-        const res = await fetch('http://localhost:4000/api/upload', {
-          method: 'POST',
-          body: formData
-        });
-        const data = await res.json();
-        image = data.url;
+        const filePath = `gallery/${Date.now()}-${galleryImageFile.name}`;
+        const { error: uploadError } = await supabase.storage.from('media').upload(filePath, galleryImageFile);
+        if (uploadError) throw uploadError;
+        
+        const { data: { publicUrl } } = supabase.storage.from('media').getPublicUrl(filePath);
+        galleryData.image_url = publicUrl;
       }
+
       if (editingGalleryId) {
-        await fetch('http://localhost:4000/api/gallery/' + editingGalleryId, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getToken()
-          },
-          body: JSON.stringify({ image, description })
-        });
+        // Al editar, solo se actualizan los campos presentes en galleryData.
+        const { error } = await supabase.from('gallery').update(galleryData).eq('id', editingGalleryId);
+        if (error) throw error;
+
         editingGalleryId = null;
         submitBtn.textContent = 'Agregar';
         cancelBtn.style.display = 'none';
       } else {
-        await fetch('http://localhost:4000/api/gallery', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getToken()
-          },
-          body: JSON.stringify({ image, description })
-        });
+        const { error } = await supabase.from('gallery').insert([galleryData]);
+        if (error) throw error;
       }
+
       await renderGalleryList();
       form.reset();
       galleryImageFile = null;
@@ -470,8 +459,9 @@ async function renderGallerySection() {
 
 async function renderGalleryList() {
   const listDiv = document.getElementById('gallery-list');
-  const res = await fetch('http://localhost:4000/api/gallery');
-  const galleryItems = await res.json();
+  const { data: galleryItems, error } = await supabase.from('gallery').select('*').order('created_at', { ascending: false });
+  if (error) { listDiv.innerHTML = '<p>Error al cargar la galería.</p>'; return; }
+
   if (!galleryItems.length) {
     listDiv.innerHTML = '<p>No hay imágenes en la galería.</p>';
     return;
@@ -479,11 +469,11 @@ async function renderGalleryList() {
   listDiv.innerHTML = `<table><thead><tr><th>Imagen</th><th>Descripción</th><th>Acciones</th></tr></thead><tbody>
     ${galleryItems.map(item => `
       <tr>
-        <td>${item.image ? `<img src="${item.image}" width="60">` : ''}</td>
+        <td>${item.image_url ? `<img src="${item.image_url}" width="60">` : ''}</td>
         <td>${item.description || ''}</td>
         <td>
-          <button onclick="editGallery('${item._id}')">Editar</button>
-          <button onclick="deleteGallery('${item._id}')">Eliminar</button>
+          <button onclick="editGallery('${item.id}')">Editar</button>
+          <button onclick="deleteGallery('${item.id}')">Eliminar</button>
         </td>
       </tr>
     `).join('')}
@@ -491,23 +481,20 @@ async function renderGalleryList() {
 }
 
 window.editGallery = async function(id) {
-  const res = await fetch('http://localhost:4000/api/gallery');
-  const galleryItems = await res.json();
-  const item = galleryItems.find(i => i._id === id);
-  if (!item) return;
-  document.getElementById('gallery-image').value = item.image || '';
+  const { data: item, error } = await supabase.from('gallery').select('*').eq('id', id).single();
+  if (error || !item) { showToast('No se pudo encontrar la imagen.', 'error'); return; }
+
+  // No se puede rellenar un input de tipo file, pero sí la descripción.
   document.getElementById('gallery-description').value = item.description || '';
   editingGalleryId = id;
   document.getElementById('gallery-submit-btn').textContent = 'Guardar';
   document.getElementById('gallery-cancel-btn').style.display = 'inline-block';
+  showToast('Sube una nueva imagen para reemplazar la actual.', 'success');
 };
 
 window.deleteGallery = async function(id) {
   if (!confirm('¿Eliminar esta imagen de la galería?')) return;
-  await fetch('http://localhost:4000/api/gallery/' + id, {
-    method: 'DELETE',
-    headers: { 'Authorization': 'Bearer ' + getToken() }
-  });
+  await supabase.from('gallery').delete().eq('id', id);
   renderGalleryList();
 };
 
