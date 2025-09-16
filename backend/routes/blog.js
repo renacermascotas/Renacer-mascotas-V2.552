@@ -1,29 +1,51 @@
 const express = require('express');
-const Blog = require('../models/Blog');
+const supabase = require('../supabase-client'); // Importa el cliente Supabase
 const router = express.Router();
 
 // Obtener todos los blogs
 router.get('/', async (req, res) => {
-  const blogs = await Blog.find().sort({ date: -1 });
-  res.json(blogs);
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) return res.status(500).json({ message: error.message });
+  res.json(data);
 });
 
 // Crear blog
 router.post('/', async (req, res) => {
-  const blog = new Blog(req.body);
-  await blog.save();
-  res.json(blog);
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .insert([req.body])
+    .select();
+
+  if (error) return res.status(500).json({ message: error.message });
+  res.status(201).json(data[0]);
 });
 
 // Editar blog
 router.put('/:id', async (req, res) => {
-  const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  res.json(blog);
+  const { id } = req.params;
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .update(req.body)
+    .eq('id', id)
+    .select();
+
+  if (error) return res.status(500).json({ message: error.message });
+  res.json(data[0]);
 });
 
 // Eliminar blog
 router.delete('/:id', async (req, res) => {
-  await Blog.findByIdAndDelete(req.params.id);
+  const { id } = req.params;
+  const { error } = await supabase
+    .from('blog_posts')
+    .delete()
+    .eq('id', id);
+
+  if (error) return res.status(500).json({ message: error.message });
   res.json({ message: 'Blog eliminado' });
 });
 

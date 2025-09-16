@@ -125,6 +125,21 @@ header .brand img:hover {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
+/* Estilo de cristal para la barra de navegación */
+header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    /* Efecto de cristal */
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+}
+
 header .menu {
     display: none;
     flex-direction: column;
@@ -734,12 +749,6 @@ footer {
 #gallery .cards {
     scrollbar-width: none;
     /* Oculta la barra de desplazamiento en Firefox */
-}
-
-/* 2. Eliminar el borde de la sombra de la barra de navegación */
-header {
-    box-shadow: 0 8px 32px rgba(0, 53, 128, 0.2);
-    /* Sombra con menos opacidad para un efecto más sutil */
 }
 
 /* 3. Hacer las imágenes de los planes completamente redondas */

@@ -1,0 +1,191 @@
+/* style.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'); /* Un ejemplo de fuente moderna */
+
+:root {
+    --bg-color: #f0f2f5; /* Un fondo muy sutil para que el glassmorphism se vea */
+    --widget-bg-color: rgba(255, 255, 255, 0.1); /* Blanco con mucha transparencia */
+    --border-color: rgba(255, 255, 255, 0.2); /* Borde sutil */
+    --text-color: #fff; /* Color de texto si el fondo es oscuro */
+    --text-light: #aaa;
+    --primary-gradient: linear-gradient(135deg, #a7b7ee, #e0a7ee); /* Degradado para el cerebro o elementos decorativos */
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #000; /* Un fondo oscuro o con un degradado sutil para que el efecto de cristal sea más visible */
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.dashboard-container {
+    display: flex;
+    width: 90%; /* Ajusta según sea necesario */
+    max-width: 1400px; /* Ancho máximo para el dashboard */
+    height: 90vh; /* Altura para que ocupe gran parte de la pantalla */
+    border-radius: 20px;
+    overflow: hidden; /* Para contener los elementos internos con border-radius */
+    background: rgba(0,0,0,0.5); /* Un fondo oscuro semitransparente para el contenedor principal */
+    backdrop-filter: blur(15px); /* Un blur general para el contenedor, si lo quieres */
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.sidebar {
+    width: 200px; /* Ancho de la barra lateral */
+    padding: 20px;
+    background: var(--widget-bg-color); /* Aplica el efecto de cristal */
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(10px); /* Blur específico para la barra lateral */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .logo {
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: var(--text-color);
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar-nav li {
+    margin-bottom: 20px;
+}
+
+.sidebar-nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+}
+
+.sidebar-nav a i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    background: transparent; /* El fondo lo da el contenedor principal */
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.dashboard-header h1 {
+    font-size: 2.2em;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.dashboard-header p {
+    color: var(--text-light);
+    font-size: 0.9em;
+    margin-top: 0;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-profile i {
+    font-size: 1.3em;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.user-profile i:hover {
+    color: var(--text-color);
+}
+
+.user-profile .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-gradient); /* O una imagen de perfil */
+    border: 2px solid #fff;
+}
+
+.widgets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Columnas responsivas */
+    grid-template-rows: repeat(2, minmax(150px, 1fr)); /* Filas para acomodar los widgets */
+    gap: 30px; /* Espacio entre widgets */
+    flex-grow: 1;
+}
+
+.widget {
+    background: var(--widget-bg-color); /* Blanco semitransparente */
+    border: 1px solid var(--border-color); /* Borde sutil para el efecto de cristal */
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px); /* El blur de fondo es CLAVE para el efecto */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* Ajustes para el widget grande del cerebro */
+.widget.large-brain {
+    grid-column: span 2; /* Ocupa 2 columnas */
+    grid-row: span 2; /* Y 2 filas si es necesario, ajusta según el layout deseado */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    /* Aquí iría el cerebro 3D. Esto requeriría JS para un modelo real, o simplemente CSS para una representación estilizada */
+}
+
+.widget.large-brain::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    height: 50%;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+    filter: blur(20px);
+    z-index: 0;
+}
+
+/* Estilo para los gráficos dentro de los widgets (placeholder) */
+.widget .chart-placeholder {
+    width: 100%;
+    height: 80px; /* Altura de ejemplo para el gráfico */
+    background: var(--primary-gradient); /* Color de ejemplo */
+    border-radius: 8px;
+    margin-top: 10px;
+}

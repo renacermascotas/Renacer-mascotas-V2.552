@@ -28,7 +28,8 @@
                 <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
                 <input type="password" id="password" placeholder="Contraseña" required>
                 <button type="submit">Ingresar</button>
-                <div id="login-error" class="error"></div>
+                <div id="login-error" class="error" style="display: none;"></div>
+                <div id="login-success" class="success" style="display: none;"></div>
             </form>
         </div>
     </div>
@@ -38,7 +39,7 @@
         Explicación: Incluye la lógica de autenticación.
       ========================================= -->
     <script src="../js/loader-login.js"></script>
-    <script src="../js/admin-login.js"></script>
+    <script type="module" src="../js/admin-login.js"></script>
 </body>
 
 </html>

@@ -1,10 +1,6 @@
-// Configuración base de Express y conexión a MongoDB
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');          v
 const cors = require('cors');
-
-
 const multer = require('multer');
 const path = require('path');
 const app = express();
@@ -32,16 +28,6 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
 
 // Servir archivos estáticos subidos
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// Conexión a MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => console.log('Conectado a MongoDB'))
-    .catch((err) => console.error('Error de conexión a MongoDB:', err));
-
-
 
 // Rutas de autenticación y recursos
 const authRoutes = require('./routes/auth');

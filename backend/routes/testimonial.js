@@ -1,7 +1,6 @@
 const express = require('express');
-const Testimonial = require('../models/Testimonial');
+const supabase = require('../supabase-client'); // Importa el cliente Supabase
 const router = express.Router();
-
 
 // Permitir CORS para peticiones desde frontend
 router.use((req, res, next) => {
@@ -14,8 +13,13 @@ router.use((req, res, next) => {
 // Obtener todos los testimonios
 router.get('/', async (req, res) => {
   try {
-    const testimonials = await Testimonial.find().sort({ date: -1 });
-    res.json(testimonials);
+    const { data, error } = await supabase
+      .from('testimonials')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) return res.status(500).json({ message: error.message });
+    res.json(data);
   } catch (err) {
     res.status(500).json({ message: 'Error al obtener testimonios' });
   }
@@ -24,9 +28,13 @@ router.get('/', async (req, res) => {
 // Crear testimonio
 router.post('/', async (req, res) => {
   try {
-    const testimonial = new Testimonial(req.body);
-    await testimonial.save();
-    res.json(testimonial);
+    const { data, error } = await supabase
+      .from('testimonials')
+      .insert([req.body])
+      .select();
+
+    if (error) return res.status(500).json({ message: error.message });
+    res.status(201).json(data[0]);
   } catch (err) {
     res.status(400).json({ message: 'Error al crear testimonio' });
   }
@@ -35,8 +43,15 @@ router.post('/', async (req, res) => {
 // Editar testimonio
 router.put('/:id', async (req, res) => {
   try {
-    const testimonial = await Testimonial.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(testimonial);
+    const { id } = req.params;
+    const { data, error } = await supabase
+      .from('testimonials')
+      .update(req.body)
+      .eq('id', id)
+      .select();
+
+    if (error) return res.status(500).json({ message: error.message });
+    res.json(data[0]);
   } catch (err) {
     res.status(400).json({ message: 'Error al editar testimonio' });
   }
@@ -45,7 +60,13 @@ router.put('/:id', async (req, res) => {
 // Eliminar testimonio
 router.delete('/:id', async (req, res) => {
   try {
-    await Testimonial.findByIdAndDelete(req.params.id);
+    const { id } = req.params;
+    const { error } = await supabase
+      .from('testimonials')
+      .delete()
+      .eq('id', id);
+
+    if (error) return res.status(500).json({ message: error.message });
     res.json({ message: 'Testimonio eliminado' });
   } catch (err) {
     res.status(400).json({ message: 'Error al eliminar testimonio' });

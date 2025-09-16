@@ -6,7 +6,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-image: url('../fotos/Full body portrait of various pets on a light blue background.jpg'); /* Nueva imagen de fondo */
+    background-image: url('../fotos/dogs-background-lw584jj85npdc6w6.jpg'); /* Nueva imagen de fondo */
     background-size: cover;
     background-position: center;
 
@@ -98,25 +98,28 @@ button:hover {
     background: linear-gradient(90deg, #5a52e9, #9098fa); /* Gradiente más claro en hover */
 }
 
-/* Mensaje de error */
-.error {
-    background: rgba(255, 82, 82, 0.8); /* Fondo rojo para el error */
+/* Mensajes de error y éxito */
+.error, .success {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     color: #fff;
     font-weight: bold;
-    border-radius: 8px;
+    margin-top: 0.5rem;
+    padding: 0.8rem;
     text-shadow: 0 1px 1px rgba(0,0,0,0.2);
-    /* Oculto por defecto y preparado para la animación */
-    margin: 0;
-    padding: 0 0.8rem;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
     transition: all 0.3s ease;
 }
 
-.error:not(:empty) {
-    margin-top: 0.5rem;
-    padding: 0.8rem;
-    max-height: 5rem; /* Altura suficiente para el mensaje */
-    opacity: 1;
+.error {
+    background: rgba(255, 82, 82, 0.25); /* Fondo rojo para el error */
+    border-color: rgba(255, 82, 82, 0.5);
+}
+
+.success {
+    background: rgba(76, 175, 80, 0.25); /* Fondo verde para el éxito */
+    border-color: rgba(76, 175, 80, 0.5);
 }

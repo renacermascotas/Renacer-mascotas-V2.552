@@ -11,6 +11,8 @@ document.getElementById('login-form').addEventListener('submit', async function(
   const errorDiv = document.getElementById('login-error');
   errorDiv.textContent = '';
 
+  const successDiv = document.getElementById('login-success');
+
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -20,11 +22,20 @@ document.getElementById('login-form').addEventListener('submit', async function(
     if (error) throw error;
 
     if (data.user) {
-      window.location.href = 'admin-dashboard.html';
+      errorDiv.style.display = 'none';
+      successDiv.textContent = 'Ingreso exitoso. Redirigiendo...';
+      successDiv.style.display = 'block';
+      setTimeout(() => {
+        window.location.href = 'admin-dashboard.html';
+      }, 1500);
     } else {
+      successDiv.style.display = 'none';
       errorDiv.textContent = 'Credenciales incorrectas.';
+      errorDiv.style.display = 'block';
     }
   } catch (err) {
+    successDiv.style.display = 'none';
     errorDiv.textContent = err.message || 'Error de conexión con el servidor';
+    errorDiv.style.display = 'block';
   }
 });
