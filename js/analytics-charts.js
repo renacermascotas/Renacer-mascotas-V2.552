@@ -6,10 +6,31 @@
 // Requiere Chart.js
 import { supabase } from './supabase-client.js';
 
-// Cargar y mostrar gráficos de analítica con datos reales
 async function renderAnalyticsCharts() {
     const ctxVisits = document.getElementById('analytics-visits-chart')?.getContext('2d');
     const ctxCountries = document.getElementById('analytics-countries-chart')?.getContext('2d');
+
+    // Destruir gráficos existentes para evitar errores de reutilización de canvas
+    if (ctxVisits) {
+        const existingChart = Chart.getChart(ctxVisits.canvas);
+        if (existingChart) {
+            existingChart.destroy();
+        }
+    }
+    if (ctxCountries) {
+        const existingChart = Chart.getChart(ctxCountries.canvas);
+        if (existingChart) {
+            existingChart.destroy();
+        }
+    }
+
+    // Determinar colores basados en el tema actual
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const chartTextColor = isDarkMode ? '#A0A0A0' : '#6C757D';
+    const chartGridColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)';
+    const chartPointBgColor = '#6366F1';
+    const chartPointBorderColor = isDarkMode ? '#1A1A1A' : '#FFFFFF';
+    const doughnutBorderColor = isDarkMode ? '#1E1E1E' : '#FFFFFF';
 
     if (!ctxVisits || !ctxCountries) return;
 
@@ -29,19 +50,30 @@ async function renderAnalyticsCharts() {
                 datasets: [{
                     label: 'Visitas',
                     data: visitValues,
-                    borderColor: '#f9b233',
-                    backgroundColor: 'rgba(249,178,51,0.15)',
-                    tension: 0.4,
-                    fill: true,
+                    borderColor: '#6366F1', // Accent blue
+                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                    tension: 0, // Optimización para el rendimiento
+                    fill: false, // Optimización para el rendimiento
                     pointRadius: 4,
-                    pointBackgroundColor: '#2b3a4a',
+                    pointBackgroundColor: chartPointBgColor,
+                    pointBorderColor: chartPointBorderColor,
+                    pointHoverRadius: 6,
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { grid: { display: false } },
-                    y: { beginAtZero: true, grid: { color: '#e5e9ef' } }
+                    x: { 
+                        grid: { display: false },
+                        ticks: { color: chartTextColor }
+                    },
+                    y: { 
+                        beginAtZero: true, 
+                        grid: { color: chartGridColor },
+                        ticks: { color: chartTextColor }
+                    }
                 }
             }
         });
@@ -57,12 +89,15 @@ async function renderAnalyticsCharts() {
                 labels: countryLabels,
                 datasets: [{
                     data: countryData,
-                    backgroundColor: ['#f9b233', '#2b3a4a', '#e5e9ef', '#f4f7fa', '#888'],
-                    borderWidth: 1
+                    backgroundColor: ['#3ECF8E', '#6366F1', '#8B5CF6', '#F9B233', '#6C757D'],
+                    borderWidth: 3,
+                    borderColor: doughnutBorderColor
                 }]
             },
             options: {
-                plugins: { legend: { position: 'bottom' } }
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: chartTextColor } } }
             }
         });
     } catch (err) {
@@ -75,9 +110,6 @@ async function renderAnalyticsCharts() {
     }
 }
 
-// Ejecutar cuando el DOM esté listo y el elemento exista
-document.addEventListener('DOMContentLoaded', function () {
-    if (document.getElementById('analytics-visits-chart')) {
-        renderAnalyticsCharts();
-    }
-});
+// Exponer la función globalmente para que pueda ser llamada desde otros scripts
+window.renderAnalyticsCharts = renderAnalyticsCharts;
+

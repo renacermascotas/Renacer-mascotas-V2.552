@@ -30,25 +30,34 @@
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="#" class="tab-btn active" data-tab="analytics"><i class="fa-solid fa-chart-line"></i> Analítica</a></li>
-          <li><a href="#" class="tab-btn" data-tab="blog"><i class="fa-solid fa-newspaper"></i> Blog</a></li>
-          <li><a href="#" class_="tab-btn" data-tab="testimonios"><i class="fa-solid fa-quote-left"></i> Testimonios</a></li>
-          <li><a href="#" class="tab-btn" data-tab="galeria"><i class="fa-solid fa-images"></i> Galería</a></li>
+          <li><a href="#" class="tab-btn active" data-tab="analytics"><i class="fa-solid fa-chart-line"></i> <span>Analítica</span></a></li>
+          <li><a href="#" class="tab-btn" data-tab="blog"><i class="fa-solid fa-newspaper"></i> <span>Blog</span></a></li>
+          <li><a href="#" class="tab-btn" data-tab="testimonios"><i class="fa-solid fa-quote-left"></i> <span>Testimonios</span></a></li>
+          <li><a href="#" class="tab-btn" data-tab="galeria"><i class="fa-solid fa-images"></i> <span>Galería</span></a></li>
         </ul>
       </nav>
+      <div class="sidebar-toggle" id="sidebar-toggle-btn">
+        <i class="fa-solid fa-chevron-left"></i>
+      </div>
     </aside>
     <main class="main-content">
       <header class="dashboard-header">
+        <button class="mobile-nav-toggle" id="mobile-nav-toggle-btn"><i class="fa-solid fa-bars"></i></button>
         <div>
           <h1>Panel de Administración</h1>
           <p>Bienvenido al centro de control de Renacer Mascotas.</p>
         </div>
         <div class="user-profile">
+          <div class="theme-toggle" id="theme-toggle-btn">
+            <i class="fa-solid fa-moon"></i>
+            <i class="fa-solid fa-sun"></i>
+          </div>
+          <div class="avatar"></div>
           <i class="fa-solid fa-right-from-bracket" id="logout-btn"></i>
         </div>
       </header>
       <div class="widgets-grid">
-        <section id="tab-analytics" class="widget tab-section active">
+        <section id="tab-analytics" class="tab-section active">
           <h3><i class="fa-solid fa-chart-line"></i> Analítica Web</h3>
           <div id="analytics-summary" class="analytics-summary">
             <div class="widget">
@@ -67,58 +76,108 @@
               <div id="analytics-topzone" class="summary-value">-</div>
             </div>
           </div>
-          <div class="charts-grid">
-            <div class="widget large-brain">
-              <h4><i class="fa-solid fa-chart-area"></i> Visitas por día</h4>
-              <canvas id="analytics-visits-chart" height="120"></canvas>
-            </div>
-            <div class="widget">
-              <h4><i class="fa-solid fa-earth-americas"></i> Distribución por país</h4>
-              <canvas id="analytics-countries-chart" height="120"></canvas>
-            </div>
+          <div class="widget large-brain">
+            <video src="../fotos/brain.mp4" autoplay loop muted playsinline>Tu navegador no soporta el elemento de video.</video>
+          </div>
+          <div id="widget-countries" class="widget">
+            <h4><i class="fa-solid fa-earth-americas"></i> Distribución por país</h4>
+            <canvas id="analytics-countries-chart"></canvas>
+          </div>
+          <div id="widget-visits" class="widget">
+            <h4><i class="fa-solid fa-chart-area"></i> Visitas por día</h4>
+            <canvas id="analytics-visits-chart"></canvas>
           </div>
           <div class="analytics-disclaimer">* Los datos se actualizan automáticamente desde Google Analytics.</div>
         </section>
-        <section id="tab-blog" class="widget tab-section"></section>
-        <section id="tab-testimonios" class="widget tab-section"></section>
-        <section id="tab-galeria" class="widget tab-section"></section>
+        <section id="tab-blog" class="tab-section">
+          <h3><i class="fa-solid fa-newspaper"></i> Entradas de Blog</h3>
+          <form id="blog-form">
+              <input type="hidden" id="blog-post-id">
+              <input type="text" id="blog-title" placeholder="Título del post" required>
+              <div class="file-row">
+                  <input type="file" id="blog-image-file" accept="image/*">
+                  <input type="text" id="blog-image-url" placeholder="O pega la URL de una imagen">
+              </div>
+              <textarea id="blog-content" placeholder="Contenido del post..." rows="5" required></textarea>
+              <div class="form-actions">
+                <button type="submit" id="blog-submit-btn">Guardar Post</button>
+                <button type="button" id="blog-cancel-btn" style="display:none;">Cancelar</button>
+              </div>
+          </form>
+          <table id="blog-table">
+              <thead><tr><th>Título</th><th>Imagen</th><th>Fecha</th><th>Acciones</th></tr></thead>
+              <tbody><!-- Las filas se llenarán con JS --></tbody>
+          </table>
+          <div id="blog-pagination" class="pagination-controls"></div>
+        </section>
+        <section id="tab-testimonios" class="tab-section">
+          <h3><i class="fa-solid fa-quote-left"></i> Testimonios</h3>
+          <form id="testimonial-form">
+              <input type="hidden" id="testimonial-id">
+              <input type="text" id="testimonial-author" placeholder="Autor del testimonio" required>
+              <div class="file-row">
+                <input type="file" id="testimonial-image-file" accept="image/*">
+                <input type="text" id="testimonial-image-url" placeholder="O pega la URL de una imagen">
+              </div>
+              <textarea id="testimonial-text" placeholder="Texto del testimonio..." rows="3" required></textarea>
+              <div class="form-actions">
+                <button type="submit" id="testimonial-submit-btn">Guardar Testimonio</button>
+                <button type="button" id="testimonial-cancel-btn" style="display:none;">Cancelar</button>
+              </div>
+          </form>
+          <table id="testimonials-table">
+              <thead><tr><th>Autor</th><th>Imagen</th><th>Testimonio</th><th>Acciones</th></tr></thead>
+              <tbody><!-- Las filas se llenarán con JS --></tbody>
+          </table>
+          <div id="testimonials-pagination" class="pagination-controls"></div>
+        </section>
+        <section id="tab-galeria" class="tab-section">
+          <h3><i class="fa-solid fa-images"></i> Galería</h3>
+          <form id="gallery-form">
+              <input type="hidden" id="gallery-id">
+              <input type="file" id="gallery-image-file" accept="image/*" required>
+              <input type="text" id="gallery-description" placeholder="Descripción de la imagen">
+              <button type="submit" id="gallery-submit-btn">Añadir a la Galería</button>
+              <button type="button" id="gallery-cancel-btn" style="display:none;">Cancelar</button>
+          </form>
+          <table id="gallery-table">
+              <thead><tr><th>Imagen</th><th>Descripción</th><th>Acciones</th></tr></thead>
+              <tbody><!-- Las filas se llenarán con JS --></tbody>
+          </table>
+          <div id="gallery-pagination" class="pagination-controls"></div>
+        </section>
       </div>
     </main>
   </div>
   <script type="module" src="../js/admin-dashboard.js"></script>
   <script>
-    // Menú lateral colapsable responsive
-    const sidebar = document.getElementById('sidebar');
-    const toggleBtn = document.getElementById('sidebar-toggle');
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', function() {
-        sidebar.classList.toggle('sidebar-open');
+    // Script para la barra lateral colapsable (desktop)
+    const toggleBtnDesktop = document.getElementById('sidebar-toggle-btn');
+    const dashboardContainer = document.querySelector('.dashboard-container');
+
+    if (toggleBtnDesktop && dashboardContainer) {
+      toggleBtnDesktop.addEventListener('click', () => {
+        dashboardContainer.classList.toggle('sidebar-collapsed');
       });
     }
-    // Cerrar menú al hacer clic fuera en móvil
-    window.addEventListener('click', function(e) {
-      if (window.innerWidth <= 900 && sidebar.classList.contains('sidebar-open')) {
-        if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
-          sidebar.classList.remove('sidebar-open');
-        }
-      }
-    });
-  </script>
-  <!-- Script para cargar el footer -->
-  <script type="module">
-      // Función simple para incluir HTML
-      const includeHTML = (elementId, url) => {
-          fetch(url)
-              .then(response => response.ok ? response.text() : Promise.reject(response.statusText))
-              .then(html => {
-                  const element = document.getElementById(elementId);
-                  if (element) element.innerHTML = html;
-              })
-              .catch(error => console.error(`Error incluyendo HTML desde ${url}:`, error));
-      };
 
-      // Cargar el footer
-      includeHTML('footer', '../footer.html');
+    // Script para la barra lateral en móvil
+    const mobileToggleBtn = document.getElementById('mobile-nav-toggle-btn');
+    const sidebar = document.getElementById('sidebar');
+
+    if (mobileToggleBtn && sidebar && dashboardContainer) {
+      mobileToggleBtn.addEventListener('click', () => {
+        dashboardContainer.classList.toggle('sidebar-mobile-open');
+      });
+
+      // Cerrar menú al hacer clic en un enlace o fuera de él
+      document.addEventListener('click', (e) => {
+        const isLinkClickInsideSidebar = sidebar.contains(e.target.closest('a'));
+        if (dashboardContainer.classList.contains('sidebar-mobile-open') && ((!sidebar.contains(e.target) && !mobileToggleBtn.contains(e.target)) || isLinkClickInsideSidebar)) {
+          dashboardContainer.classList.remove('sidebar-mobile-open');
+        }
+      });
+    }
   </script>
 </body>
 </html>

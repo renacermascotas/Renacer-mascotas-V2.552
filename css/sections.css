@@ -1,110 +1,3 @@
-@media (max-width: 900px) {
-    .service-card, .plan-card, .card {
-        max-width: 340px !important;
-    }
-}
-@media (max-width: 600px) {
-    .service-card, .plan-card, .card {
-        max-width: 320px !important;
-    }
-}
-@media (max-width: 900px) {
-    .services-munchkin {
-        flex-direction: column !important;
-        flex-wrap: nowrap !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 1.2rem;
-        padding: 1rem 0.2rem;
-        overflow-x: visible !important;
-    }
-    .service-card-wrap {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        min-width: 0 !important;
-        margin: 0 auto 1.2rem auto !important;
-        padding: 0 !important;
-        display: flex !important;
-        justify-content: center !important;
-    }
-    .service-card, .plan-card, .card {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 420px !important;
-        margin: 0 auto !important;
-        height: auto !important;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-}
-@media (max-width: 600px) {
-    .services-munchkin {
-        gap: 0.7rem;
-        padding: 0.5rem 0.1rem;
-    }
-    .service-card-wrap {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        min-width: 0 !important;
-        padding: 0 !important;
-        display: flex !important;
-        justify-content: center !important;
-    }
-    .service-card, .plan-card, .card {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 98vw !important;
-        margin: 0 auto !important;
-        padding: 0.7rem 0.2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-}
-@media (max-width: 900px) {
-    .services-munchkin {
-        flex-direction: column !important;
-        flex-wrap: nowrap !important;
-        align-items: center !important;
-        gap: 1.2rem;
-        padding: 1rem 0.2rem;
-        overflow-x: visible !important;
-    }
-    .service-card-wrap {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        min-width: 0 !important;
-        margin: 0 auto 1.2rem auto !important;
-        padding: 0 !important;
-    }
-    .service-card, .plan-card, .card {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 99vw !important;
-        height: auto !important;
-        box-sizing: border-box;
-    }
-}
-@media (max-width: 600px) {
-    .services-munchkin {
-        gap: 0.7rem;
-        padding: 0.5rem 0.1rem;
-    }
-    .service-card-wrap {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        min-width: 0 !important;
-        padding: 0 !important;
-    }
-    .service-card, .plan-card, .card {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 100vw !important;
-        padding: 0.7rem 0.2rem;
-    }
-}
 /* ================= MENÚ HAMBURGUESA: VISIBILIDAD Y TRANSICIÓN ================= */
 @media (max-width: 900px) {
     .menu {
@@ -121,213 +14,6 @@
         opacity: 1;
         pointer-events: auto;
         box-shadow: 0 8px 32px rgba(0,0,0,0.13);
-    }
-}
-/* ================= RESPONSIVE TOP-BAR ================= */
-@media (max-width: 900px) {
-    .topbar .container.wrap {
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 0.5rem !important;
-        text-align: center;
-    }
-    .topbar .socials {
-        justify-content: center;
-        margin: 0.5rem 0;
-    }
-    .topbar span {
-        display: block;
-        margin: 0.2rem 0;
-    }
-}
-
-/* ================= RESPONSIVE HEADER Y MENÚ HAMBURGUESA ================= */
-@media (max-width: 900px) {
-    .container.nav {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 1rem;
-        position: relative;
-    }
-    .nav-left, .nav-right {
-        display: none !important;
-    }
-    .brand {
-        margin: 0 auto;
-        z-index: 2;
-    }
-    .nav-toggle {
-        display: block !important;
-        position: absolute;
-        right: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 3;
-        background: none;
-        border: none;
-        cursor: pointer;
-        width: 44px;
-        height: 44px;
-    }
-    .nav-toggle .hamburger {
-        display: block;
-        width: 28px;
-        height: 3px;
-        background: var(--secondary, #333);
-        border-radius: 2px;
-        position: relative;
-        transition: all 0.3s;
-    }
-    .nav-toggle .hamburger::before,
-    .nav-toggle .hamburger::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        width: 28px;
-        height: 3px;
-        background: var(--secondary, #333);
-        border-radius: 2px;
-        transition: all 0.3s;
-    }
-    .nav-toggle .hamburger::before {
-        top: -9px;
-    }
-    .nav-toggle .hamburger::after {
-        top: 9px;
-    }
-    .menu {
-        display: flex !important;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        left: 0;
-        background: #fff;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.13);
-        border-radius: 0 0 1.5rem 1.5rem;
-        z-index: 10;
-        padding: 1.2rem 0.5rem;
-        gap: 1.2rem;
-        align-items: center;
-        width: 100vw;
-        max-width: 100vw;
-        transition: max-height 0.3s;
-    }
-    .menu a {
-        font-size: 1.2rem;
-        color: var(--secondary, #333);
-        padding: 0.7rem 0;
-        width: 100%;
-        text-align: center;
-        border-radius: 0.7rem;
-        transition: background 0.2s;
-    }
-    .menu a:hover {
-        background: #f8fafc;
-    }
-}
-
-@media (max-width: 600px) {
-    .menu {
-        padding: 0.7rem 0.2rem;
-        gap: 0.7rem;
-    }
-    .menu a {
-        font-size: 1.05rem;
-        padding: 0.5rem 0;
-    }
-}
-
-/* ================= HERO RESPONSIVE ================= */
-@media (max-width: 900px) {
-    .hero {
-        flex-direction: column;
-        min-height: unset;
-        padding-bottom: 2rem;
-    }
-    .hero .split {
-        flex-direction: column;
-        gap: 1.5rem;
-        align-items: center;
-    }
-    .hero-text {
-        width: 100vw;
-        max-width: 98vw;
-        text-align: center;
-        padding: 0 0.5rem;
-    }
-    .hero-text h1 {
-        font-size: 2.1rem;
-    }
-    .hero .lead {
-        font-size: 1.05rem;
-    }
-    .hero-cta {
-        flex-direction: column;
-        gap: 0.7rem;
-        align-items: center;
-    }
-    .stats {
-        flex-direction: column;
-        gap: 0.7rem;
-        align-items: center;
-    }
-    .hero-visual {
-        width: 100vw;
-        max-width: 98vw;
-        justify-content: center;
-        margin: 0 auto;
-    }
-    .hero-carousel {
-        width: 90vw;
-        height: 45vw;
-        max-width: 340px;
-        max-height: 340px;
-        min-width: 180px;
-        min-height: 180px;
-    }
-}
-@media (max-width: 600px) {
-    .hero-text h1 {
-        font-size: 1.3rem;
-    }
-    .hero-carousel {
-        width: 98vw;
-        height: 48vw;
-        max-width: 260px;
-        max-height: 260px;
-        min-width: 120px;
-        min-height: 120px;
-    }
-}
-
-/* ================= SERVICIOS RESPONSIVE ================= */
-@media (max-width: 900px) {
-    .services-munchkin {
-        flex-wrap: wrap;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.2rem;
-        padding: 1rem 0.2rem;
-        overflow-x: visible;
-    }
-    .service-card, .plan-card, .card {
-        min-width: 90vw;
-        max-width: 98vw;
-        margin: 0 auto 1.2rem auto;
-        height: auto;
-    }
-}
-@media (max-width: 600px) {
-    .services-munchkin {
-        gap: 0.7rem;
-        padding: 0.5rem 0.1rem;
-    }
-    .service-card, .plan-card, .card {
-        min-width: 98vw;
-        max-width: 99vw;
-        padding: 0.7rem 0.2rem;
     }
 }
 .contact-card.service-card img {
@@ -2511,4 +2197,340 @@ footer a {
 
 .plan-card:hover .card-wave svg path {
     fill: rgba(11, 3, 167, 0.9);
+}
+
+/* =================================================================== */
+/* ========== MEDIA QUERIES CONSOLIDADAS ========== */
+/* =================================================================== */
+
+@media (max-width: 900px) {
+    /* --- Layout General --- */
+    .topbar .container.wrap {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        text-align: center;
+    }
+    .topbar .socials {
+        justify-content: center;
+        margin: 0.5rem 0;
+    }
+    .topbar span {
+        display: block;
+        margin: 0.2rem 0;
+    }
+    .container.nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+        position: relative;
+    }
+    .nav-left, .nav-right {
+        display: none !important;
+    }
+    .brand {
+        margin: 0 auto;
+        z-index: 2;
+    }
+    .nav-toggle {
+        display: block !important;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 3;
+        background: none;
+        border: none;
+        cursor: pointer;
+        width: 44px;
+        height: 44px;
+    }
+    .menu {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        background: #fff;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+        border-radius: 0 0 1.5rem 1.5rem;
+        z-index: 10;
+        padding: 1.2rem 0.5rem;
+        gap: 1.2rem;
+        align-items: center;
+        width: 100vw;
+        max-width: 100vw;
+        transition: max-height 0.3s;
+    }
+    .menu a {
+        font-size: 1.2rem;
+        color: var(--secondary, #333);
+        padding: 0.7rem 0;
+        width: 100%;
+        text-align: center;
+        border-radius: 0.7rem;
+        transition: background 0.2s;
+    }
+    .menu a:hover {
+        background: #f8fafc;
+    }
+
+    /* --- Secciones --- */
+    .hero {
+        flex-direction: column;
+        min-height: unset;
+        padding-bottom: 2rem;
+    }
+    .hero .split {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+    }
+    .hero-text {
+        width: 100vw;
+        max-width: 98vw;
+        text-align: center;
+        padding: 0 0.5rem;
+    }
+    .hero-text h1 { font-size: 2.1rem; }
+    .hero .lead { font-size: 1.05rem; }
+    .hero-cta, .stats {
+        flex-direction: column;
+        gap: 0.7rem;
+        align-items: center;
+    }
+    .hero-visual {
+        width: 100vw;
+        max-width: 98vw;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    .hero-carousel {
+        width: 90vw;
+        height: 45vw;
+        max-width: 340px;
+        max-height: 340px;
+        min-width: 180px;
+        min-height: 180px;
+    }
+    .services-munchkin {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        gap: 1.2rem;
+        padding: 1rem 0.2rem;
+        overflow-x: visible !important;
+    }
+    .service-card-wrap {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-width: 0 !important;
+        margin: 0 auto 1.2rem auto !important;
+        padding: 0 !important;
+    }
+    .service-card, .plan-card, .card {
+        width: 100% !important;
+        min-width: 90vw !important;
+        max-width: 98vw !important;
+        height: auto !important;
+        box-sizing: border-box;
+        margin: 0 auto 1.2rem auto !important;
+    }
+    .redes-sociales-row, .about-horizontal, .map-form-libre, .contact-extra-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    .about-video { max-width: 90vw; width: 100%; }
+    .about-text, .about-text-top { max-width: 95vw; }
+    .map-form-libre>div:first-child, .map-form-libre .form-container, .contact-extra-flex #map, .contact-extra-flex .form-container {
+        max-width: 100vw;
+        min-width: 0;
+        height: 340px;
+        padding: 1.2rem 0.5rem;
+    }
+    .map-form-libre .form-title, .map-form-libre .map-title { font-size: 1.3rem; margin-bottom: 0.7rem; }
+    .red-social-embed { width: 95vw; max-width: 320px; min-width: 180px; min-height: 220px; max-height: 340px; }
+    .pricing-cards { gap: 1.2rem; flex-wrap: wrap; }
+    .plan-image { width: 260px; height: 260px; margin-bottom: 1.2rem; }
+}
+
+@media (max-width: 600px) {
+    .service-card, .plan-card, .card { max-width: 100vw !important; padding: 0.7rem 0.2rem; }
+    .services-munchkin { gap: 0.7rem; padding: 0.5rem 0.1rem; }
+    .menu { padding: 0.7rem 0.2rem; gap: 0.7rem; }
+    .menu a { font-size: 1.05rem; padding: 0.5rem 0; }
+    .hero-text h1 { font-size: 1.3rem; }
+    .hero-carousel { width: 98vw; height: 48vw; max-width: 260px; max-height: 260px; min-width: 120px; min-height: 120px; }
+    .plan-image { width: 80px; height: 80px; }
+}
+
+/* =================================================================== */
+/* ========== MEDIA QUERIES CONSOLIDADAS ========== */
+/* =================================================================== */
+
+@media (max-width: 900px) {
+    /* --- Layout General --- */
+    .topbar .container.wrap {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        text-align: center;
+    }
+    .topbar .socials {
+        justify-content: center;
+        margin: 0.5rem 0;
+    }
+    .topbar span {
+        display: block;
+        margin: 0.2rem 0;
+    }
+    .container.nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+        position: relative;
+    }
+    .nav-left, .nav-right {
+        display: none !important;
+    }
+    .brand {
+        margin: 0 auto;
+        z-index: 2;
+    }
+    .nav-toggle {
+        display: block !important;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 3;
+        background: none;
+        border: none;
+        cursor: pointer;
+        width: 44px;
+        height: 44px;
+    }
+    .menu {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        background: #fff;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+        border-radius: 0 0 1.5rem 1.5rem;
+        z-index: 10;
+        padding: 1.2rem 0.5rem;
+        gap: 1.2rem;
+        align-items: center;
+        width: 100vw;
+        max-width: 100vw;
+        transition: max-height 0.3s;
+    }
+    .menu a {
+        font-size: 1.2rem;
+        color: var(--secondary, #333);
+        padding: 0.7rem 0;
+        width: 100%;
+        text-align: center;
+        border-radius: 0.7rem;
+        transition: background 0.2s;
+    }
+    .menu a:hover {
+        background: #f8fafc;
+    }
+
+    /* --- Secciones --- */
+    .hero {
+        flex-direction: column;
+        min-height: unset;
+        padding-bottom: 2rem;
+    }
+    .hero .split {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+    }
+    .hero-text {
+        width: 100vw;
+        max-width: 98vw;
+        text-align: center;
+        padding: 0 0.5rem;
+    }
+    .hero-text h1 { font-size: 2.1rem; }
+    .hero .lead { font-size: 1.05rem; }
+    .hero-cta, .stats {
+        flex-direction: column;
+        gap: 0.7rem;
+        align-items: center;
+    }
+    .hero-visual {
+        width: 100vw;
+        max-width: 98vw;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    .hero-carousel {
+        width: 90vw;
+        height: 45vw;
+        max-width: 340px;
+        max-height: 340px;
+        min-width: 180px;
+        min-height: 180px;
+    }
+    .services-munchkin {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        gap: 1.2rem;
+        padding: 1rem 0.2rem;
+        overflow-x: visible !important;
+    }
+    .service-card-wrap {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-width: 0 !important;
+        margin: 0 auto 1.2rem auto !important;
+        padding: 0 !important;
+    }
+    .service-card, .plan-card, .card {
+        width: 100% !important;
+        min-width: 90vw !important;
+        max-width: 98vw !important;
+        height: auto !important;
+        box-sizing: border-box;
+        margin: 0 auto 1.2rem auto !important;
+    }
+    .redes-sociales-row, .about-horizontal, .map-form-libre, .contact-extra-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    .about-video { max-width: 90vw; width: 100%; }
+    .about-text, .about-text-top { max-width: 95vw; }
+    .map-form-libre>div:first-child, .map-form-libre .form-container, .contact-extra-flex #map, .contact-extra-flex .form-container {
+        max-width: 100vw;
+        min-width: 0;
+        height: 340px;
+        padding: 1.2rem 0.5rem;
+    }
+    .map-form-libre .form-title, .map-form-libre .map-title { font-size: 1.3rem; margin-bottom: 0.7rem; }
+    .red-social-embed { width: 95vw; max-width: 320px; min-width: 180px; min-height: 220px; max-height: 340px; }
+    .pricing-cards { gap: 1.2rem; flex-wrap: wrap; }
+    .plan-image { width: 260px; height: 260px; margin-bottom: 1.2rem; }
+}
+
+@media (max-width: 600px) {
+    .service-card, .plan-card, .card { max-width: 100vw !important; padding: 0.7rem 0.2rem; }
+    .services-munchkin { gap: 0.7rem; padding: 0.5rem 0.1rem; }
+    .menu { padding: 0.7rem 0.2rem; gap: 0.7rem; }
+    .menu a { font-size: 1.05rem; padding: 0.5rem 0; }
+    .hero-text h1 { font-size: 1.3rem; }
+    .hero-carousel { width: 98vw; height: 48vw; max-width: 260px; max-height: 260px; min-width: 120px; min-height: 120px; }
+    .plan-image { width: 80px; height: 80px; }
 }

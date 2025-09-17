@@ -1,56 +1,113 @@
-/* style.css */
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'); /* Un ejemplo de fuente moderna */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --bg-color: #f0f2f5; /* Un fondo muy sutil para que el glassmorphism se vea */
-    --widget-bg-color: rgba(255, 255, 255, 0.1); /* Blanco con mucha transparencia */
-    --border-color: rgba(255, 255, 255, 0.2); /* Borde sutil */
-    --text-color: #fff; /* Color de texto si el fondo es oscuro */
-    --text-light: #aaa;
-    --primary-gradient: linear-gradient(135deg, #a7b7ee, #e0a7ee); /* Degradado para el cerebro o elementos decorativos */
+    /* Light Theme (Default) */
+    --bg-color: #F4F7FA;
+    --panel-bg: rgba(255, 255, 255, 0.25); /* Efecto cristal */
+    --card-bg: rgba(255, 255, 255, 0.5); /* Cristal para widgets */
+    --border-color: rgba(255, 255, 255, 0.18); /* Borde cristal */
+    --text-primary: #2B3A4A;
+    --text-secondary: #6C757D;
+    --sidebar-bg: rgba(255, 255, 255, 0.5);
+    --input-bg: #F4F7FA;
+    --input-focus-bg: #FFFFFF;
+    --widget-main-bg: linear-gradient(145deg, #F4F7FA, #E0E6EC);
+    --button-primary-color: #FFFFFF;
+
+    --sidebar-nav-color: var(--accent-blue); /* Color para enlaces de sidebar */
+
+    --supabase-green: #3ECF8E;
+    --accent-blue: #6366F1; /* Azul que a veces se ve en Supabase */
+    --accent-purple: #8B5CF6; /* Morado que a veces se ve en Supabase */
+}
+
+body.dark-mode {
+    /* Dark Theme */
+    --bg-color: #1A1A1A;
+    --panel-bg: rgba(30, 30, 30, 0.25); /* Efecto cristal oscuro */
+    --card-bg: rgba(30, 30, 30, 0.7);
+    --border-color: rgba(255, 255, 255, 0.1); /* Borde cristal oscuro */
+    --text-primary: #E0E0E0;
+    --text-secondary: #A0A0A0;
+    --sidebar-bg: transparent;
+    --input-bg: rgba(0, 0, 0, 0.2);
+    --input-focus-bg: rgba(0, 0, 0, 0.3);
+    --widget-main-bg: linear-gradient(145deg, rgba(30, 30, 30, 0.8), rgba(40, 40, 40, 0.8));
+    --sidebar-nav-color: #E74C3C; /* Color para enlaces de sidebar en modo oscuro */
+
+    --button-primary-color: #1A1A1A;
 }
 
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: #000; /* Un fondo oscuro o con un degradado sutil para que el efecto de cristal sea más visible */
-    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    background-image: url('../fotos/dogs-background-lw584jj85npdc6w6.jpg');
+    background-size: cover;
+    background-position: center;
+    color: var(--text-primary);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    overflow: hidden; /* Para los efectos de fondo */
+    position: relative;
+}
+
+/* Efectos de fondo abstracto para dar ambiente, similar a la imagen */
+body::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 10% 10%, rgba(62, 207, 142, 0.15), transparent 40%),
+                radial-gradient(circle at 80% 90%, rgba(139, 92, 246, 0.15), transparent 40%);
+    z-index: 0;
+    animation: backgroundMove 30s infinite alternate;
+}
+
+@keyframes backgroundMove {
+    from { transform: translate(0, 0); }
+    to { transform: translate(10%, 10%); }
 }
 
 .dashboard-container {
     display: flex;
-    width: 90%; /* Ajusta según sea necesario */
-    max-width: 1400px; /* Ancho máximo para el dashboard */
-    height: 90vh; /* Altura para que ocupe gran parte de la pantalla */
+    width: 90%;
+    max-width: 1600px;
+    height: 90vh;
+    min-height: 700px;
     border-radius: 20px;
     overflow: hidden; /* Para contener los elementos internos con border-radius */
-    background: rgba(0,0,0,0.5); /* Un fondo oscuro semitransparente para el contenedor principal */
-    backdrop-filter: blur(15px); /* Un blur general para el contenedor, si lo quieres */
+    background: var(--panel-bg); /* Fondo blanco semitransparente */
+    backdrop-filter: blur(15px); /* Efecto de cristal */
     border: 1px solid var(--border-color);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    position: relative; /* Para que los elementos internos respeten el z-index */
+    z-index: 1;
 }
 
 .sidebar {
-    width: 200px; /* Ancho de la barra lateral */
-    padding: 20px;
-    background: var(--widget-bg-color); /* Aplica el efecto de cristal */
+    width: 240px; /* Un poco más ancha */
+    padding: 30px 20px;
+    background: var(--sidebar-bg);
+    height: 100%;
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    backdrop-filter: blur(10px); /* Blur específico para la barra lateral */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    align-items: flex-start; /* Alinear el texto a la izquierda */
+    box-sizing: border-box;
 }
 
 .sidebar .logo {
     font-weight: 700;
-    margin-bottom: 40px;
-    color: var(--text-color);
+    width: 100%;
+    margin-bottom: 50px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the logo image */
 }
 
 .sidebar-nav ul {
@@ -60,28 +117,37 @@ body {
 }
 
 .sidebar-nav li {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .sidebar-nav a {
-    color: var(--text-light);
+    color: var(--sidebar-nav-color);
     text-decoration: none;
     display: flex;
     align-items: center;
     padding: 10px 15px;
     border-radius: 10px;
-    transition: background 0.3s ease;
+    transition: background 0.2s ease, color 0.2s ease;
+    font-weight: 500;
 }
 
 .sidebar-nav a:hover,
 .sidebar-nav a.active {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
+    background: rgba(62, 207, 142, 0.1); /* Fondo sutil con el verde de Supabase */
+    color: var(--supabase-green);
 }
 
 .sidebar-nav a i {
     margin-right: 10px;
-    font-size: 1.2em;
+    font-size: 1.3em;
+}
+
+.sidebar .logo img {
+    max-width: 100%;
+    max-height: 80px; /* Adjust size for the new sidebar */
+    object-fit: contain;
+    border-radius: 10px;
+    transition: filter 0.3s ease;
 }
 
 
@@ -90,7 +156,19 @@ body {
     padding: 40px;
     display: flex;
     flex-direction: column;
-    background: transparent; /* El fondo lo da el contenedor principal */
+    height: 100%; /* Asegura que ocupe la altura de su padre */
+    overflow-y: auto; /* Allow scrolling for content */
+    /* Ocultar la barra de scroll pero mantener la funcionalidad */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.main-content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.mobile-nav-toggle {
+    display: none;
 }
 
 .dashboard-header {
@@ -107,7 +185,7 @@ body {
 }
 
 .dashboard-header p {
-    color: var(--text-light);
+    color: var(--text-secondary);
     font-size: 0.9em;
     margin-top: 0;
 }
@@ -115,77 +193,549 @@ body {
 .user-profile {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 25px;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.theme-toggle:hover {
+    border-color: var(--supabase-green);
+}
+
+.theme-toggle i {
+    position: absolute;
+    font-size: 1.1em;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.theme-toggle .fa-sun { opacity: 0; transform: scale(0); }
+.theme-toggle .fa-moon { opacity: 1; transform: scale(1); }
+body.dark-mode .theme-toggle .fa-sun { opacity: 1; transform: scale(1); }
+body.dark-mode .theme-toggle .fa-moon { opacity: 0; transform: scale(0); }
+
+body.dark-mode .sidebar .logo img {
+    filter: brightness(0) invert(1);
 }
 
 .user-profile i {
     font-size: 1.3em;
-    color: var(--text-light);
+    color: var(--text-secondary);
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
 .user-profile i:hover {
-    color: var(--text-color);
+    color: var(--text-primary);
 }
 
 .user-profile .avatar {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    background: var(--primary-gradient); /* O una imagen de perfil */
-    border: 2px solid #fff;
+    background: var(--accent-purple); /* O una imagen de perfil */
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .widgets-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Columnas responsivas */
-    grid-template-rows: repeat(2, minmax(150px, 1fr)); /* Filas para acomodar los widgets */
-    gap: 30px; /* Espacio entre widgets */
+    display: flex; /* Use flex to manage tab visibility */
+    flex-direction: column;
     flex-grow: 1;
 }
 
 .widget {
-    background: var(--widget-bg-color); /* Blanco semitransparente */
-    border: 1px solid var(--border-color); /* Borde sutil para el efecto de cristal */
-    border-radius: 15px;
-    padding: 20px;
-    backdrop-filter: blur(10px); /* El blur de fondo es CLAVE para el efecto */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    background: var(--card-bg); /* Fondo blanco sólido */
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 25px;
+    backdrop-filter: none; /* Sin blur en los widgets individuales */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start; /* Align content to the top */
     align-items: flex-start;
+    overflow: hidden; /* Evita que el contenido se desborde */
 }
 
-/* Ajustes para el widget grande del cerebro */
+.tab-section {
+    display: none; /* Hide all tabs by default */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tab-section.active {
+    display: flex; /* Show the active tab */
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Apply widget/glass style to CRUD tabs */
+.tab-section:not(#tab-analytics) {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Grid for analytics tab */
+#tab-analytics.active {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto 220px 220px auto;
+    gap: 25px;
+    grid-template-areas:
+        "heading heading heading"
+        "summary summary summary"
+        "brain brain countries"
+        "brain brain visits"
+        "disclaimer disclaimer disclaimer";
+}
+
+#tab-analytics > h3 { grid-area: heading; }
+
+.analytics-summary {
+    grid-area: summary;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+}
+
+.analytics-summary .widget {
+    padding: 15px;
+    display: grid;
+    grid-template-areas:
+        "icon title"
+        "icon value";
+    grid-template-columns: auto 1fr;
+    gap: 0 15px;
+    align-items: center;
+}
+
+.summary-icon {
+    grid-area: icon;
+    font-size: 2.5em;
+    color: var(--supabase-green);
+    opacity: 0.8;
+}
+
+.summary-title {
+    grid-area: title;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.summary-value {
+    grid-area: value;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+#widget-countries { grid-area: countries; }
+#widget-visits { grid-area: visits; }
+
+.widget h3, .widget h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.widget p {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+/* Widget grande del cerebro */
 .widget.large-brain {
-    grid-column: span 2; /* Ocupa 2 columnas */
-    grid-row: span 2; /* Y 2 filas si es necesario, ajusta según el layout deseado */
+    grid-area: brain;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    /* Aquí iría el cerebro 3D. Esto requeriría JS para un modelo real, o simplemente CSS para una representación estilizada */
+    overflow: hidden;
+    padding: 0; /* Remove padding to make video fill the container */
+    background: var(--widget-main-bg);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.widget.large-brain video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Para que cubra todo el contenedor sin distorsionarse */
+    border-radius: 18px; /* Match parent container's border radius */
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 0 25px rgba(167, 183, 238, 0.4));
 }
 
 .widget.large-brain::before {
     content: '';
     position: absolute;
     bottom: 0;
-    width: 80%;
-    height: 50%;
-    border-radius: 50%;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-    filter: blur(20px);
-    z-index: 0;
+    width: 100%;
+    height: 70%;
+    background: radial-gradient(circle at center, rgba(167, 183, 238, 0.25) 0%, transparent 60%);
+    filter: blur(30px);
+    z-index: 1;
 }
 
-/* Estilo para los gráficos dentro de los widgets (placeholder) */
-.widget .chart-placeholder {
-    width: 100%;
-    height: 80px; /* Altura de ejemplo para el gráfico */
-    background: var(--primary-gradient); /* Color de ejemplo */
-    border-radius: 8px;
+.analytics-disclaimer {
+    grid-area: disclaimer;
+    color: var(--text-secondary);
+    font-size: 0.8em;
+    text-align: center;
     margin-top: 10px;
+}
+
+/* --- Estilos para Formularios y Tablas --- */
+.tab-section h3 {
+    width: 100%;
+}
+
+.tab-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.tab-section input[type="text"],
+.tab-section input[type="file"],
+.tab-section textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--input-bg);
+    font-size: 0.9em;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.tab-section label {
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.tab-section input::placeholder,
+.tab-section textarea::placeholder {
+    color: var(--text-secondary);
+}
+
+.tab-section input:focus,
+.tab-section textarea:focus {
+    outline: none;
+    border-color: var(--supabase-green);
+    background: var(--input-focus-bg);
+}
+
+.tab-section button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: var(--supabase-green);
+    color: var(--button-primary-color);
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    align-self: flex-start;
+}
+
+.file-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.file-row input[type="file"] {
+    flex-grow: 1;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.tab-section button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(62, 207, 142, 0.2);
+}
+
+.tab-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tab-section thead {
+    background: rgba(62, 207, 142, 0.1);
+}
+
+.tab-section th,
+.tab-section td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-section th {
+    font-weight: 600;
+    color: var(--supabase-green);
+}
+
+.tab-section td {
+    color: var(--text-secondary);
+    vertical-align: middle;
+}
+
+.tab-section td img {
+    border-radius: 5px;
+    object-fit: cover;
+    width: 80px;
+    height: 50px;
+}
+
+.tab-section td button {
+    font-size: 0.8em;
+    padding: 6px 10px;
+    margin-right: 5px;
+    background: var(--accent-blue);
+    color: white;
+}
+.tab-section td button:last-child {
+    background: var(--accent-purple);
+}
+
+/* --- Sidebar Toggle & Collapsed State --- */
+.sidebar, .main-content {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.sidebar-toggle {
+    margin-top: auto; /* Pushes it to the bottom */
+    padding: 20px 0;
+    cursor: pointer;
+    color: var(--text-secondary);
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    color: var(--supabase-green);
+}
+
+.sidebar-toggle i {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.dashboard-container.sidebar-collapsed .sidebar {
+    width: 90px; /* New collapsed width */
+}
+
+.dashboard-container.sidebar-collapsed .sidebar .logo img {
+    max-height: 45px; /* Smaller logo */
+}
+
+.dashboard-container.sidebar-collapsed .sidebar-nav a {
+    justify-content: center; /* Center the icon */
+}
+
+.dashboard-container.sidebar-collapsed .sidebar-nav a span {
+    display: none; /* Hide text */
+}
+
+.dashboard-container.sidebar-collapsed .sidebar-nav a i {
+    margin-right: 0; /* Remove margin when text is hidden */
+}
+
+.dashboard-container.sidebar-collapsed .sidebar-toggle i {
+    transform: rotate(180deg); /* Flip the arrow */
+}
+
+/* --- Responsive Design for Mobile --- */
+@media (max-width: 992px) {
+    .dashboard-container {
+        width: 100%;
+        height: 100vh;
+        min-height: 100vh;
+        border-radius: 0;
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        z-index: 1001;
+        transform: translateX(-100%);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        background: var(--panel-bg); /* Give it a solid background for mobile overlay */
+        backdrop-filter: blur(15px);
+    }
+
+    .dashboard-container.sidebar-mobile-open .sidebar {
+        transform: translateX(0);
+    }
+
+    .sidebar-toggle {
+        display: none; /* Hide desktop toggle on mobile */
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 1.5em;
+    }
+    .dashboard-header p {
+        display: none; /* Hide subtitle on mobile for space */
+    }
+
+    .mobile-nav-toggle {
+        display: block; /* Show mobile toggle */
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        font-size: 1.5em;
+        cursor: pointer;
+        margin-right: 15px;
+    }
+
+    /* Analytics Grid on Mobile */
+    #tab-analytics.active {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .analytics-summary {
+        grid-template-columns: 1fr; /* Stack summary cards */
+    }
+}
+
+/* --- Toast Notification Styles --- */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    z-index: 1002;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    animation: toast-fade-in-out 3s ease-in-out forwards;
+}
+
+.toast.success { background: var(--supabase-green); }
+.toast.error { background: #e74c3c; }
+
+@keyframes toast-fade-in-out {
+    0%, 100% { opacity: 0; transform: translate(-50%, 10px); }
+    10%, 90% { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* --- Skeleton Loader for Tables --- */
+.skeleton-row td {
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+.skeleton-box {
+    height: 20px;
+    border-radius: 4px;
+    background-color: var(--input-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.04), transparent);
+    animation: skeleton-shimmer 1.5s infinite;
+}
+
+body.dark-mode .skeleton-box::after {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+}
+
+@keyframes skeleton-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.skeleton-box.text-short { width: 40%; }
+.skeleton-box.text-long { width: 80%; }
+.skeleton-box.image { width: 80px; height: 50px; }
+.skeleton-box.actions { width: 120px; }
+
+/* --- Pagination Controls --- */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+.pagination-controls button {
+    background: var(--input-bg);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.9em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background: var(--supabase-green);
+    color: var(--button-primary-color);
+    border-color: var(--supabase-green);
+}
+
+.pagination-controls button.active {
+    background: var(--supabase-green);
+    color: var(--button-primary-color);
+    border-color: var(--supabase-green);
+    cursor: default;
+}
+
+.pagination-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }

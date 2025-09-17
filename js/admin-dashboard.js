@@ -3,6 +3,28 @@ import { supabase } from './supabase-client.js';
 // admin-dashboard.js: Panel de administración de Renacer Mascotas
 // Este archivo controla la lógica de autenticación, tabs, CRUD de blog, testimonios y galería, y notificaciones visuales.
 
+// --- Theme Toggle ---
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
+const body = document.body;
+
+function applyTheme(theme) {
+    body.classList.toggle('dark-mode', theme === 'dark');
+    // Re-render charts after theme is applied and DOM has updated
+    setTimeout(() => {
+        if (typeof window.renderAnalyticsCharts === 'function') {
+            window.renderAnalyticsCharts();
+        }
+    }, 0);
+}
+
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+        const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+        applyTheme(newTheme);
+    });
+}
+
 // --- Analítica: cargar datos desde el backend y mostrar en dashboard ---
 async function renderAnalyticsSection() {
   const visitsEl = document.getElementById('analytics-visits');
@@ -29,6 +51,9 @@ async function renderAnalyticsSection() {
 }
 
 function initializeDashboard() {
+  // Apply saved theme first
+  const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light
+  applyTheme(savedTheme);
   // Renderiza la sección de analítica por defecto al cargar
   renderAnalyticsSection();
 }
@@ -62,142 +87,195 @@ const tabBtns = document.querySelectorAll('.tab-btn');
 const tabSections = document.querySelectorAll('.tab-section');
 tabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
+    // Cambia la pestaña activa
     tabBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    tabSections.forEach(sec => sec.style.display = 'none');
-
+    tabSections.forEach(sec => sec.classList.remove('active'));
     const sectionId = 'tab-' + btn.dataset.tab;
     const section = document.getElementById(sectionId);
-    section.style.display = 'block';
+    section.classList.add('active');
 
-    // Al hacer clic, solo recargamos la lista de datos, no todo el formulario.
+    // Al hacer clic, recargamos la lista de datos desde la página 1.
     switch (btn.dataset.tab) {
       case 'analytics': renderAnalyticsSection(); break;
-      case 'blog': renderBlogList(); break;
-      case 'testimonios': renderTestimonialList(); break;
-      case 'galeria': renderGalleryList(); break;
+      case 'blog': renderBlogList(1); break;
+      case 'testimonios': renderTestimonialList(1); break;
+      case 'galeria': renderGalleryList(1); break;
     }
   });
 });
 
+// --- Pagination Renderer ---
+function renderPagination(containerId, currentPage, totalItems, pageSize, onPageChange) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const totalPages = Math.ceil(totalItems / pageSize);
+    container.innerHTML = ''; // Clear previous pagination
+
+    if (totalPages <= 1) {
+        return; // No need for pagination
+    }
+
+    const createPageButton = (page, text = page, isActive = false, isDisabled = false) => {
+        const button = document.createElement('button');
+        button.textContent = text;
+        if (isActive) button.classList.add('active');
+        button.disabled = isDisabled;
+        button.onclick = () => onPageChange(page);
+        return button;
+    };
+
+    container.appendChild(createPageButton(currentPage - 1, 'Anterior', false, currentPage === 1));
+
+    // Page number logic with ellipsis
+    const pageNumbers = new Set();
+    pageNumbers.add(1);
+    pageNumbers.add(totalPages);
+    pageNumbers.add(currentPage);
+    if (currentPage > 1) pageNumbers.add(currentPage - 1);
+    if (currentPage < totalPages) pageNumbers.add(currentPage + 1);
+
+    let lastPage = 0;
+    Array.from(pageNumbers).sort((a, b) => a - b).forEach(page => {
+        if (lastPage !== 0 && page > lastPage + 1) {
+            const ellipsis = document.createElement('span');
+            ellipsis.textContent = '...';
+            ellipsis.style.padding = '8px';
+            ellipsis.style.color = 'var(--text-secondary)';
+            container.appendChild(ellipsis);
+        }
+        container.appendChild(createPageButton(page, page, page === currentPage));
+        lastPage = page;
+    });
+
+    container.appendChild(createPageButton(currentPage + 1, 'Siguiente', false, currentPage === totalPages));
+}
+
+// --- Pagination State ---
+const PAGE_SIZE = 5; // 5 items per page
+let blogCurrentPage = 1;
+let testimonialsCurrentPage = 1;
+let galleryCurrentPage = 1;
+
 // --- BLOG: CRUD de entradas de blog, subida de imágenes, edición y borrado ---
 let editingBlogId = null;
+let blogImageFile = null;
+
 function initBlogSection() {
-  const section = document.getElementById('tab-blog');
-    section.innerHTML = `
-      <h3>Entradas de Blog</h3>
-      <form id="blog-form">
-        <input type="text" id="blog-title" placeholder="Título" required>
-        <div class="file-row">
-          <input type="file" id="blog-image-file" accept="image/*">
-          <input type="text" id="blog-image" placeholder="URL de imagen o subir archivo">
-        </div>
-        <textarea id="blog-content" placeholder="Contenido" required></textarea>
-        <button type="submit" id="blog-submit-btn">Agregar</button>
-        <button type="button" id="blog-cancel-btn" style="display:none;margin-left:8px;">Cancelar</button>
-      </form>
-      <div id="blog-list">Cargando...</div>
-    `;
-    // Previsualización de imagen para blog
-    let blogImageFile = null;
-    document.getElementById('blog-image-file').addEventListener('change', function(e) {
-      blogImageFile = e.target.files[0] || null;
-      if (blogImageFile) {
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-          let preview = document.getElementById('blog-image-preview');
-          if (!preview) {
-            preview = document.createElement('img');
-            preview.id = 'blog-image-preview';
-            preview.style.maxWidth = '80px';
-            preview.style.margin = '8px 0';
-            document.getElementById('blog-form').insertBefore(preview, document.getElementById('blog-image').parentNode.nextSibling);
-          }
-          preview.src = ev.target.result;
-        };
-        reader.readAsDataURL(blogImageFile);
-      }
-    });
+  // El HTML ya existe, solo seleccionamos los elementos y asignamos eventos.
   const form = document.getElementById('blog-form');
   const submitBtn = document.getElementById('blog-submit-btn');
   const cancelBtn = document.getElementById('blog-cancel-btn');
+  const imageFileInput = document.getElementById('blog-image-file');
+  const imageUrlInput = document.getElementById('blog-image-url');
+
+  imageFileInput.addEventListener('change', (e) => {
+    blogImageFile = e.target.files[0] || null;
+    if (blogImageFile) {
+      imageUrlInput.value = `Archivo: ${blogImageFile.name}`;
+      imageUrlInput.disabled = true;
+    }
+  });
 
   form.onsubmit = async function(e) {
     e.preventDefault();
-    e.stopPropagation();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Guardando...';
+
     const title = document.getElementById('blog-title').value;
     const content = document.getElementById('blog-content').value;
-    let image = document.getElementById('blog-image').value;
-    if (!blogImageFile && !image) {
-      showToast('Debes subir una imagen o ingresar la URL.','error');
-      return;
-    }
+    let imageUrl = imageUrlInput.value;
+
     try {
       if (blogImageFile) {
         const filePath = `blog/${Date.now()}-${blogImageFile.name}`;
         const { error: uploadError } = await supabase.storage.from('media').upload(filePath, blogImageFile);
         if (uploadError) throw uploadError;
-        
         const { data: { publicUrl } } = supabase.storage.from('media').getPublicUrl(filePath);
-        image = publicUrl;
+        imageUrl = publicUrl;
       }
 
-      const postData = { title, content, image_url: image };
+      const postData = { title, content, image_url: imageUrl };
 
+      let response;
       if (editingBlogId) {
-        const { error } = await supabase.from('blog_posts').update(postData).eq('id', editingBlogId);
-        if (error) throw error;
-
-        editingBlogId = null;
-        submitBtn.textContent = 'Agregar';
-        cancelBtn.style.display = 'none';
+        response = await supabase.from('blog_posts').update(postData).eq('id', editingBlogId);
       } else {
-        const { error } = await supabase.from('blog_posts').insert([postData]);
-        if (error) throw error;
+        response = await supabase.from('blog_posts').insert([postData]);
       }
 
-      await renderBlogList();
-      form.reset();
-      blogImageFile = null;
-      const preview = document.getElementById('blog-image-preview');
-      if (preview) preview.remove();
+      if (response.error) throw response.error;
+
       showToast('Entrada de blog guardada con éxito.', 'success');
+      resetBlogForm();
+      if (editingBlogId) {
+        await renderBlogList(blogCurrentPage); // Stay on the same page when editing
+      } else {
+        await renderBlogList(1); // Go to the first page for new entries
+      }
     } catch (err) {
-      showToast('Error al guardar la entrada de blog.', 'error');
+      console.error('Error al guardar la entrada de blog:', err);
+      showToast(`Error: ${err.message}`, 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Guardar Post';
     }
   };
 
-  cancelBtn.onclick = function() {
-    editingBlogId = null;
-    form.reset();
-    submitBtn.textContent = 'Agregar';
-    cancelBtn.style.display = 'none';
-  };
-
-  renderBlogList();
+  cancelBtn.onclick = resetBlogForm;
 }
 
-async function renderBlogList() {
-  const listDiv = document.getElementById('blog-list');
-  const { data: blogs, error } = await supabase.from('blog_posts').select('*').order('created_at', { ascending: false });
-  if (error) { listDiv.innerHTML = '<p>Error al cargar el blog.</p>'; return; }
+function resetBlogForm() {
+  document.getElementById('blog-form').reset();
+  editingBlogId = null;
+  blogImageFile = null;
+  document.getElementById('blog-image-url').disabled = false;
+  document.getElementById('blog-submit-btn').textContent = 'Guardar Post';
+  document.getElementById('blog-cancel-btn').style.display = 'none';
+}
+
+async function renderBlogList(page = 1) {
+  blogCurrentPage = page;
+  const tableBody = document.querySelector('#blog-table tbody');
+  const skeletonRow = `
+    <tr class="skeleton-row">
+        <td><div class="skeleton-box text-long"></div></td>
+        <td><div class="skeleton-box image"></div></td>
+        <td><div class="skeleton-box text-short"></div></td>
+        <td><div class="skeleton-box actions"></div></td>
+    </tr>
+  `;
+  tableBody.innerHTML = skeletonRow.repeat(3); // Mostrar 3 filas de esqueleto
+
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+
+  const { data: blogs, error, count } = await supabase
+    .from('blog_posts')
+    .select('*', { count: 'exact' })
+    .order('created_at', { ascending: false })
+    .range(from, to);
+
+  if (error) { tableBody.innerHTML = '<tr><td colspan="4">Error al cargar el blog.</td></tr>'; return; }
 
   if (!blogs.length) {
-    listDiv.innerHTML = '<p>No hay entradas.</p>';
+    tableBody.innerHTML = '<tr><td colspan="4">No hay entradas de blog.</td></tr>';
     return;
   }
-  listDiv.innerHTML = `<table><thead><tr><th>Título</th><th>Imagen</th><th>Acciones</th></tr></thead><tbody>
-    ${blogs.map(blog => `
+  tableBody.innerHTML = blogs.map(blog => `
       <tr>
         <td>${blog.title}</td>
-        <td>${blog.image_url ? `<img src="${blog.image_url}" width="60">` : ''}</td>
+        <td>${blog.image_url ? `<img src="${blog.image_url}" width="80" height="50" style="object-fit: cover; border-radius: 5px;">` : 'N/A'}</td>
+        <td>${new Date(blog.created_at).toLocaleDateString()}</td>
         <td>
           <button onclick="editBlog('${blog.id}')">Editar</button>
           <button onclick="deleteBlog('${blog.id}')">Eliminar</button>
         </td>
       </tr>
-    `).join('')}
-  </tbody></table>`;
+    `).join('');
+
+    renderPagination('blog-pagination', blogCurrentPage, count, PAGE_SIZE, renderBlogList);
 }
 
 window.editBlog = async function(id) {
@@ -206,141 +284,161 @@ window.editBlog = async function(id) {
   if (error || !blog) { showToast('No se pudo encontrar la entrada.', 'error'); return; }
 
   document.getElementById('blog-title').value = blog.title;
-  document.getElementById('blog-image').value = blog.image_url || '';
+  document.getElementById('blog-image-url').value = blog.image_url || '';
   document.getElementById('blog-content').value = blog.content;
   editingBlogId = id;
-  document.getElementById('blog-submit-btn').textContent = 'Guardar';
+  document.getElementById('blog-submit-btn').textContent = 'Actualizar Post';
   document.getElementById('blog-cancel-btn').style.display = 'inline-block';
+  document.querySelector('#tab-blog').scrollIntoView({ behavior: 'smooth' });
 };
 
 window.deleteBlog = async function(id) {
   if (!confirm('¿Eliminar esta entrada?')) return;
-  await supabase.from('blog_posts').delete().eq('id', id);
-  renderBlogList();
+  try {
+    // 1. Obtener el post para encontrar la URL de la imagen
+    const { data: post, error: fetchError } = await supabase.from('blog_posts').select('image_url').eq('id', id).single();
+    if (fetchError) throw fetchError;
+
+    // 2. Borrar el registro de la base de datos
+    const { error: deleteDbError } = await supabase.from('blog_posts').delete().eq('id', id);
+    if (deleteDbError) throw deleteDbError;
+
+    // 3. Si tenía una imagen en Supabase, borrarla también del Storage
+    if (post.image_url && post.image_url.includes('supabase.co')) {
+      const filePath = new URL(post.image_url).pathname.split('/media/')[1];
+      if (filePath) {
+        await supabase.storage.from('media').remove([filePath]);
+      }
+    }
+
+    const { count } = await supabase.from('blog_posts').select('*', { count: 'exact' });
+    const totalPages = Math.ceil(count / PAGE_SIZE);
+    if (blogCurrentPage > totalPages && totalPages > 0) { blogCurrentPage = totalPages; }
+    showToast('Entrada eliminada.', 'success');
+    await renderBlogList(blogCurrentPage);
+  } catch (err) {
+    console.error('Error al eliminar la entrada del blog:', err);
+    showToast(`Error al eliminar: ${err.message}`, 'error');
+  }
 };
 
 // --- TESTIMONIOS: CRUD de testimonios, subida de imágenes, edición y borrado ---
 let editingTestimonialId = null;
-function initTestimonialSection() {
-  const section = document.getElementById('tab-testimonios');
-    section.innerHTML = `
-      <h3>Testimonios</h3>
-      <form id="testimonial-form">
-        <input type="text" id="testimonial-author" placeholder="Autor" required>
-        <div class="file-row">
-          <input type="file" id="testimonial-image-file" accept="image/*">
-          <input type="text" id="testimonial-image" placeholder="URL de imagen o subir archivo">
-        </div>
-        <textarea id="testimonial-text" placeholder="Testimonio" required></textarea>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <button type="submit" id="testimonial-submit-btn">Agregar</button>
-          <button type="button" id="testimonial-cancel-btn" style="display:none;">Cancelar</button>
-        </div>
-      </form>
-      <div id="testimonial-list">Cargando...</div>
-    `;
-    // Previsualización de imagen para testimonios
-    let testimonialImageFile = null;
-    document.getElementById('testimonial-image-file').addEventListener('change', function(e) {
-      testimonialImageFile = e.target.files[0] || null;
-      if (testimonialImageFile) {
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-          let preview = document.getElementById('testimonial-image-preview');
-          if (!preview) {
-            preview = document.createElement('img');
-            preview.id = 'testimonial-image-preview';
-            preview.style.maxWidth = '80px';
-            preview.style.margin = '8px 0';
-            document.getElementById('testimonial-form').insertBefore(preview, document.getElementById('testimonial-image').parentNode.nextSibling);
-          }
-          preview.src = ev.target.result;
-        };
-        reader.readAsDataURL(testimonialImageFile);
-      }
-    });
+let testimonialImageFile = null;
 
+function initTestimonialSection() {
   const form = document.getElementById('testimonial-form');
   const submitBtn = document.getElementById('testimonial-submit-btn');
   const cancelBtn = document.getElementById('testimonial-cancel-btn');
+  const imageFileInput = document.getElementById('testimonial-image-file');
+  const imageUrlInput = document.getElementById('testimonial-image-url');
 
+  imageFileInput.addEventListener('change', (e) => {
+    testimonialImageFile = e.target.files[0] || null;
+    if (testimonialImageFile) {
+      imageUrlInput.value = `Archivo: ${testimonialImageFile.name}`;
+      imageUrlInput.disabled = true;
+    }
+  });
 
   form.onsubmit = async function(e) {
     e.preventDefault();
-    e.stopPropagation();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Guardando...';
+
     const author = document.getElementById('testimonial-author').value;
     const text = document.getElementById('testimonial-text').value;
-    let image = document.getElementById('testimonial-image').value;
-    if (!testimonialImageFile && !image) {
-      showToast('Debes subir una imagen o ingresar la URL.','error');
-      return;
-    }
+    let imageUrl = imageUrlInput.value;
+
     try {
       if (testimonialImageFile) {
         const filePath = `testimonials/${Date.now()}-${testimonialImageFile.name}`;
         const { error: uploadError } = await supabase.storage.from('media').upload(filePath, testimonialImageFile);
         if (uploadError) throw uploadError;
-        
         const { data: { publicUrl } } = supabase.storage.from('media').getPublicUrl(filePath);
-        image = publicUrl;
+        imageUrl = publicUrl;
       }
 
-      const testimonialData = { author, text, image_url: image };
+      const testimonialData = { author, text, image_url: imageUrl };
 
+      let response;
       if (editingTestimonialId) {
-        const { error } = await supabase.from('testimonials').update(testimonialData).eq('id', editingTestimonialId);
-        if (error) throw error;
-
-        editingTestimonialId = null;
-        submitBtn.textContent = 'Agregar';
-        cancelBtn.style.display = 'none';
+        response = await supabase.from('testimonials').update(testimonialData).eq('id', editingTestimonialId);
       } else {
-        const { error } = await supabase.from('testimonials').insert([testimonialData]);
-        if (error) throw error;
+        response = await supabase.from('testimonials').insert([testimonialData]);
       }
 
-      await renderTestimonialList();
-      form.reset();
-      testimonialImageFile = null;
-      const preview = document.getElementById('testimonial-image-preview');
-      if (preview) preview.remove();
-      showToast('Testimonio guardado con éxito.','success');
+      if (response.error) throw response.error;
+
+      showToast('Testimonio guardado con éxito.', 'success');
+      resetTestimonialForm();
+      if (editingTestimonialId) {
+        await renderTestimonialList(testimonialsCurrentPage);
+      } else {
+        await renderTestimonialList(1);
+      }
     } catch (err) {
-      showToast('Error al guardar el testimonio.','error');
+      console.error('Error al guardar el testimonio:', err);
+      showToast(`Error: ${err.message}`, 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Guardar Testimonio';
     }
   };
 
-  cancelBtn.onclick = function() {
-    editingTestimonialId = null;
-    form.reset();
-    submitBtn.textContent = 'Agregar';
-    cancelBtn.style.display = 'none';
-  };
-
-  renderTestimonialList();
+  cancelBtn.onclick = resetTestimonialForm;
 }
 
-async function renderTestimonialList() {
-  const listDiv = document.getElementById('testimonial-list');
-  const { data: testimonials, error } = await supabase.from('testimonials').select('*').order('created_at', { ascending: false });
-  if (error) { listDiv.innerHTML = '<p>Error al cargar testimonios.</p>'; return; }
+function resetTestimonialForm() {
+  document.getElementById('testimonial-form').reset();
+  editingTestimonialId = null;
+  testimonialImageFile = null;
+  document.getElementById('testimonial-image-url').disabled = false;
+  document.getElementById('testimonial-submit-btn').textContent = 'Guardar Testimonio';
+  document.getElementById('testimonial-cancel-btn').style.display = 'none';
+}
+
+async function renderTestimonialList(page = 1) {
+  testimonialsCurrentPage = page;
+  const tableBody = document.querySelector('#testimonials-table tbody');
+  const skeletonRow = `
+    <tr class="skeleton-row">
+        <td><div class="skeleton-box text-short"></div></td>
+        <td><div class="skeleton-box image"></div></td>
+        <td><div class="skeleton-box text-long"></div></td>
+        <td><div class="skeleton-box actions"></div></td>
+    </tr>
+  `;
+  tableBody.innerHTML = skeletonRow.repeat(3);
+
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+
+  const { data: testimonials, error, count } = await supabase
+    .from('testimonials')
+    .select('*', { count: 'exact' })
+    .order('created_at', { ascending: false })
+    .range(from, to);
+
+  if (error) { tableBody.innerHTML = '<tr><td colspan="4">Error al cargar testimonios.</td></tr>'; return; }
 
   if (!testimonials.length) {
-    listDiv.innerHTML = '<p>No hay testimonios.</p>';
+    tableBody.innerHTML = '<tr><td colspan="4">No hay testimonios.</td></tr>';
     return;
   }
-  listDiv.innerHTML = `<table><thead><tr><th>Autor</th><th>Testimonio</th><th>Acciones</th></tr></thead><tbody>
-    ${testimonials.map(t => `
+  tableBody.innerHTML = testimonials.map(t => `
       <tr>
         <td>${t.author}</td>
-        <td>${t.text}</td>
+        <td>${t.image_url ? `<img src="${t.image_url}" width="80" height="50" style="object-fit: cover; border-radius: 5px;">` : 'N/A'}</td>
+        <td>${t.text.substring(0, 50)}...</td>
         <td>
           <button onclick="editTestimonial('${t.id}')">Editar</button>
           <button onclick="deleteTestimonial('${t.id}')">Eliminar</button>
         </td>
       </tr>
-    `).join('')}
-  </tbody></table>`;
+    `).join('');
+
+    renderPagination('testimonials-pagination', testimonialsCurrentPage, count, PAGE_SIZE, renderTestimonialList);
 }
 
 window.editTestimonial = async function(id) {
@@ -349,153 +447,200 @@ window.editTestimonial = async function(id) {
 
   document.getElementById('testimonial-author').value = t.author;
   document.getElementById('testimonial-text').value = t.text;
-  document.getElementById('testimonial-image').value = t.image_url || '';
+  document.getElementById('testimonial-image-url').value = t.image_url || '';
   editingTestimonialId = id;
-  document.getElementById('testimonial-submit-btn').textContent = 'Guardar';
+  document.getElementById('testimonial-submit-btn').textContent = 'Actualizar';
   document.getElementById('testimonial-cancel-btn').style.display = 'inline-block';
+  document.querySelector('#tab-testimonios').scrollIntoView({ behavior: 'smooth' });
 };
 
 window.deleteTestimonial = async function(id) {
   if (!confirm('¿Eliminar este testimonio?')) return;
-  await supabase.from('testimonials').delete().eq('id', id);
-  renderTestimonialList();
+  try {
+    // 1. Obtener el testimonio para encontrar la URL de la imagen
+    const { data: testimonial, error: fetchError } = await supabase.from('testimonials').select('image_url').eq('id', id).single();
+    if (fetchError) throw fetchError;
+
+    // 2. Borrar el registro de la base de datos
+    const { error: deleteDbError } = await supabase.from('testimonials').delete().eq('id', id);
+    if (deleteDbError) throw deleteDbError;
+
+    // 3. Si tenía una imagen en Supabase, borrarla también del Storage
+    if (testimonial.image_url && testimonial.image_url.includes('supabase.co')) {
+      const filePath = new URL(testimonial.image_url).pathname.split('/media/')[1];
+      if (filePath) {
+        await supabase.storage.from('media').remove([filePath]);
+      }
+    }
+
+    const { count } = await supabase.from('testimonials').select('*', { count: 'exact' });
+    const totalPages = Math.ceil(count / PAGE_SIZE);
+    if (testimonialsCurrentPage > totalPages && totalPages > 0) { testimonialsCurrentPage = totalPages; }
+    showToast('Testimonio eliminado.', 'success');
+    await renderTestimonialList(testimonialsCurrentPage);
+  } catch (err) {
+    console.error('Error al eliminar el testimonio:', err);
+    showToast(`Error al eliminar: ${err.message}`, 'error');
+  }
 };
 
 // --- GALERÍA: CRUD de imágenes de galería, subida, edición y borrado ---
 let editingGalleryId = null;
+let galleryImageFile = null;
+
 function initGallerySection() {
-  const section = document.getElementById('tab-galeria');
-    section.innerHTML = `
-      <h3>Galería</h3>
-      <form id="gallery-form">
-        <div class="file-row">
-          <input type="file" id="gallery-image-file" accept="image/*">
-        </div>
-        <input type="text" id="gallery-description" placeholder="Descripción">
-        <button type="submit" id="gallery-submit-btn">Agregar</button>
-        <button type="button" id="gallery-cancel-btn" style="display:none;margin-left:8px;">Cancelar</button>
-      </form>
-      <div id="gallery-list">Cargando...</div>
-    `;
-    // Previsualización de imagen para galería
-    let galleryImageFile = null;
-    document.getElementById('gallery-image-file').addEventListener('change', function(e) {
-      galleryImageFile = e.target.files[0] || null;
-      if (galleryImageFile) {
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-          let preview = document.getElementById('gallery-image-preview');
-          if (!preview) {
-            preview = document.createElement('img');
-            preview.id = 'gallery-image-preview';
-            preview.style.maxWidth = '80px';
-            preview.style.margin = '8px 0 16px';
-            document.getElementById('gallery-form').insertBefore(preview, document.getElementById('gallery-description'));
-          }
-          preview.src = ev.target.result;
-        };
-        reader.readAsDataURL(galleryImageFile);
-      }
-    });
   const form = document.getElementById('gallery-form');
   const submitBtn = document.getElementById('gallery-submit-btn');
   const cancelBtn = document.getElementById('gallery-cancel-btn');
+  const imageFileInput = document.getElementById('gallery-image-file');
+
+  imageFileInput.addEventListener('change', (e) => {
+    galleryImageFile = e.target.files[0] || null;
+  });
 
   form.onsubmit = async function(e) {
     e.preventDefault();
-    e.stopPropagation();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Subiendo...';
+
     const description = document.getElementById('gallery-description').value;
-    // Solo requerir una imagen si es un nuevo elemento, no al editar.
     if (!galleryImageFile && !editingGalleryId) {
-      showToast('Debes subir una imagen.','error');
+      showToast('Debes seleccionar una imagen para subir.', 'error');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Añadir a la Galería';
       return;
     }
+
     try {
       const galleryData = { description };
 
-      // Si se subió un archivo nuevo, procesarlo y añadir la URL a los datos.
       if (galleryImageFile) {
         const filePath = `gallery/${Date.now()}-${galleryImageFile.name}`;
         const { error: uploadError } = await supabase.storage.from('media').upload(filePath, galleryImageFile);
         if (uploadError) throw uploadError;
-        
         const { data: { publicUrl } } = supabase.storage.from('media').getPublicUrl(filePath);
         galleryData.image_url = publicUrl;
       }
 
+      let response;
       if (editingGalleryId) {
-        // Al editar, solo se actualizan los campos presentes en galleryData.
-        const { error } = await supabase.from('gallery').update(galleryData).eq('id', editingGalleryId);
-        if (error) throw error;
-
-        editingGalleryId = null;
-        submitBtn.textContent = 'Agregar';
-        cancelBtn.style.display = 'none';
+        response = await supabase.from('gallery').update(galleryData).eq('id', editingGalleryId);
       } else {
-        const { error } = await supabase.from('gallery').insert([galleryData]);
-        if (error) throw error;
+        response = await supabase.from('gallery').insert([galleryData]);
       }
 
-      await renderGalleryList();
-      form.reset();
-      galleryImageFile = null;
-      const preview = document.getElementById('gallery-image-preview');
-      if (preview) preview.remove();
-      showToast('Imagen de galería guardada con éxito.');
+      if (response.error) throw response.error;
+
+      showToast('Imagen guardada en la galería.', 'success');
+      resetGalleryForm();
+      if (editingGalleryId) {
+        await renderGalleryList(galleryCurrentPage);
+      } else {
+        await renderGalleryList(1);
+      }
     } catch (err) {
-      showToast('Error al guardar la imagen de galería.', 'error');
+      console.error('Error al guardar en galería:', err);
+      showToast(`Error: ${err.message}`, 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Añadir a la Galería';
     }
   };
 
-  cancelBtn.onclick = function() {
-    editingGalleryId = null;
-    form.reset();
-    submitBtn.textContent = 'Agregar';
-    cancelBtn.style.display = 'none';
-  };
-
-  renderGalleryList();
+  cancelBtn.onclick = resetGalleryForm;
 }
 
-async function renderGalleryList() {
-  const listDiv = document.getElementById('gallery-list');
-  const { data: galleryItems, error } = await supabase.from('gallery').select('*').order('created_at', { ascending: false });
-  if (error) { listDiv.innerHTML = '<p>Error al cargar la galería.</p>'; return; }
+function resetGalleryForm() {
+  document.getElementById('gallery-form').reset();
+  editingGalleryId = null;
+  galleryImageFile = null;
+  document.getElementById('gallery-submit-btn').textContent = 'Añadir a la Galería';
+  document.getElementById('gallery-cancel-btn').style.display = 'none';
+  document.getElementById('gallery-image-file').required = true;
+}
+
+async function renderGalleryList(page = 1) {
+  galleryCurrentPage = page;
+  const tableBody = document.querySelector('#gallery-table tbody');
+  const skeletonRow = `
+    <tr class="skeleton-row">
+        <td><div class="skeleton-box image"></div></td>
+        <td><div class="skeleton-box text-long"></div></td>
+        <td><div class="skeleton-box actions"></div></td>
+    </tr>
+  `;
+  tableBody.innerHTML = skeletonRow.repeat(3);
+
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+
+  const { data: galleryItems, error, count } = await supabase
+    .from('gallery')
+    .select('*', { count: 'exact' })
+    .order('created_at', { ascending: false })
+    .range(from, to);
+
+  if (error) { tableBody.innerHTML = '<tr><td colspan="3">Error al cargar la galería.</td></tr>'; return; }
 
   if (!galleryItems.length) {
-    listDiv.innerHTML = '<p>No hay imágenes en la galería.</p>';
+    tableBody.innerHTML = '<tr><td colspan="3">No hay imágenes en la galería.</td></tr>';
     return;
   }
-  listDiv.innerHTML = `<table><thead><tr><th>Imagen</th><th>Descripción</th><th>Acciones</th></tr></thead><tbody>
-    ${galleryItems.map(item => `
+  tableBody.innerHTML = galleryItems.map(item => `
       <tr>
-        <td>${item.image_url ? `<img src="${item.image_url}" width="60">` : ''}</td>
+        <td>${item.image_url ? `<img src="${item.image_url}" width="80" height="50" style="object-fit: cover; border-radius: 5px;">` : ''}</td>
         <td>${item.description || ''}</td>
         <td>
           <button onclick="editGallery('${item.id}')">Editar</button>
           <button onclick="deleteGallery('${item.id}')">Eliminar</button>
         </td>
       </tr>
-    `).join('')}
-  </tbody></table>`;
+    `).join('');
+
+    renderPagination('gallery-pagination', galleryCurrentPage, count, PAGE_SIZE, renderGalleryList);
 }
 
 window.editGallery = async function(id) {
   const { data: item, error } = await supabase.from('gallery').select('*').eq('id', id).single();
   if (error || !item) { showToast('No se pudo encontrar la imagen.', 'error'); return; }
 
-  // No se puede rellenar un input de tipo file, pero sí la descripción.
   document.getElementById('gallery-description').value = item.description || '';
   editingGalleryId = id;
-  document.getElementById('gallery-submit-btn').textContent = 'Guardar';
+  document.getElementById('gallery-submit-btn').textContent = 'Actualizar';
   document.getElementById('gallery-cancel-btn').style.display = 'inline-block';
-  showToast('Sube una nueva imagen para reemplazar la actual.', 'success');
+  document.getElementById('gallery-image-file').required = false; // Not required when editing
+  showToast('Puedes cambiar la descripción o subir una nueva imagen para reemplazar la actual.', 'success');
+  document.querySelector('#tab-galeria').scrollIntoView({ behavior: 'smooth' });
 };
 
 window.deleteGallery = async function(id) {
   if (!confirm('¿Eliminar esta imagen de la galería?')) return;
-  await supabase.from('gallery').delete().eq('id', id);
-  renderGalleryList();
+  try {
+    // 1. Obtener el item para encontrar la URL de la imagen
+    const { data: item, error: fetchError } = await supabase.from('gallery').select('image_url').eq('id', id).single();
+    if (fetchError) throw fetchError;
+
+    // 2. Borrar el registro de la base de datos
+    const { error: deleteDbError } = await supabase.from('gallery').delete().eq('id', id);
+    if (deleteDbError) throw deleteDbError;
+
+    // 3. Si tenía una imagen en Supabase, borrarla también del Storage
+    if (item.image_url && item.image_url.includes('supabase.co')) {
+      const filePath = new URL(item.image_url).pathname.split('/media/')[1];
+      if (filePath) {
+        await supabase.storage.from('media').remove([filePath]);
+      }
+    }
+
+    const { count } = await supabase.from('gallery').select('*', { count: 'exact' });
+    const totalPages = Math.ceil(count / PAGE_SIZE);
+    if (galleryCurrentPage > totalPages && totalPages > 0) { galleryCurrentPage = totalPages; }
+    showToast('Imagen eliminada de la galería.', 'success');
+    await renderGalleryList(galleryCurrentPage);
+  } catch (err) {
+    console.error('Error al eliminar de la galería:', err);
+    showToast(`Error al eliminar: ${err.message}`, 'error');
+  }
 };
 
 // --- Notificación toast visual: muestra mensajes de éxito o error en la parte inferior ---
@@ -505,6 +650,7 @@ function showToast(message, type = 'success') {
   toast.textContent = message;
   document.body.appendChild(toast);
   setTimeout(() => {
-    toast.remove();
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 500);
   }, 3000);
 }
