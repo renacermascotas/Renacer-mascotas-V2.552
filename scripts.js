@@ -226,4 +226,45 @@ document.addEventListener("DOMContentLoaded", () => {
             carouselInterval = setInterval(nextCarousel, 4000);
         }
     }
+
+    // ===== Analytics Tracking =====
+    async function trackVisit() {
+        // No rastrear en el dashboard de admin ni en páginas locales
+        if (window.location.pathname.includes('admin-dashboard.html') || window.location.protocol === 'file:') {
+            return;
+        }
+
+        try {
+            // Importar el cliente de Supabase dinámicamente desde el CDN
+            const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm');
+            const supabase = createClient('https://obsshvmadmfmqigivjkb.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ic3Nodm1hZG1mbXFpZ2l2amtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc5NjA1ODIsImV4cCI6MjA3MzUzNjU4Mn0.pRB9hUR80nqPuH-D7ojBxrUQM1Ax2x3LWV0p59few6U');
+
+            // Obtener datos de geolocalización
+            const geoResponse = await fetch('https://ipapi.co/json/');
+            if (!geoResponse.ok) {
+                console.warn('Analytics: Could not fetch geolocation data.');
+                return; 
+            }
+            const geoData = await geoResponse.json();
+
+            const visitData = {
+                path: window.location.pathname,
+                country: geoData.country_name,
+                city: geoData.city,
+                region: geoData.region
+            };
+
+            // Insertar la visita en la base de datos
+            const { error } = await supabase.from('page_visits').insert(visitData);
+            if (error) {
+                throw error;
+            }
+
+        } catch (error) {
+            console.error('Analytics Error:', error.message);
+        }
+    }
+
+    // Ejecutar el seguimiento de la visita
+    trackVisit();
 });

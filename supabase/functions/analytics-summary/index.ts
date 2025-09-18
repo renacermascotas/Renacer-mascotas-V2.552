@@ -1,40 +1,74 @@
 // supabase/functions/analytics-summary/index.ts
-
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 // Define las cabeceras CORS que permitirán las peticiones desde cualquier origen.
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*', // Para producción, considera cambiar '*' por tu dominio real (ej: 'https://www.renacermascotas.co')
+  'Access-Control-Allow-Origin': '*', // Para producción, considera cambiar '*' por tu dominio real
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS', // Permite los métodos POST y OPTIONS
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
 }
 
 serve(async (req) => {
-  // Esta es la parte clave: maneja la petición de pre-vuelo (preflight) del navegador.
+  // Maneja la petición de pre-vuelo (preflight).
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
 
   try {
-    // ===============================================================
-    // AQUÍ VA TU LÓGICA ACTUAL PARA OBTENER LOS DATOS DE ANALYTICS
-    // Por ejemplo, tu código para conectar con la API de Google, etc.
-    // ===============================================================
+    // Para que la función se conecte a Supabase, necesitas configurar las siguientes variables de entorno en tu proyecto:
+    // 1. SUPABASE_URL: La URL de tu proyecto de Supabase.
+    // 2. SUPABASE_SERVICE_ROLE_KEY: La clave de servicio (service_role) de tu proyecto.
+    // Puedes encontrarlas en la sección de configuración de API de tu proyecto en Supabase.
+    const supabaseAdmin = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    )ZZZZZZZ<XX
 
-    // Ejemplo de datos que tu función podría generar:
+    // 1. Contar el total de visitas
+    const { count: totalVisits, error: visitsError } = await supabaseAdmin
+      .from('page_visits')
+      .select('*', { count: 'exact', head: true });
+
+    if (visitsError) throw visitsError;
+
+    // 2. Encontrar el país con más visitas (topZone)
+    const { data: topCountryData, error: countryError } = await supabaseAdmin
+      .from('page_visits')
+      .select('country')
+      .not('country', 'is', null); // Ignorar registros sin país
+
+    if (countryError) throw countryError;
+
+    let topZone = 'N/A';
+    if (topCountryData && topCountryData.length > 0) {
+      const countryCounts = topCountryData.reduce((acc, { country }) => {
+        if(country) {
+          acc[country] = (acc[country] || 0) + 1;
+        }
+        return acc;
+      }, {});
+
+      if(Object.keys(countryCounts).length > 0) {
+        topZone = Object.keys(countryCounts).reduce((a, b) => countryCounts[a] > countryCounts[b] ? a : b);
+      }
+    }
+
+    // Prepara la respuesta final. avgTime se deja en 0 ya que no lo medimos.
     const analyticsData = {
       summary: {
-        visits: 1234,
-        avgTime: 185,
-        topZone: 'Colombia'
+        visits: totalVisits || 0,
+        avgTime: 0, // No se calcula actualmente
+        topZone: topZone,
       },
+      // Los datos de gráficos se pueden dejar vacíos o calcularse de forma similar si es necesario.
       charts: {
-        visitsByDay: [ { date: '2023-10-01', users: 100 }, { date: '2023-10-02', users: 120 } ],
-        topCountries: [ { country: 'Colombia', users: 800 }, { country: 'USA', users: 200 } ]
+        visitsByDay: [],
+        topCountries: [],
       }
     };
 
-    // Devuelve los datos como JSON, incluyendo las cabeceras CORS.
+    // Devuelve los datos como JSON.
     return new Response(
       JSON.stringify(analyticsData),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
