@@ -16,9 +16,9 @@
 
     --sidebar-nav-color: var(--accent-blue); /* Color para enlaces de sidebar */
 
-    --supabase-green: #3ECF8E;
-    --accent-blue: #6366F1; /* Azul que a veces se ve en Supabase */
-    --accent-purple: #8B5CF6; /* Morado que a veces se ve en Supabase */
+    --supabase-green: #3ecf8e;
+    --accent-blue: #334bd3; /* Azul que a veces se ve en Supabase */
+    --accent-purple: #301ce8; /* Morado que a veces se ve en Supabase */
 }
 
 body.dark-mode {
@@ -33,7 +33,7 @@ body.dark-mode {
     --input-bg: rgba(0, 0, 0, 0.2);
     --input-focus-bg: rgba(0, 0, 0, 0.3);
     --widget-main-bg: linear-gradient(145deg, rgba(30, 30, 30, 0.8), rgba(40, 40, 40, 0.8));
-    --sidebar-nav-color: #E74C3C; /* Color para enlaces de sidebar en modo oscuro */
+    --sidebar-nav-color: #ffffff; /* Color para enlaces de sidebar en modo oscuro */
 
     --button-primary-color: #1A1A1A;
 }
@@ -245,7 +245,8 @@ body.dark-mode .sidebar .logo img {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background: var(--accent-purple); /* O una imagen de perfil */
+    background-image: url('../fotos/9440461.jpg');
+    background-size: cover;
     border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -738,4 +739,36 @@ body.dark-mode .skeleton-box::after {
 .pagination-controls button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+/* --- Greeting Modal Styles --- */
+.greeting-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    z-index: 1005;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.greeting-modal {
+    padding: 40px 60px;
+    background: var(--panel-bg); /* Reusing glass effect */
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-size: 2.5em; /* Larger text */
+    font-weight: 600;
+    color: var(--text-primary);
+    transform: scale(0.9);
+    transition: transform 0.5s ease;
 }

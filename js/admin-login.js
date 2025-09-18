@@ -26,6 +26,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
     successDiv.textContent = 'Ingreso exitoso. Redirigiendo...';
     successDiv.style.display = 'block';
     setTimeout(() => {
+      sessionStorage.setItem('justLoggedIn', 'true'); // Marcar que se acaba de loguear
       window.location.href = 'admin-dashboard.html';
     }, 1500);
   } catch (err) {

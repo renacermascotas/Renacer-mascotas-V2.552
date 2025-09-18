@@ -50,12 +50,53 @@ async function renderAnalyticsSection() {
   }
 }
 
+function getGreeting() {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) {
+        return 'Buenos días';
+    } else if (hour >= 12 && hour < 20) {
+        return 'Buenas tardes';
+    } else {
+        return 'Buenas noches';
+    }
+}
+
+function showGreetingModal(message) {
+    const backdrop = document.createElement('div');
+    backdrop.className = 'greeting-backdrop';
+
+    const modal = document.createElement('div');
+    modal.className = 'greeting-modal';
+    modal.textContent = message;
+
+    backdrop.appendChild(modal);
+    document.body.appendChild(backdrop);
+
+    // Trigger fade-in animation
+    requestAnimationFrame(() => {
+        backdrop.style.opacity = '1';
+        modal.style.transform = 'scale(1)';
+    });
+
+    // Fade-out and remove after a delay
+    setTimeout(() => {
+        backdrop.style.opacity = '0';
+        modal.style.transform = 'scale(0.9)';
+        setTimeout(() => backdrop.remove(), 500); // Remove from DOM after transition
+    }, 2500); // Visible for 2.5 seconds
+}
+
 function initializeDashboard() {
   // Apply saved theme first
   const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light
   applyTheme(savedTheme);
   // Renderiza la sección de analítica por defecto al cargar
   renderAnalyticsSection();
+  // Muestra el saludo de bienvenida solo si se acaba de loguear
+  if (sessionStorage.getItem('justLoggedIn') === 'true') {
+    showGreetingModal(`Hola Admin, ${getGreeting()}`);
+    sessionStorage.removeItem('justLoggedIn');
+  }
 }
 
 // --- Seguridad: Redirige a login si no hay token ---
