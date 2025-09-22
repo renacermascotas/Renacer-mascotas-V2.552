@@ -1,3 +1,77 @@
+@media (max-width: 900px) {
+    #convenios h2 {
+        display: inline-block;
+        width: 100%;
+        padding: 1rem 2.2rem;
+        margin: 1.2rem 0 0.5rem 0;
+        border-radius: 2em;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.15rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+        border: none;
+        cursor: pointer;
+        letter-spacing: 0.5px;
+        transition: background 0.3s, box-shadow 0.3s;
+        text-align: left;
+    }
+    #convenios h2.aliados-active {
+        background: linear-gradient(90deg, var(--secondary), var(--primary));
+        box-shadow: 0 8px 25px rgba(230,57,70,0.18);
+        color: #fff;
+        font-size: 1.18rem;
+        border: 2px solid var(--primary);
+        transition: background 0.3s, box-shadow 0.3s;
+    }
+}
+@media (max-width: 900px) {
+    #aliados h3.aliados-active {
+        background: linear-gradient(90deg, var(--secondary), var(--primary));
+        box-shadow: 0 8px 25px rgba(230,57,70,0.18);
+        color: #fff;
+        font-size: 1.18rem;
+        border: 2px solid var(--primary);
+        transition: background 0.3s, box-shadow 0.3s;
+    }
+}
+@media (max-width: 900px) {
+    #aliados h3 {
+        display: inline-block;
+        width: 100%;
+        padding: 1rem 2.2rem;
+        margin: 1.2rem 0 0.5rem 0;
+        border-radius: 2em;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.15rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+        border: none;
+        cursor: pointer;
+        letter-spacing: 0.5px;
+        transition: background 0.3s, box-shadow 0.3s;
+        text-align: left;
+    }
+    #aliados h3:active, #aliados h3:focus {
+        background: var(--secondary);
+        box-shadow: 0 8px 25px rgba(230,57,70,0.18);
+    }
+}
+/* Etiqueta especial para Aliados, posicionada arriba a la izquierda del círculo */
+.aliados-label {
+    position: absolute;
+    top: 0.5em;
+    left: 1.2em;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+    background: #fff;
+    padding: 0.3em 1em;
+    border-radius: 1em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    z-index: 4;
+}
 .gallery-list-front {
     display: flex;
     flex-wrap: wrap;
@@ -1299,12 +1373,13 @@ header {
 /* 3. Hacer las imágenes de los planes y blog completamente redondas y del mismo tamaño */
 .plan-image,
 .blog-card img {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 1rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    background: #f7f7f7;
 }
 
 /* Ajuste para que el texto de descuento quede centrado */
