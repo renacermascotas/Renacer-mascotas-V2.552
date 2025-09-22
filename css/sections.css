@@ -59,19 +59,33 @@
     }
 }
 /* Etiqueta especial para Aliados, posicionada arriba a la izquierda del círculo */
+/* Etiqueta para Aliados y Convenios, posicionada debajo del círculo */
 .aliados-label {
-    position: absolute;
-    top: 0.5em;
-    left: 1.2em;
-    font-size: 1.15rem;
+    display: inline-block;
+    text-align: center;
+    margin-top: 1.5rem;
+    padding: 0.6em 1.5em;
     font-weight: 700;
-    color: var(--primary);
-    background: #fff;
-    padding: 0.3em 1em;
-    border-radius: 1em;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-    z-index: 4;
+    color: var(--secondary);
+        /* Efecto Cristal (Glassmorphism) */
+    background: rgba(182, 0, 0, 0.392);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1.5em;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    transition: all 0.3s ease;
 }
+
+/* Efecto hover en el contenedor padre (.plan-block) afecta a la etiqueta */
+.plan-block:hover .aliados-label {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(29, 53, 87, 0.15);
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--primary);
+}
+
 .gallery-list-front {
     display: flex;
     flex-wrap: wrap;
@@ -85,14 +99,14 @@
     border-radius: 1.2rem;
     box-shadow: 0 2px 12px rgba(0,0,0,0.10);
     padding: 1rem;
-    width: 200px;
-    min-width: 200px;
-    max-width: 200px;
-    height: 260px;
+    width: 318.56px;
+    min-width: 318.56px;
+    max-width: 318.56px;
+    height: 345.13px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-start; /* Mantener el contenido arriba */
     transition: box-shadow 0.3s, transform 0.2s;
     box-sizing: border-box;
 }
@@ -116,45 +130,6 @@
     word-break: break-word;
 }
 
-@media (max-width: 900px) {
-    .gallery-list-front {
-        gap: 1rem;
-        max-width: 100vw;
-    }
-    .gallery-item {
-        width: 45vw;
-        min-width: 160px;
-        max-width: 90vw;
-        height: auto;
-        margin-bottom: 1.2rem;
-    }
-    .gallery-item img {
-        width: 90px;
-        height: 90px;
-    }
-}
-/* === Galería profesional === */
-.gallery-list-front {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-    margin: 2rem auto;
-    max-width: 1200px;
-}
-.gallery-item {
-    background: #fff;
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-    padding: 1rem;
-    width: 180px;
-    min-width: 160px;
-    max-width: 220px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: box-shadow 0.3s, transform 0.2s;
-}
 .gallery-item:hover {
     box-shadow: 0 8px 32px rgba(0,53,128,0.18);
     transform: translateY(-6px) scale(1.04);
@@ -172,6 +147,24 @@
     color: #444;
     text-align: center;
     margin-top: 0.5rem;
+}
+
+@media (max-width: 900px) {
+    .gallery-list-front {
+        gap: 1rem;
+        max-width: 100vw;
+    }
+    .gallery-item {
+        width: 45vw;
+        min-width: 160px;
+        max-width: 90vw;
+        height: auto; /* La altura se ajusta al contenido en móvil */
+        margin-bottom: 1.2rem;
+    }
+    .gallery-item img {
+        width: 90px;
+        height: 90px;
+    }
 }
 /* ================= MENÚ HAMBURGUESA: VISIBILIDAD Y TRANSICIÓN ================= */
 @media (max-width: 900px) {
@@ -1732,7 +1725,6 @@ form {
 footer {
     background: var(--secondary);
     color: #fff;
-    text-align: center;
     padding: 4rem 1rem 2rem 1rem;
     position: relative;
 }
@@ -1748,49 +1740,34 @@ footer a {
     align-items: flex-start;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
-    gap: 1.5rem;
+    padding: 0 1rem;
+    gap: 2rem;
 }
 
 .footer-section {
-    flex: 1;
+    flex: 1 1 220px; /* Permite que los elementos se envuelvan y tengan un tamaño base */
     margin: 20px 0;
-    min-width: 200px;
     text-align: left;
 }
 
 /* Sección de la empresa (logo, texto y redes) */
 .footer-section.about {
-    text-align: center;
+    flex-basis: 280px; /* Un poco más de espacio para la sección del logo */
     display: flex;
     flex-direction: column;
-
-    .container.cards.pricing-cards {
-        display: flex !important;
-        flex-wrap: wrap;
-        justify-content: center !important;
-        align-items: flex-end;
-        gap: 2.5rem;
-        max-width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
-        width: 100%;
-        padding: 0;
-    }
-
-    filter: brightness(0) invert(1);
+    align-items: flex-start; /* Alineado a la izquierda en escritorio */
 }
 
 .footer-section.about p {
     color: #ccc;
     font-size: 0.9em;
-    text-align: left;
+    text-align: left; /* Mantenemos el párrafo a la izquierda */
 }
 
 .footer-section.about .socials {
     display: flex;
     gap: 1rem;
-    justify-content: center;
+    justify-content: flex-start; /* Alineado a la izquierda en escritorio */
     margin-top: 15px;
 }
 
@@ -1840,20 +1817,18 @@ footer a {
 }
 
 .contact-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 18px;
-    text-align: center;
-    gap: 0.3rem;
+    display: flex; /* Icono y texto en línea */
+    align-items: flex-start; /* Alineación vertical */
+    gap: 1rem; /* Espacio entre icono y texto */
+    margin-bottom: 15px;
+    text-align: left;
 }
 
 .contact-item i {
     font-size: 1.2rem;
-    margin: 0 0 0.3rem 0;
+    margin-top: 0.2em; /* Ajuste vertical del icono */
     color: var(--primary);
-    display: block;
+    flex-shrink: 0; /* Evita que el icono se encoja */
 }
 
 .contact-item .sub-text {
@@ -1921,6 +1896,37 @@ footer a {
     font-size: 0.8rem;
     color: #aaa;
 }
+
+@media (max-width: 900px) {
+    .footer-top {
+        flex-direction: column;
+        align-items: center; /* Centra las secciones cuando se apilan */
+        gap: 1rem;
+    }
+    .footer-section {
+        text-align: center; /* Centra el texto dentro de cada sección */
+        width: 100%;
+        max-width: 350px; /* Limita el ancho para mejor legibilidad */
+        flex-basis: auto;
+    }
+    .footer-section.about,
+    .footer-section.about .socials {
+        align-items: center; /* Centra el logo y los iconos sociales */
+        justify-content: center;
+    }
+    .footer-section.about p {
+        text-align: center; /* Centra el párrafo en móvil */
+    }
+    .contact-item {
+        flex-direction: column; /* Apila icono y texto */
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .contact-item i {
+        margin-top: 0;
+    }
+}
+
 
 /* === Galería, Testimonios y Slider (Migrados desde styles.css) === */
 #gallery .cards {

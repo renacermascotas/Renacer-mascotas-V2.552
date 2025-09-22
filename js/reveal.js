@@ -5,7 +5,7 @@
 // Explicación: Usa IntersectionObserver para activar animaciones cuando los elementos con clase .reveal entran en pantalla.
 // =========================================
 export function initReveal() {
-    const revealElements = document.querySelectorAll(".reveal");
+    const revealElements = document.querySelectorAll(".reveal, .section-title");
     if (revealElements.length > 0) {
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
