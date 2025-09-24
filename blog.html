@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog | Renacer Mascotas</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/sections.css" />
+</head>
+<body>
+    <div id="topbar"></div>
+    <div id="header"></div>
+    <section class="blog-section">
+        <div class="container section-title reveal">
+            <h1 class="blog-title">Nuestro Blog</h1>
+            <p class="blog-desc">Descubre consejos, historias y novedades sobre el mundo de las mascotas.</p>
+        </div>
+        <div class="container">
+            <div id="blog-cards" class="blog-cards"><!-- Los blogs se cargan dinámicamente --></div>
+        </div>
+    </section>
+    <section id="contact" class="reveal">
+        <div class="container section-title">
+            <h2>Contáctanos</h2>
+        </div>
+        <div id="contactos"></div>
+        <script>
+            fetch('contactos.html')
+                .then(res => res.text())
+                .then(html => { document.getElementById('contactos').innerHTML = html; });
+        </script>
+        <div id="contacto-extra"></div>
+        <script>
+            fetch('contacto_extra.html')
+                .then(res => res.text())
+                .then(html => { document.getElementById('contacto-extra').innerHTML = html; });
+        </script>
+    </section>
+    <div class="animated-wave-container footer-wave">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" />
+                <use xlink:href="#gentle-wave" x="48" y="3" />
+                <use xlink:href="#gentle-wave" x="48" y="5" />
+                <use xlink:href="#gentle-wave" x="48" y="7" />
+            </g>
+        </svg>
+    </div>
+    <div id="footer"></div>
+    <!-- Flotantes WhatsApp y Davivienda -->
+    <a href="https://wa.me/573207053536?text=Hola,%20quiero%20más%20información%20sobre%20Renacer%20Mascotas"
+        class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://portalpagos.davivienda.com/#/comercio/6269/RENACER%20MASCOTAS%20SAS" class="davi-float" target="blank"
+        aria-label="Pagar con Davivienda" title="Pagar con Davivienda">
+        <img src="fotos/btn-davivienda.webp" alt="boton Davivienda" />
+    </a>
+    <script type="module" src="js/blog.js"></script>
+    <script>
+        // Carga los componentes globales
+        document.addEventListener('DOMContentLoaded', () => {
+            Promise.all([
+                fetch('topbar.html').then(r => r.text()).then(html => document.getElementById('topbar').innerHTML = html),
+                fetch('header.html').then(r => r.text()).then(html => document.getElementById('header').innerHTML = html),
+                fetch('footer.html').then(r => r.text()).then(html => document.getElementById('footer').innerHTML = html)
+            ]);
+        });
+    </script>
+</body>
+</html>

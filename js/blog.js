@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       blogCards.innerHTML = posts.map(post => `
         <div class="plan-img-box">
-          <a href="#" style="text-decoration:none; color:inherit;"> <!-- Idealmente, esto debería enlazar a una página de post individual -->
+          <a href="blog.html" style="text-decoration:none; color:inherit;">
             <img src="${post.image_url || 'fotos/default.jpg'}" alt="${post.title}" crossorigin="anonymous">
             <div style="width:100%;text-align:center;margin-top:1.2rem;">
               <h3 style="color:var(--secondary);font-size:1.15rem;font-weight:800;margin-bottom:0.7rem;">${post.title}</h3>
