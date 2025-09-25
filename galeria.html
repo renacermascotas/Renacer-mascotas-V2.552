@@ -21,8 +21,9 @@
             <h1 class="galeria-title">Galería</h1>
             <p class="galeria-desc">Explora los mejores momentos y actividades de Renacer Mascotas.</p>
         </div>
-        <div class="container">
-            <div id="galeria-cards" class="galeria-cards"><!-- Las imágenes se cargan dinámicamente --></div>
+        <div class="container cards gallery">
+            <div id="gallery-list-front"><!-- Las imágenes de la galería se cargarán dinámicamente desde el backend --></div>
+        </div>
         </div>
     </section>
     <!-- Contacto: igual que en aliados.html -->
@@ -57,7 +58,13 @@
             </g>
         </svg>
     </div>
-    <div id="footer"></div>
+        <div id="footer"></div>
+        <script type="module">
+            import { loadGallery } from './js/gallery.js';
+            document.addEventListener('DOMContentLoaded', () => {
+                loadGallery('gallery-list-front');
+            });
+        </script>
     <!-- Flotantes WhatsApp y Davivienda -->
     <a href="https://wa.me/573207053536?text=Hola,%20quiero%20más%20información%20sobre%20Renacer%20Mascotas"
         class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">

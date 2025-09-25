@@ -34,6 +34,7 @@ import { initContactForm } from './form.js';
 import { initReveal } from './reveal.js';
 import { initHeroCarousel } from './hero-carousel.js';
 import { loadTestimonials } from './testimonial-loader.js';
+import { loadGallery } from './gallery.js'; // Importamos la función de la galería
 
 // --- Inicialización de módulos al cargar el DOM ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -47,5 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cargar testimonios en el index y luego inicializar el slider
     if (document.getElementById('testimonial-slides-front')) {
         loadTestimonials('testimonial-slides-front').then(initTestimonialSlider);
+    }
+
+    // Cargar galería en el index
+    if (document.getElementById('gallery-list-front')) {
+        loadGallery('gallery-list-front');
     }
 });

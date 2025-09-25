@@ -1,3 +1,144 @@
+
+/* Tarjetas de servicios con animación y estilo coherente al blog */
+.gallery-card {
+    background: linear-gradient(135deg, #f8fafc 70%, #e639476f 30%);
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 12px rgba(230,57,70,0.10);
+    padding: 1.2rem 1rem;
+    margin: 1rem auto;
+    max-width: 400px;
+    min-width: 260px;
+    transition: box-shadow 0.3s, transform 0.2s, background 0.4s;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    animation: fadeInCard 0.7s;
+}
+.gallery-card:hover {
+    box-shadow: 0 8px 32px rgba(230,57,70,0.18);
+    transform: translateY(-6px) scale(1.03);
+    background: linear-gradient(135deg, #e639476d 70%, #f8fafc 30%);
+}
+.gallery-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin-bottom: 0.7rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.gallery-card .expand-btn {
+    background: var(--secondary);
+    color: #fff;
+    border: none;
+    border-radius: 1em;
+    padding: 0.4em 1.1em;
+    margin-top: 0.7em;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.3s;
+}
+.gallery-card .expand-btn:hover {
+    background: var(--primary);
+}
+
+/* =============================
+    Sección: Redes Sociales Multired
+    Estilos para títulos, íconos y contenedores de redes sociales embebidas
+============================= */
+.gallery-card .gallery-desc {
+    font-size: 1rem;
+    color: #444;
+    text-align: center;
+    margin-top: 0.5rem;
+    word-break: break-word;
+    background: #fff8f8;
+    border-radius: 1em;
+    box-shadow: 0 2px 8px rgba(230,57,70,0.08);
+    padding: 1em;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s, background 0.4s;
+}
+.gallery-card.active .gallery-desc {
+    background: #e63946;
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(230,57,70,0.18);
+}
+
+@keyframes fadeInCard {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.testimonial-card {
+    background: linear-gradient(135deg, #f8fafc 70%, #1d3557 30%);
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 12px rgba(29,53,87,0.10);
+    padding: 1.2rem 1rem;
+    margin: 1rem auto;
+    max-width: 400px;
+    min-width: 260px;
+    transition: box-shadow 0.3s, transform 0.2s, background 0.4s;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    animation: fadeInCard 0.7s;
+}
+.testimonial-card:hover {
+    box-shadow: 0 8px 32px rgba(29,53,87,0.18);
+    transform: translateY(-6px) scale(1.03);
+    background: linear-gradient(135deg, #1d3557 70%, #f8fafc 30%);
+}
+.testimonial-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 0.7rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.testimonial-card .expand-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 1em;
+    padding: 0.4em 1.1em;
+    margin-top: 0.7em;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.3s;
+}
+.testimonial-card .expand-btn:hover {
+    background: var(--secondary);
+}
+.testimonial-card .testimonial-text {
+    font-size: 1rem;
+    color: #444;
+    margin-top: 0.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s, background 0.4s;
+    opacity: 0;
+    background: #f8fafc;
+    border-radius: 1em;
+    box-shadow: 0 2px 8px rgba(29,53,87,0.08);
+    padding: 1em;
+}
+.testimonial-card.active .testimonial-text {
+    max-height: 400px;
+    opacity: 1;
+    margin-top: 1rem;
+    background: #1d3557;
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(29,53,87,0.18);
+}
 /* Flotantes profesionales WhatsApp y Davivienda */
 .whatsapp-float {
     position: fixed;
@@ -274,15 +415,16 @@
     box-sizing: border-box;
 }
 /* Blog cards generadas dinámicamente sin clase: aplicar estilos por selectores directos */
+/* Tarjetas de blog con animación y estilo coherente */
 #blog-cards > div {
     padding: 1.2rem 0.7rem 1.7rem 0.7rem;
     text-align: center;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-    transition: box-shadow 0.3s, transform 0.2s;
+    box-shadow: 0 2px 12px rgba(59,130,246,0.10);
+    transition: box-shadow 0.3s, transform 0.2s, background 0.4s;
     cursor: pointer;
     position: relative;
     border-radius: 1.5rem;
-    background: #fff;
+    background: linear-gradient(135deg, #f8fafc 70%, #0062ff68 30%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -290,13 +432,15 @@
     min-width: 260px;
     max-width: 340px;
     margin-bottom: 1.5rem;
+    animation: fadeInCard 0.7s;
 }
 #blog-cards > div:hover {
-    box-shadow: 0 8px 32px rgba(0,53,128,0.18);
+    box-shadow: 0 8px 32px rgba(59,130,246,0.18);
     transform: translateY(-6px) scale(1.03);
+    background: linear-gradient(135deg, #0062ff68 70%, #f8fafc 30%);
 }
 #blog-cards > div:active {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(59,130,246,0.08);
     transform: scale(0.98);
 }
 #blog-cards > div img {
@@ -346,29 +490,29 @@
 .service-card a,
 .service-card a:visited,
 .service-card a:active,
-.service-card a:focus,
-.service-card a:hover {
-    text-decoration: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    color: inherit;
-}
-
-.red-social-embed {
-    background: #f8fafc;
-    border-radius: 1.5rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    padding: 0.5rem;
-    width: 300px;
-    min-width: 220px;
-    min-height: 320px;
-    max-width: 320px;
-    max-height: 400px;
+.service-card {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    min-width: 260px;
+    max-width: 280px;
+    flex: 1 1 260px;
+    height: 340px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1.5rem;
     justify-content: center;
+    background: linear-gradient(135deg, #f8fafc 70%, #3b82f6 30%);
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 12px rgba(59,130,246,0.10);
+    transition: box-shadow 0.3s, transform 0.2s, background 0.4s;
+    text-align: center;
+    animation: fadeInCard 0.7s;
+}
+.service-card:hover {
+    box-shadow: 0 8px 32px rgba(59,130,246,0.18);
+    transform: translateY(-6px) scale(1.03);
+    background: linear-gradient(135deg, #0062ff 70%, #f8fafc 30%);
 }
 
 .redes-facebook .red-social-link,
@@ -780,12 +924,32 @@ body {
     overflow-x: hidden !important;
 }
 
+/* =============================
+    Eliminar scroll horizontal global
+    Evita desbordes horizontales en la página
+============================= */
+html,
+body {
+     overflow-x: hidden !important;
+}
+
 /* Eliminar scroll horizontal en contenedores flex y grid */
 #pricing .cards,
 #gallery .cards,
 .services-munchkin,
 .about-horizontal {
     overflow-x: visible !important;
+}
+
+/* =============================
+    Eliminar scroll horizontal en contenedores flex y grid
+    Permite que los elementos hijos se muestren correctamente
+============================= */
+#pricing .cards,
+#gallery .cards,
+.services-munchkin,
+.about-horizontal {
+     overflow-x: visible !important;
 }
 
 /* Ajuste para evitar desbordes accidentales */
@@ -795,6 +959,18 @@ body {
 .container.cards.pricing-cards {
     max-width: 100vw;
     overflow-x: visible;
+}
+
+/* =============================
+    Ajuste para evitar desbordes accidentales
+    Limita el ancho máximo de los contenedores
+============================= */
+.container,
+.container.cards,
+.container.section-title,
+.container.cards.pricing-cards {
+     max-width: 100vw;
+     overflow-x: visible;
 }
 
 /* Título centrado y texto arriba en Sobre Nosotros */
@@ -810,6 +986,22 @@ body {
     max-width: 100vw;
     margin: 0 auto 3rem auto;
     padding: 2.5rem 0;
+}
+
+/* =============================
+    Sección Sobre Nosotros
+    Layout horizontal y responsive para video y texto
+============================= */
+.about-horizontal {
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     justify-content: center;
+     gap: 3rem;
+     width: 100vw;
+     max-width: 100vw;
+     margin: 0 auto 3rem auto;
+     padding: 2.5rem 0;
 }
 
 .about-video {
@@ -864,6 +1056,21 @@ body {
     max-width: 100vw;
     margin: 0 auto 3rem auto;
     padding: 2.5rem 0 2.5rem 0;
+}
+
+/* =============================
+    Sección Sobre Nosotros centrada
+    Layout vertical para video y texto
+============================= */
+.about-centered {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     width: 100vw;
+     max-width: 100vw;
+     margin: 0 auto 3rem auto;
+     padding: 2.5rem 0 2.5rem 0;
 }
 
 .about-video-centered {
@@ -961,6 +1168,17 @@ body {
     margin: 0 auto;
 }
 
+#blog-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+    align-items: stretch;
+    padding: 1rem 0 2rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .blog-card {
     min-width: 340px;
     max-width: 340px;
@@ -983,6 +1201,27 @@ body {
     padding: 3.5rem 0.5rem;
     max-width: 1200px;
     min-height: 620px;
+}
+
+/* =============================
+    Contacto: mapa y formulario uno al lado del otro
+    Estilos para la sección de contacto
+============================= */
+.contact-extra-flex {
+     display: flex;
+     flex-direction: row;
+     gap: 2.5rem;
+     justify-content: center;
+     align-items: stretch;
+     margin: 2.5rem auto;
+     flex-wrap: wrap;
+     background: #f8fafc;
+     border-radius: 2rem;
+     box-shadow: 0 4px 32px rgba(0,0,0,0.07);
+     border: 1.5px solid #e0e6ed;
+     padding: 3.5rem 0.5rem;
+     max-width: 1200px;
+     min-height: 620px;
 }
 
 .contact-extra-flex #map {
@@ -1030,6 +1269,11 @@ body {
     text-align: center;
 }
 
+/* =============================
+    Descuento y descripción de planes
+    Estilos para mostrar descuentos y descripciones en las tarjetas de planes
+============================= */
+
 .plan-discount {
     background: var(--primary);
     color: #fff;
@@ -1072,6 +1316,11 @@ body {
     pointer-events: none;
 }
 
+/* =============================
+    Contenedor de imagen de plan
+    Permite mostrar información adicional al hacer hover
+============================= */
+
 .plan-img-box {
     position: relative;
 }
@@ -1097,6 +1346,11 @@ body {
     border-radius: 2.5rem;
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
 }
+
+/* =============================
+    Tarjeta de imagen de plan
+    Estilos para la presentación visual de cada plan
+============================= */
 
 .plan-img-box {
     display: flex;
@@ -1172,6 +1426,11 @@ body {
     position: relative;
     overflow: hidden;
 }
+
+/* =============================
+    Hero principal
+    Banner de bienvenida con imagen y texto destacado
+============================= */
 
 .hero .split {
     display: flex;
@@ -1313,6 +1572,11 @@ body {
     overflow: hidden;
 }
 
+/* =============================
+    Ola animada SVG
+    Fondo decorativo animado para el hero
+============================= */
+
 .waves {
     position: relative;
     width: 100%;
@@ -1366,6 +1630,11 @@ body {
     padding-top: 4rem;
 }
 
+/* =============================
+    Sección de servicios
+    Contenedor principal para las tarjetas de servicios
+============================= */
+
 .services-munchkin {
     display: flex;
     flex-direction: row;
@@ -1381,49 +1650,15 @@ body {
     scrollbar-color: var(--primary) #eee;
 }
 
+/* =============================
+    Tarjetas de servicios y planes
+    Efecto de ola y animaciones al hacer hover
+============================= */
+
 .card,
 .plan-card,
-.service-card,
-.testimonial {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    min-width: 260px;
-    max-width: 280px;
-    flex: 1 1 260px;
-    height: 340px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    border-radius: 2rem;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-    transition: box-shadow 0.3s, transform 0.3s;
-    text-align: center;
-}
-
-/* === Media Queries, Scrollbar, Header, Plan-image, Mapa y Ajustes Finales (Migrados desde styles.css) === */
-#pricing .cards::-webkit-scrollbar {
+.service-card .card-wave {
     display: none;
-    /* Oculta la barra de desplazamiento en navegadores WebKit (Chrome, Safari) */
-}
-
-#gallery .cards::-webkit-scrollbar {
-    display: none;
-}
-
-/* Firefox */
-#pricing .cards,
-#gallery .cards {
-    scrollbar-width: none;
-    /* Oculta la barra de desplazamiento en Firefox */
-}
-
-/* 2. Eliminar el borde de la sombra de la barra de navegación */
-header {
-    box-shadow: 0 8px 32px rgba(0, 53, 128, 0.2);
-    /* Sombra con menos opacidad para un efecto más sutil */
 }
 
 /* 3. Hacer las imágenes de los planes y blog completamente redondas y del mismo tamaño */
@@ -1456,6 +1691,11 @@ header {
     overflow: visible;
     position: relative;
 }
+
+/* =============================
+    Carrusel de testimonios
+    Slider horizontal para mostrar testimonios
+============================= */
 
 #testimonials .slides {
     display: flex;
@@ -1510,6 +1750,11 @@ header {
     transition: box-shadow 0.4s, transform 0.4s;
 }
 
+/* =============================
+    Mapa de Google embebido
+    Estilos para el iframe del mapa y su contenedor
+============================= */
+
 #map iframe {
     width: 100%;
     height: 100%;
@@ -1533,6 +1778,11 @@ header {
     min-width: 260px;
     max-width: 340px;
 }
+
+/* =============================
+    Tarjetas de blog
+    Estilos para la presentación de cada entrada de blog
+============================= */
 
 .blog-card:hover {
     box-shadow: 0 8px 32px rgba(0, 53, 128, 0.18);
@@ -1625,6 +1875,11 @@ header {
     flex-wrap: wrap;
 }
 
+/* =============================
+    Botones de contacto flotantes
+    WhatsApp y Davivienda con animación y sombra
+============================= */
+
 .whatsapp-btn {
     background: #25d366;
 }
@@ -1684,6 +1939,11 @@ header {
     }
 }
 
+/* =============================
+   Animaciones generales
+   Keyframes para efectos visuales en elementos
+============================= */
+
 @keyframes slideUp {
     from {
         transform: translateY(30px);
@@ -1700,6 +1960,11 @@ header {
 .form-container {
     padding: 2rem;
 }
+
+/* =============================
+    Contenedor de formularios
+    Estilos para inputs, labels y layout de formularios
+============================= */
 
 .form-container h2 {
     text-align: center;
@@ -1777,6 +2042,11 @@ form {
     z-index: 2;
 }
 
+/* =============================
+    Ola decorativa del footer
+    SVG para fondo del pie de página
+============================= */
+
 /* Cambia el color del logo del footer (PNG/JPG: filtro, SVG: fill) */
 .footer-logo {
     /* Para PNG/JPG: blanco */
@@ -1789,6 +2059,11 @@ form {
     margin: 0 auto 1rem auto;
     transition: filter 0.3s, fill 0.3s;
 }
+
+/* =============================
+    Logo del footer
+    Filtros y estilos para el logo en el pie de página
+============================= */
 
 .footer-wave svg {
     display: block;
@@ -1851,6 +2126,11 @@ footer a {
     align-items: flex-start; /* Alineado a la izquierda en escritorio */
 }
 
+/* =============================
+    Sección de la empresa en el footer
+    Layout para logo, texto y redes sociales
+============================= */
+
 .footer-section.about p {
     color: #ccc;
     font-size: 0.9em;
@@ -1891,6 +2171,11 @@ footer a {
     margin-left: 4rem;
 }
 
+/* =============================
+    Sección de enlaces rápidos en el footer
+    Estilos para links y listas rápidas
+============================= */
+
 @media (max-width: 900px) {
     .footer-section.quick-links {
         margin-left: 0;
@@ -1920,6 +2205,11 @@ footer a {
     text-align: left;
 }
 
+/* =============================
+    Sección de contacto en el footer
+    Layout y estilos para información de contacto
+============================= */
+
 .contact-item {
     display: flex; /* Icono y texto en línea */
     align-items: flex-start; /* Alineación vertical */
@@ -1946,6 +2236,11 @@ footer a {
 .footer-section.newsletter {
     text-align: left;
 }
+
+/* =============================
+    Sección de suscripción en el footer
+    Estilos para formulario de newsletter
+============================= */
 
 .newsletter p {
     font-size: 1rem;
@@ -2001,6 +2296,11 @@ footer a {
     color: #aaa;
 }
 
+/* =============================
+    Línea de copyright en el footer
+    Estilos para la línea final del pie de página
+============================= */
+
 @media (max-width: 900px) {
     .footer-top {
         flex-direction: column;
@@ -2043,6 +2343,80 @@ footer a {
     padding: 1rem 0 2rem 0;
     scrollbar-width: thin;
     scrollbar-color: var(--primary) #eee;
+}
+
+/* =============================
+    Galería, testimonios y slider
+    Estilos para tarjetas de galería y testimonios expandibles
+============================= */
+
+/* Tarjetas de testimonios expandibles */
+.testimonial-card {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    padding: 1.2rem 1rem;
+    margin: 1rem auto;
+    max-width: 400px;
+    min-width: 260px;
+    transition: box-shadow 0.3s, transform 0.2s;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+/* =============================
+    Tarjetas de testimonios expandibles
+    Estilos para testimonios con texto desplegable
+============================= */
+.testimonial-card:hover {
+    box-shadow: 0 8px 32px rgba(230,57,70,0.18);
+    transform: translateY(-6px) scale(1.03);
+}
+.testimonial-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 0.7rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.testimonial-card .client-info {
+    color: var(--secondary);
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+.testimonial-card .testimonial-text {
+    font-size: 1rem;
+    color: #444;
+    margin-top: 0.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+    opacity: 0;
+}
+.testimonial-card.active .testimonial-text {
+    max-height: 400px;
+    opacity: 1;
+    margin-top: 1rem;
+}
+.testimonial-card .expand-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 1em;
+    padding: 0.4em 1.1em;
+    margin-top: 0.7em;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.3s;
+}
+.testimonial-card .expand-btn:hover {
+    background: var(--secondary);
 }
 
 .gallery a {
@@ -2151,6 +2525,11 @@ footer a {
     border: none;
     box-shadow: none;
 }
+
+/* =============================
+    Layout profesional para los planes
+    Estilos para la disposición de las tarjetas de planes
+============================= */
 
 .plan-block {
     display: flex;
@@ -2328,12 +2707,22 @@ footer a {
     border-top-right-radius: var(--radius);
 }
 
+/* =============================
+    Imagen de la tarjeta de plan
+    Estilos para la imagen superior de cada plan
+============================= */
+
 .plan-card h3 {
     margin-top: auto;
     padding-top: 1.5rem;
     color: var(--secondary);
     font-weight: 800;
 }
+
+/* =============================
+    Título de la tarjeta de plan
+    Estilos para el encabezado de cada plan
+============================= */
 
 .plan-card a {
     text-decoration: none;
@@ -2342,6 +2731,11 @@ footer a {
     height: 100%;
     color: inherit;
 }
+
+/* =============================
+    Enlace de la tarjeta de plan
+    Permite que toda la tarjeta sea clickeable
+============================= */
 
 /* ========== SECCIÓN DE PLANES ========== */
 #pricing .cards {
@@ -2357,6 +2751,11 @@ footer a {
     width: 100%;
     max-width: 1200px;
 }
+
+/* =============================
+    Contenedor de tarjetas de planes
+    Layout principal para mostrar todas las tarjetas de planes
+============================= */
 
 .plan-card {
     padding: 0;
@@ -2376,10 +2775,20 @@ footer a {
     margin: 0;
 }
 
+/* =============================
+    Tarjeta de plan
+    Estilos visuales y de interacción para cada plan
+============================= */
+
 .plan-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 16px 40px rgba(21, 25, 255, 0.557);
 }
+
+/* =============================
+    Hover de tarjeta de plan
+    Efecto visual al pasar el mouse sobre la tarjeta
+============================= */
 
 .plan-card .card-content {
     position: relative;
@@ -2393,6 +2802,11 @@ footer a {
     transition: transform 0.5s ease;
 }
 
+/* =============================
+    Contenido de la tarjeta de plan
+    Layout interno para el contenido principal de cada plan
+============================= */
+
 .plan-image {
     width: 140px;
     height: 140px;
@@ -2401,17 +2815,32 @@ footer a {
     margin-bottom: -2rem;
 }
 
+/* =============================
+    Imagen circular de plan
+    Estilos para la imagen destacada en la tarjeta
+============================= */
+
 .plan-card h3 {
     color: var(--light);
     font-weight: 800;
     margin-bottom: -0.5rem;
 }
 
+/* =============================
+    Título alternativo de plan
+    Estilos para el encabezado en modo alternativo
+============================= */
+
 .plan-card .discount {
     font-size: 0.9rem;
     font-weight: 700;
     color: var(--primary);
 }
+
+/* =============================
+    Descuento de la tarjeta de plan
+    Estilos para mostrar el descuento en cada plan
+============================= */
 
 .plan-details {
     position: absolute;
@@ -2429,6 +2858,11 @@ footer a {
     gap: 1rem;
 }
 
+/* =============================
+    Detalles de la tarjeta de plan
+    Información adicional que se despliega al interactuar
+============================= */
+
 .plan-details ul {
     list-style: none;
     padding: 0;
@@ -2437,10 +2871,20 @@ footer a {
     max-width: 200px;
 }
 
+/* =============================
+    Lista de detalles de plan
+    Estilos para la lista de beneficios o características
+============================= */
+
 .plan-details li {
     margin-bottom: 0.7rem;
     font-size: 0.95rem;
 }
+
+/* =============================
+    Ítem de detalle de plan
+    Estilos para cada elemento de la lista de detalles
+============================= */
 
 .plan-details .btn-more-info {
     padding: 0.7rem 1.8rem;
@@ -2451,14 +2895,29 @@ footer a {
     transition: background-color 0.3s ease;
 }
 
+/* =============================
+    Botón de más información en plan
+    Estilos para el botón que despliega información adicional
+============================= */
+
 .plan-details .btn-more-info:hover {
     background-color: #ff1313;
     transform: translateY(-2px);
 }
 
+/* =============================
+    Hover del botón de más información
+    Efecto visual al pasar el mouse sobre el botón
+============================= */
+
 .plan-card:hover .plan-details {
     bottom: 0;
 }
+
+/* =============================
+    Mostrar detalles de plan al hover
+    Despliega la información adicional al interactuar
+============================= */
 
 .plan-card .card-wave {
     position: absolute;
@@ -2470,24 +2929,50 @@ footer a {
     z-index: 1;
 }
 
+/* =============================
+    Ola decorativa en tarjeta de plan
+    SVG animado para fondo de la tarjeta
+============================= */
+
 .plan-card .card-wave svg {
     display: block;
     width: 100%;
     height: 100%;
 }
 
+/* =============================
+    SVG de la ola en tarjeta de plan
+    Estilos para el elemento SVG
+============================= */
+
 .plan-card .card-wave svg path {
     fill: rgba(149, 20, 20, 0.7);
     transition: fill 0.5s ease;
 }
 
+/* =============================
+    Color de la ola en tarjeta de plan
+    Estilos para el color y transición de la ola
+============================= */
+
 .plan-card:hover .card-wave svg path {
     fill: rgba(11, 3, 167, 0.9);
 }
 
+/* =============================
+    Hover de la ola en tarjeta de plan
+    Cambia el color de la ola al interactuar
+============================= */
+
 /* =================================================================== */
 /* ========== MEDIA QUERIES CONSOLIDADAS ========== */
 /* =================================================================== */
+
+/* =================================================================== */
+/* ========== MEDIA QUERIES CONSOLIDADAS ========== */
+/* Media queries para adaptar el layout a dispositivos móviles y tablets
+    Incluye ajustes para menús, hero, servicios, galería, formularios y más
+=================================================================== */
 
 @media (max-width: 900px) {
     /* --- Layout General --- */

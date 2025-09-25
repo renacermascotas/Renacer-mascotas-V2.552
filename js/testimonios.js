@@ -8,5 +8,5 @@ import { loadTestimonials } from './testimonial-loader.js';
 document.addEventListener('DOMContentLoaded', function () {
     // Para que este import funcione, asegúrate de que el script se carga como módulo en testimonios.html:
     // <script type="module" src="js/testimonios.js" defer></script>
-    loadTestimonials('testimonial-slides-page');
+    loadTestimonials('testimonios-cards'); // Corregido: Apunta al ID correcto en testimonios.html
 });
