@@ -39,16 +39,39 @@
     text-decoration: none;
 }
 
-/* ========== Header (ESTILO CON LOGO CENTRADO) ========== */
-header {
-    background: #fff;
-    position: sticky;
+/* ========== Contenedor del Header (#header) ========== */
+/* Aplicamos el posicionamiento al DIV contenedor para que respete el flujo */
+#header {
+    position: relative; /* Posición normal en el flujo del documento */
     top: 0;
     z-index: 1000;
+    transition: all 0.4s ease; /* Transición suave para todos los cambios */
+}
+
+/* Estado del contenedor al hacer scroll */
+#header.scrolled {
+    position: sticky; /* Se vuelve pegajoso al hacer scroll */
+    top: 0.5rem;
+}
+
+/* ========== Estilo visual del Header (etiqueta <header>) ========== */
+header {
+    /* Estado inicial: Sólido */
+    background: #fff;
+    /* Estilos de forma (redondeado y centrado) */
     border-radius: 80px;
     margin: 0.5rem auto;
     width: 96%;
-    box-shadow: 0 8px 32px #0035807b;
+    box-shadow: 0 8px 32px rgba(0, 53, 128, 0.1);
+    transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Estado visual del header al hacer scroll: Cristal */
+header.scrolled-visual {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 53, 128, 0.15); /* Sombra un poco más pronunciada */
 }
 
 header .nav {
@@ -103,6 +126,13 @@ header .nav {
     width: 100%;
 }
 
+/* Estilo para el enlace activo en el scrollspy */
+.nav-left a.active,
+.nav-right a.active {
+    color: var(--primary);
+    font-weight: 700;
+}
+
 header .brand {
     padding: 0 2rem;
 }
@@ -117,6 +147,94 @@ header .brand img {
 
 header .brand img:hover {
     transform: scale(1.05);
+}
+
+/* --- Estilos para el Submenú --- */
+.nav-item.dropdown {
+    position: relative;
+}
+
+/* Para los elementos de submenú que también son dropdowns */
+.submenu .nav-item.dropdown {
+    display: block;
+}
+
+.dropdown-toggle i {
+    font-size: 0.8em;
+    margin-left: 4px;
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover .dropdown-toggle i {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 53, 128, 0.15);
+    padding: 0.8rem 0;
+    min-width: 200px;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.dropdown:hover > .submenu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Estilos para el Submenú de Nivel 2 --- */
+.submenu-level-2 {
+    top: 0;
+    left: 100%; /* Aparece a la derecha del elemento padre */
+    transform: translateX(10px); /* Pequeño espacio */
+    margin-top: -0.8rem; /* Alinea con el top del padre */
+}
+
+.has-submenu:hover > .submenu-level-2 {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+
+.submenu a {
+    display: block;
+    padding: 0.7rem 1.5rem;
+    color: var(--dark);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.submenu a:hover {
+    background-color: #f8f9fa;
+    color: var(--primary);
+}
+
+/* Ajustes para el menú móvil */
+.menu .submenu {
+    display: none; /* Oculto por defecto */
+    position: static; /* No absoluto en móvil */
+    transform: none;
+    box-shadow: none;
+    padding: 0.5rem 0 0.5rem 1.5rem; /* Indentación */
+    min-width: unset;
+    background: #f8f9fa;
+}
+
+.menu .submenu-level-2 {
+    position: static;
+    padding-left: 1rem; /* Mayor indentación para el nivel 2 */
 }
 
 .nav-toggle {
@@ -187,6 +305,74 @@ header .menu {
 
 header .menu.show {
     display: flex;
+}
+
+/* =================================================================== */
+/* ========== MEDIA QUERIES PARA RESPONSIVE DESIGN ========== */
+/* =================================================================== */
+
+@media (max-width: 900px) {
+    /* --- Topbar Responsivo --- */
+    .topbar .wrap {
+        grid-template-columns: 1fr; /* Una sola columna */
+        justify-items: center;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .topbar .wrap > span:last-child {
+        text-align: center; /* Centrar el último elemento también */
+    }
+
+    /* --- Header y Menú Responsivo --- */
+    header .nav {
+        padding: 0.5rem 1rem; /* Menos padding en móvil */
+    }
+
+    .nav-left,
+    .nav-right {
+        display: none; /* Ocultar menús de escritorio */
+    }
+
+    .nav-toggle {
+        display: block; /* Mostrar el botón hamburguesa */
+    }
+
+    header .brand {
+        padding: 0; /* Quitar padding extra del logo */
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    header .menu {
+        display: none; /* Oculto por defecto */
+        flex-direction: column;
+        position: absolute;
+        top: calc(100% + 5px); /* Justo debajo del header */
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: #fff;
+        box-shadow: 0 8px 32px rgba(0, 53, 128, 0.15);
+        border-radius: 0 0 20px 20px;
+        padding: 1rem;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.4s ease-out, opacity 0.3s ease-out;
+    }
+
+    header .menu.show {
+        display: flex;
+        max-height: 80vh; /* Altura máxima para evitar que sea muy largo */
+        opacity: 1;
+    }
+
+    .menu a {
+        padding: 0.8rem 1rem;
+        text-align: center;
+    }
 }
 /* ================= LAYOUT ================= */
 .container {

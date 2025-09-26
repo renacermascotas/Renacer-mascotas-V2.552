@@ -1,52 +1,52 @@
 // js/main.js: Lógica principal y orquestación de scripts
 import { initMenu } from './menu.js';
-import { initTestimonialSlider } from './slider.js';
-import { initLightbox } from './lightbox.js';
-import { initContactForm } from './form.js';
-import { initReveal } from './reveal.js';
-import { initHeroCarousel } from './hero-carousel.js';
-import { loadTestimonials } from './testimonial-loader.js';
-import { loadGallery } from './gallery.js';
-import { includeHTML } from './include-html.js'; // <-- IMPORTANTE: Importamos el cargador de HTML
+import { initTestimonialSlider } from './slider.js'; // Asumiendo que existe o se creará
+import { initLightbox } from './lightbox.js'; // Asumiendo que existe o se creará
+import { initContactForm } from './form.js'; // Asumiendo que existe o se creará
+import { initReveal } from './reveal.js'; // Asumiendo que existe o se creará
+import { initHeroCarousel } from './hero-carousel.js'; // Asumiendo que existe o se creará
+import { loadTestimonials } from './testimonial-loader.js'; // Asumiendo que existe o se creará
+import { loadGallery } from './gallery.js'; // Asumiendo que existe o se creará
+
+async function includeHTML(elementId, filePath) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        try {
+            const response = await fetch(filePath);
+            if (response.ok) {
+                element.innerHTML = await response.text();
+            } else {
+                console.error(`Failed to load ${filePath}: ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error(`Error fetching ${filePath}:`, error);
+        }
+    }
+}
 
 // =========================================
 // BLOQUE: Orquestador principal del sitio
-// Explicación: Este bloque se ejecuta cuando el DOM está listo. Carga componentes HTML
-// y luego inicializa todos los módulos necesarios.
+// Explicación: Carga componentes HTML y luego inicializa todos los módulos necesarios en todas las páginas.
 // =========================================
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Carga todos los componentes HTML reutilizables en paralelo para máxima eficiencia.
-    Promise.all([
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Cargar componentes HTML reutilizables
+    await Promise.all([
         includeHTML('topbar', 'topbar.html'),
         includeHTML('header', 'header.html'),
         includeHTML('redes-sociales', 'redes_sociales.html'),
         includeHTML('contactos', 'contactos.html'),
         includeHTML('contacto-extra', 'contacto_extra.html'),
         includeHTML('footer', 'footer.html')
-    ]).then(() => {
-        // 2. Una vez que los componentes están cargados, inicializa los scripts que dependen de ellos.
-        // Esto asegura que los elementos (ej. el botón del menú) existan antes de asignarles eventos.
-        initMenu();
-        initContactForm(); // El formulario de contacto ahora está en un componente
-    });
+    ]);
 
-    // 3. Inicializa otros scripts que no dependen de los componentes cargados
+    // 2. Inicializar todos los módulos después de que el HTML esté en su lugar.
+    initMenu();
+    initContactForm();
     initLightbox();
     initReveal();
     initHeroCarousel();
 
-    // 4. Carga contenido dinámico (testimonios, galería) si los contenedores existen en la página.
-    if (document.getElementById('testimonial-slides-front')) {
-        // Primero carga los testimonios, y LUEGO inicializa el slider.
-        loadTestimonials('testimonial-slides-front').then(() => {
-            initTestimonialSlider();
-        });
-    }
-    if (document.getElementById('gallery-list-front')) {
-        loadGallery('gallery-list-front');
-    }
-
-    // Botón para volver arriba (scroll-to-top)
+    // 3. Lógica específica como el botón de "volver arriba"
     const scrollBtn = document.getElementById('scrollToTop');
     if (scrollBtn) {
         window.addEventListener('scroll', () => {
@@ -56,4 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
+
+    // 4. Carga de contenido dinámico (si los contenedores existen)
+    if (document.getElementById('testimonial-slides-front')) {
+        await loadTestimonials('testimonial-slides-front');
+        initTestimonialSlider();
+    }
+    if (document.getElementById('gallery-list-front')) {
+        loadGallery('gallery-list-front');
+    }
+
+    // Puedes añadir aquí la carga de otros contenidos dinámicos como blog, etc.
 });
