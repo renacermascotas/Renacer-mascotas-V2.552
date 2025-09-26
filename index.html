@@ -37,15 +37,12 @@
     <!-- --- TOPBAR y HEADER: Incluidos dinámicamente para modularidad --- -->
     <!-- topbar.html y header.html contienen el menú principal y barra superior, se cargan vía fetch para reutilización -->
     <div id="topbar"></div>
-    <div id="header"></div>
-
-    <!-- --- HERO: Sección principal de bienvenida --- -->
-    <!-- Presenta el mensaje principal y llamado a la acción de Renacer Mascotas -->
-    <!-- Hero -->
-    <section id="hero" class="hero">
-        <div class="container split">
-            <div class="hero-text reveal">
-                <span class="badge">Cuidado Premium</span>
+    <header id="header"></header>
+    <main>
+        <section id="hero" class="hero">
+            <div class="container split">
+                <div class="hero-text reveal">
+                    <span class="badge">Cuidado Premium</span>
                 <h1>
                     Bienvenido a <span class="highlight">Renacer</span>
                     <span class="text-primary">Mascotas</span>
@@ -65,20 +62,20 @@
                         <i class="fa fa-paw"></i><b>+3500</b><br />Mascotas felices
                     </div>
                 </div>
-            </div>
-            <div class="hero-visual reveal">
-                <div class="hero-carousel">
-                    <img src="fotos/gatos perro.png" alt="Mascota feliz 1" class="carousel-img active" loading="lazy" />
-                    <img src="fotos/4.jpg" alt="Mascota feliz 2" class="carousel-img" loading="lazy" />
-                    <img src="fotos/3.jpg" alt="Mascota feliz 3" class="carousel-img" loading="lazy" />
-                    <button class="carousel-btn prev" aria-label="Anterior">❮</button>
-                    <button class="carousel-btn next" aria-label="Siguiente">❯</button>
+                </div>
+                <div class="hero-visual reveal">
+                    <div class="hero-carousel">
+                        <img src="fotos/gatos perro.png" alt="Mascota feliz 1" class="carousel-img active" loading="lazy" />
+                        <img src="fotos/4.jpg" alt="Mascota feliz 2" class="carousel-img" loading="lazy" />
+                        <img src="fotos/3.jpg" alt="Mascota feliz 3" class="carousel-img" loading="lazy" />
+                        <button class="carousel-btn prev" aria-label="Anterior">❮</button>
+                        <button class="carousel-btn next" aria-label="Siguiente">❯</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="animated-wave-container">
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <div class="animated-wave-container">
+                <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
                     <path id="gentle-wave"
                         d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
@@ -90,209 +87,187 @@
                     <use xlink:href="#gentle-wave" x="48" y="7" />
                 </g>
             </svg>
-        </div>
-    </section>
-
-    <!-- --- SERVICIOS: Sección de servicios ofrecidos --- -->
-    <!-- Servicios -->
-    <section id="services">
-        <div class="container section-title reveal">
-            <h2>Nuestros Servicios</h2>
-            <p>Cuidado integral para tus mascotas</p>
-        </div>
-        <div class="container cards services-munchkin">
-            <div class="service-card-wrap">
-                <a href="aliados.html" class="service-card card--blue">
-                    <div class="card-content">
-                        <i class="fas fa-handshake fa-2x"></i>
-                        <h3>Nuestros Aliados</h3>
-                    </div>
-                    <div class="card-wave">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                            <path fill-opacity="1"
-                                d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,186.7C672,181,768,203,864,202.7C960,203,1056,181,1152,160C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-                            </path>
-                        </svg>
-                    </div>
-                </a>
             </div>
-            <div class="service-card-wrap">
-                <a href="convenios.html" class="service-card">
-                    <div class="card-content">
-                        <i class="fas fa-file-signature fa-2x"></i>
-                        <h3>Convenios</h3>
-                    </div>
-                    <div class="card-wave">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                            <path fill-opacity="1"
-                                d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,186.7C672,181,768,203,864,202.7C960,203,1056,181,1152,160C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-                            </path>
-                        </svg>
-                    </div>
-                </a>
+        </section>
+
+        <!-- --- SERVICIOS: Sección de servicios ofrecidos --- -->
+        <section id="services">
+            <div class="container section-title reveal">
+                <h2>Nuestros Servicios</h2>
+                <p>Cuidado integral para tus mascotas</p>
             </div>
-            <div class="service-card-wrap">
-                <a href="veterinaria.html" class="service-card card--blue">
-                    <div class="card-content">
-                        <i class="fas fa-stethoscope fa-2x"></i>
-                        <h3>Veterinaria</h3>
-                    </div>
-                    <div class="card-wave">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                            <path fill-opacity="1"
-                                d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,186.7C672,181,768,203,864,202.7C960,203,1056,181,1152,160C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-                            </path>
-                        </svg>
-                    </div>
-                </a>
+            <div class="container cards services-munchkin">
+                <div class="service-card-wrap">
+                    <a href="aliados.html" class="service-card card--blue">
+                        <div class="card-content">
+                            <i class="fas fa-handshake fa-2x"></i>
+                            <h3>Nuestros Aliados</h3>
+                        </div>
+                        <div class="card-wave">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                                <path fill-opacity="1"
+                                    d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,186.7C672,181,768,203,864,202.7C960,203,1056,181,1152,160C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <div class="service-card-wrap">
+                    <a href="convenios.html" class="service-card">
+                        <div class="card-content">
+                            <i class="fas fa-file-signature fa-2x"></i>
+                            <h3>Convenios</h3>
+                        </div>
+                        <div class="card-wave">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                                <path fill-opacity="1"
+                                    d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,186.7C672,181,768,203,864,202.7C960,203,1056,181,1152,160C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <div class="service-card-wrap">
+                    <a href="veterinaria.html" class="service-card card--blue">
+                        <div class="card-content">
+                            <i class="fas fa-stethoscope fa-2x"></i>
+                            <h3>Veterinaria</h3>
+                        </div>
+                        <div class="card-wave">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                                <path fill-opacity="1"
+                                    d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,186.7C672,181,768,203,864,202.7C960,203,1056,181,1152,160C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <div class="service-card-wrap">
+                    <a href="exequiales.html" class="service-card card--red">
+                        <div class="card-content">
+                            <i class="fas fa-heart fa-2x"></i>
+                            <h3>Servicios Exequiales</h3>
+                        </div>
+                        <div class="card-wave">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                                <path fill-opacity="1"
+                                    d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,186.7C672,181,768,203,864,202.7C960,203,1056,181,1152,160C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="service-card-wrap">
-                <a href="exequiales.html" class="service-card card--red">
-                    <div class="card-content">
-                        <i class="fas fa-heart fa-2x"></i>
-                        <h3>Servicios Exequiales</h3>
-                    </div>
-                    <div class="card-wave">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                            <path fill-opacity="1"
-                                d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,186.7C672,181,768,203,864,202.7C960,203,1056,181,1152,160C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-                            </path>
-                        </svg>
-                    </div>
-                </a>
+        </section>
+
+        <!-- --- ABOUT: Sección sobre la empresa --- -->
+        <section id="about">
+            <div class="container section-title reveal active">
+                <h2>Sobre Nosotros</h2>
+                <p>Conoce quiénes somos y por qué amamos cuidar de tus mascotas</p>
             </div>
-        </div>
-    </section>
-
-    <!-- --- ABOUT: Sección sobre la empresa --- -->
-    <!-- About -->
-    <section id="about">
-        <div class="container section-title reveal active">
-            <h2>Sobre Nosotros</h2>
-            <p>Conoce quiénes somos y por qué amamos cuidar de tus mascotas</p>
-        </div>
-        <div class="about-horizontal">
-            <div class="about-text about-text-top">
-                <p>
-                    En <b>Renacer Mascotas</b> nos apasiona el bienestar animal. Somos un equipo comprometido con el
-                    cuidado, amor y salud de tus mascotas.<br><br>
-                    Ofrecemos servicios veterinarios, spa, nutrición, exequiales y más, con atención personalizada y
-                    profesional en Pereira, Dosquebradas y Manizales.<br><br>
-                </p>
+            <div class="about-horizontal">
+                <div class="about-text about-text-top">
+                    <p>
+                        En <b>Renacer Mascotas</b> nos apasiona el bienestar animal. Somos un equipo comprometido con el
+                        cuidado, amor y salud de tus mascotas.<br><br>
+                        Ofrecemos servicios veterinarios, spa, nutrición, exequiales y más, con atención personalizada y
+                        profesional en Pereira, Dosquebradas y Manizales.<br><br>
+                    </p>
+                </div>
+                <video src="fotos/nosotros.mp4" controls poster="fotos/4.jpg" class="about-video" autoplay muted
+                    playsinline></video>
             </div>
-            <video src="fotos/nosotros.mp4" controls poster="fotos/4.jpg" class="about-video" autoplay muted
-                playsinline></video>
-        </div>
-    </section>
+        </section>
 
-    <!-- --- PRICING: Sección de planes y precios --- -->
-    <!-- Pricing -->
-    <section id="pricing">
-        <div class="container section-title reveal">
-            <h2>Planes & Precios</h2>
-            <p>Haz clic para conocer las especificaciones de cada plan</p>
-        </div>
-        <div class="container cards pricing-cards">
-            <div class="plan-block">
-                <a href="planes.html" class="plan-img-top plan-hover-link" data-plan="mensual">
-                    <img src="/fotos/Exequial plus+.png" alt="Plan Mensual" class="plan-image" />
-                </a>
-                <span class="plan-label">Plan Exequial PLUS+</span>
+        <!-- --- PRICING: Sección de planes y precios --- -->
+        <section id="pricing">
+            <div class="container section-title reveal">
+                <h2>Planes & Precios</h2>
+                <p>Haz clic para conocer las especificaciones de cada plan</p>
             </div>
-            <div class="plan-block">
-                <a href="planes.html" class="plan-img-top plan-hover-link" data-plan="trimestral">
-                    <img src="/fotos/Trimestral.png" alt="Plan Trimestral" class="plan-image" />
-                    <span class="plan-discount">5% DCTO ANUAL</span>
-                </a>
-                <span class="plan-label">Plan Bronce</span>
+            <div class="container cards pricing-cards">
+                <div class="plan-block">
+                    <a href="planes.html" class="plan-img-top plan-hover-link" data-plan="mensual">
+                        <img src="/fotos/Exequial plus+.png" alt="Plan Mensual" class="plan-image" />
+                    </a>
+                    <span class="plan-label">Plan Exequial PLUS+</span>
+                </div>
+                <div class="plan-block">
+                    <a href="planes.html" class="plan-img-top plan-hover-link" data-plan="trimestral">
+                        <img src="/fotos/Trimestral.png" alt="Plan Trimestral" class="plan-image" />
+                        <span class="plan-discount">5% DCTO ANUAL</span>
+                    </a>
+                    <span class="plan-label">Plan Bronce</span>
+                </div>
+                <div class="plan-block">
+                    <a href="planes.html" class="plan-img-top plan-hover-link" data-plan="semestral">
+                        <img src="/fotos/Semestral.png" alt="Plan Semestral" class="plan-image" />
+                        <span class="plan-discount">7% DCTO ANUAL</span>
+                    </a>
+                    <span class="plan-label">Plan Plata</span>
+                </div>
+                <div class="plan-block">
+                    <a href="planes.html" class="plan-img-top plan-hover-link" data-plan="anual">
+                        <img src="/fotos/Anual.png" alt="Plan Anual" class="plan-image" />
+                        <span class="plan-discount">10% DCTO ANUAL</span>
+                    </a>
+                    <span class="plan-label">Plan Oro</span>
+                </div>
+        </section>
+
+        <!-- --- GALLERY: Sección de galería de imágenes --- -->
+        <section id="gallery">
+            <div class="container section-title reveal">
+                <h2>Galería</h2>
+                <p>Mascotas felices en acción</p>
             </div>
-            <div class="plan-block">
-                <a href="planes.html" class="plan-img-top plan-hover-link" data-plan="semestral">
-                    <img src="/fotos/Semestral.png" alt="Plan Semestral" class="plan-image" />
-                    <span class="plan-discount">7% DCTO ANUAL</span>
-                </a>
-                <span class="plan-label">Plan Plata</span>
+            <div class="container cards gallery">
+                <div id="gallery-list-front">
+                    <!-- Las imágenes de la galería se cargarán dinámicamente desde el backend --></div>
             </div>
-            <div class="plan-block">
-                <a href="planes.html" class="plan-img-top plan-hover-link" data-plan="anual">
-                    <img src="/fotos/Anual.png" alt="Plan Anual" class="plan-image" />
-                    <span class="plan-discount">10% DCTO ANUAL</span>
-                </a>
-                <span class="plan-label">Plan Oro</span>
+        </section>
+
+        <!-- --- TESTIMONIALS: Sección de testimonios de clientes --- -->
+        <section id="testimonials">
+            <div class="container section-title reveal">
+                <h2>Testimonios</h2>
+                <p>Lo que dicen nuestros clientes</p>
             </div>
-    </section>
-
-    <!-- --- GALLERY: Sección de galería de imágenes --- -->
-    <section id="gallery">
-        <div class="container section-title reveal">
-            <h2>Galería</h2>
-            <p>Mascotas felices en acción</p>
-        </div>
-        <div class="container cards gallery">
-            <div id="gallery-list-front"><!-- Las imágenes de la galería se cargarán dinámicamente desde el backend --></div>
-        </div>
-    </section>
-
-    <!-- --- TESTIMONIALS: Sección de testimonios de clientes --- -->
-    <!-- Testimonials -->
-    <section id="testimonials">
-        <div class="container section-title reveal">
-            <h2>Testimonios</h2>
-            <p>Lo que dicen nuestros clientes</p>
-        </div>
-        <div class="container slider reveal" aria-label="Testimonios de clientes">
-            <div class="slides" id="testimonial-slides-front">
-                <!-- Los testimonios se cargarán dinámicamente desde el backend -->
+            <div class="container slider reveal" aria-label="Testimonios de clientes">
+                <div class="slides" id="testimonial-slides-front">
+                    <!-- Los testimonios se cargarán dinámicamente desde el backend -->
+                </div>
+                <button class="carousel-btn prev" aria-label="Anterior" id="testimonial-prev">❮</button>
+                <button class="carousel-btn next" aria-label="Siguiente" id="testimonial-next">❯</button>
             </div>
-            <button class="carousel-btn prev" aria-label="Anterior" id="testimonial-prev">❮</button>
-            <button class="carousel-btn next" aria-label="Siguiente" id="testimonial-next">❯</button>
-        </div>
-    </section>
+        </section>
 
-    <!-- --- BLOG: Sección de artículos y novedades --- -->
-    <!-- Muestra las últimas entradas del blog, cargadas dinámicamente con js/blog.js -->
-    <section id="blog">
+        <!-- --- BLOG: Sección de artículos y novedades --- -->
+        <section id="blog">
 
-        <div class="container section-title reveal">
-            <h2>Blog</h2>
-            <p>Consejos y novedades</p>
-        </div>
-        <div class="container cards" id="blog-cards"></div>
-        <script type="module" src="js/blog.js"></script>
+            <div class="container section-title reveal">
+                <h2>Blog</h2>
+                <p>Consejos y novedades</p>
+            </div>
+            <div class="container cards" id="blog-cards"></div>
+            <script type="module" src="js/blog.js"></script>
 
-    </section>
-    <!-- Redes Sociales: NUEVA SECCIÓN  -->
+        </section>
 
-    <section id="redes-sociales" class="reveal"></section>
-    <script>
-        fetch('redes_sociales.html')
-            .then(res => res.text())
-            .then(html => { document.getElementById('redes-sociales').innerHTML = html; });
-    </script>
+        <!-- --- REDES SOCIALES: --- -->
+        <section id="redes-sociales" class="reveal"></section>
 
-    <!-- --- CONTACT: Sección de contacto --- -->
-    <!-- Incluye formularios y datos de contacto desde contactos.html y contacto_extra.html -->
-    <section id="contact" class="reveal">
-        <div class="container section-title">
-            <h2>Contáctanos</h2>
-        </div>
-        <div id="contactos"></div>
-        <script>
-            fetch('contactos.html')
-                .then(res => res.text())
-                .then(html => { document.getElementById('contactos').innerHTML = html; });
-        </script>
-        <div id="contacto-extra"></div>
-        <script>
-            fetch('contacto_extra.html')
-                .then(res => res.text())
-                .then(html => { document.getElementById('contacto-extra').innerHTML = html; });
-        </script>
-    </section>
+        <!-- --- CONTACT: Sección de contacto --- -->
+        <section id="contact" class="reveal">
+            <div class="container section-title">
+                <h2>Contáctanos</h2>
+            </div>
+            <div id="contactos"></div>
+            <div id="contacto-extra"></div>
+        </section>
+    </main>
 
-    <!-- --- FOOTER: Pie de página con información adicional y enlaces útiles --- -->
-    <!-- Incluye footer.html dinámicamente. Aquí encuentras datos de la empresa, links legales, redes, logo, etc. -->
-    <!-- La ola SVG es solo decorativa. -->
     <div class="animated-wave-container footer-wave">
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -307,49 +282,11 @@
             </g>
         </svg>
     </div>
-
-    <div id="footer"></div>
-
-    <!-- Script para cargar todos los componentes HTML de forma paralela y eficiente -->
-    <script>
-        const includeHTML = (elementId, url) => {
-            return fetch(url)
-                .then(response => {
-                    if (!response.ok) throw new Error(`Fallo al cargar ${url}: ${response.statusText}`);
-                    return response.text();
-                })
-                .then(html => {
-                    const element = document.getElementById(elementId);
-                    if (element) element.innerHTML = html;
-                })
-                .catch(error => console.error(`Error incluyendo HTML desde ${url}:`, error));
-        };
-
-        // Carga todos los parciales en paralelo cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', () => {
-            Promise.all([
-                includeHTML('topbar', 'topbar.html'),
-                includeHTML('header', 'header.html'),
-                includeHTML('redes-sociales', 'redes_sociales.html'),
-                includeHTML('contactos', 'contactos.html'),
-                includeHTML('contacto-extra', 'contacto_extra.html'),
-                includeHTML('footer', 'footer.html')
-            ]);
-        });
-    </script>
+    <footer id="footer"></footer>
 
     <button id="scrollToTop" class="scroll-to-top" aria-label="Volver arriba" title="Volver arriba">
         <i class="fas fa-chevron-up"></i>
     </button>
 
 </body>
-
-    <!-- Script para inicializar el menú hamburguesa -->
-    <script type="module">
-        import { initMenu } from './js/menu.js';
-        initMenu();
-    </script>
-</html>
-</body>
-
 </html>

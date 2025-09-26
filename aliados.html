@@ -3,372 +3,265 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aliados - Renacer Mascotas</title>
+    <title>Nuestros Aliados | Renacer Mascotas</title>
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/sections.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="icon" type="image/png" href="fotos/favicon.ico" />
+    <!-- Modularización JS -->
+    <script type="module" src="js/main.js" defer></script>
 </head>
 <body>
-    <!-- =========================================
-      BLOQUE: Inclusión de topbar y header reutilizables
-      Explicación: Carga la barra superior y el encabezado desde archivos externos para mantener la navegación y branding consistentes en todo el sitio.
-    ========================================= -->
     <div id="topbar"></div>
-    <div id="header"></div>
-    <script>
-        fetch('topbar.html')
-            .then(res => res.text())
-            .then(html => { document.getElementById('topbar').innerHTML = html; })
-            .then(() => {
-                fetch('header.html')
-                    .then(res => res.text())
-                    .then(html => { document.getElementById('header').innerHTML = html; });
-            });
-    </script>
+    <header id="header"></header>
 
-    <!-- =========================================
-      BLOQUE: Título y mensaje principal
-      Explicación: Presenta el título de la página y un mensaje informativo sobre la sección de aliados.
-    ========================================= -->
+    <main>
+        <section id="aliados">
+            <div class="container section-title">
+                <h2>Nuestros Aliados</h2>
+                <p>Conoce nuestros aliados por departamento</p>
+            </div>
+            <div class="aliados-grupos">
+                <!-- RISARALDA -->
+                <div class="aliados-depto">
+                    <div class="section-title category-title">
+                        <h2>Risaralda</h2>
+                    </div>
+                    <div class="cards pricing-cards">
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/Risaralda_Accesorios_SJ.png" alt="Accesorios SJ" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">Accesorios SJ</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/Risaralda_CHEL_&_SASH.png" alt="CHEL & SASH" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">CHEL & SASH</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/Risaralda_EL_GRANJERO.png" alt="EL GRANJERO" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">EL GRANJERO</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/Risaralda_BIOVET.png" alt="Aliado Risaralda 4" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">BIOVET</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/Risaralda_EMIVET.png" alt="Aliado Risaralda 5" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">EMIVET</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/Risaralda_Garrilandia.png" alt="Aliado Risaralda 6" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">Garrilandia</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/Risaralda_HUESO_DULCE.png" alt="Aliado Risaralda 7" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">HUESO DULCE</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/Risaralda_Moncho.png" alt="Aliado Risaralda 8" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">Moncho</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/Risaralda_PET_PET.png" alt="Aliado Risaralda 10" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">PET PET</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/Risaralda_SEVI.png" alt="Aliado Risaralda 11" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">SEVI</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/Risaralda_SURTIMASCOTAS.png" alt="Aliado Risaralda 12" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">SURTIMASCOTAS</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/Risaralda_WOW_PETS.png" alt="Aliado Risaralda 13" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">WOW PETS</span>
+                        </div>
+                    </div>
+                </div>
 
-    <section id="aliados" class="container reveal">
-        <div class="section-title">
-            <h1>Aliados Renacer Mascotas</h1>
-            <p>Descubre nuestros aliados y sus beneficios. Haz clic en "Ver más" para ver la ubicación en Google Maps.</p>
-        </div>
+                <!-- QUINDÍO -->
+                <div class="aliados-depto">
+                    <div class="section-title category-title">
+                        <h2>Quindío</h2>
+                    </div>
+                    <div class="cards pricing-cards">
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Armenia" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/QUINDIO_ANIMAL_HOME.png" alt="ANIMAL HOME" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">ANIMAL HOME</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Armenia" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/QUINDIO_ANIMAL_MIND.png" alt="ANIMAL MIND" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">ANIMAL MIND</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Armenia" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/QUINDIO_TIENDA_DE_ANIMALES_LA_SIERRA.png" alt="TIENDA DE ANIMALES LA SIERRA" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">TIENDA DE ANIMALES LA SIERRA</span>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- ANTIOQUIA -->
+                <div class="aliados-depto">
+                    <div class="section-title category-title">
+                        <h2>Antioquia</h2>
+                    </div>
+                    <div class="cards pricing-cards">
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Medellín" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/ANTIOQUIA_ANIMALINOS.png" alt="ANIMALINOS" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">ANIMALINOS</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Medellín" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/ANTIOQUIA_CLINICA_VETERINARIA_ALFONSO_LOPEZ.png" alt="CLÍNICA VETERINARIA ALFONSO LOPEZ" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">CLÍNICA VETERINARIA ALFONSO LOPEZ</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Medellín" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/ANTIOQUIA_DRA.DANIELA_ORTIZ.png" alt="DRA.DANIELA ORTIZ" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">DRA.DANIELA ORTIZ</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Medellín" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/ANTIOQUIA_JOVI.png" alt="JOVI" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">JOVI</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Medellín" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/ANTIOQUIA_LOVING.png" alt="LOVING" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">LOVING</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Medellín" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/ANTIOQUIA_MI_MASCOTA.png" alt="MI MASCOTA" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">MI MASCOTA</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Medellín" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/ANTIOQUIA_OZLO_+.png" alt="OZLO +" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">OZLO +</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Medellín" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/ANTIOQUIA_PREMIUM_VET.png" alt="PREMIUM VET" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">PREMIUM VET</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Medellín" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/ANTIOQUIA_THE_DOG'S_CLUB.png" alt="THE DOG'S CLUB" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">THE DOG'S CLUB</span>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Aliados Risaralda por Categoría -->
-        <div class="section-title">
-            <h2>Aliados Risaralda</h2>
-        </div>
+                <!-- CALDAS -->
+                <div class="aliados-depto">
+                    <div class="section-title category-title">
+                        <h2>Caldas</h2>
+                    </div>
+                    <div class="cards pricing-cards">
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Manizales" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/CALDAS_TIENDA_ANIMAL.png" alt="TIENDA ANIMAL" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">TIENDA ANIMAL</span>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Automotores -->
-        <div class="section-title category-title">
-            <h3>Automotores</h3>
-        </div>
-        <div class="cards pricing-cards">
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Automotores_CarviAutos_3pct_Descu.png" alt="CarviAutos" class="plan-image" />
-                    <span class="plan-discount">3% Descuento</span>
-                </a>
-                <span class="aliados-label">CarviAutos</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Automotores_Casa_Lopez_Hasta_el_20pct_Descu.png" alt="Casa Lopez" class="plan-image" />
-                    <span class="plan-discount">Hasta el 20% Descuento</span>
-                </a>
-                <span class="aliados-label">Casa Lopez</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Automotores_CDA_Diesel_Full_Bono.png" alt="CDA Diesel Full" class="plan-image" />
-                    <span class="plan-discount">Bono</span>
-                </a>
-                <span class="aliados-label">CDA Diesel Full</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Automotores_Col-Partes_20pct_Descu.png" alt="Col-Partes" class="plan-image" />
-                    <span class="plan-discount">20% Descuento</span>
-                </a>
-                <span class="aliados-label">Col-Partes</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Automotores_ELETRIPARTES_Bono_30mil.png" alt="ELETRIPARTES" class="plan-image" />
-                    <span class="plan-discount">Bono $30.000</span>
-                </a>
-                <span class="aliados-label">ELETRIPARTES</span>
-            </div>
-        </div>
+                <!-- VALLE DEL CAUCA -->
+                <div class="aliados-depto">
+                    <div class="section-title category-title">
+                        <h2>Valle del Cauca</h2>
+                    </div>
+                    <div class="cards pricing-cards">
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Cali" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/VALLE_DEL_CAUCA_ASVET.png" alt="ASVET" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">ASVET</span>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Deporte -->
-        <div class="section-title category-title">
-            <h3>Deporte</h3>
-        </div>
-        <div class="cards pricing-cards">
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Deporte_Ares_GYM_10pct_Descu.png" alt="Ares GYM" class="plan-image" />
-                    <span class="plan-discount">10% Descuento</span>
-                </a>
-                <span class="aliados-label">Ares GYM</span>
+                <!-- TOLIMA -->
+                <div class="aliados-depto">
+                    <div class="section-title category-title">
+                        <h2>Tolima</h2>
+                    </div>
+                    <div class="cards pricing-cards">
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Ibagué" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/TOLIMA_KELEV_911.png" alt="KELEV 911" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">KELEV 911</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Ibagué" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/TOLIMA_MASCOPET'S_DEL_TOLIMA.png" alt="MASCOPET'S DEL TOLIMA" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">MASCOPET'S DEL TOLIMA</span>
+                        </div>
+                        <div class="plan-block">
+                            <a href="https://maps.google.com/?q=Ibagué" target="_blank" class="plan-img-top plan-hover-link">
+                                <img src="/fotos/Aliados_logos/TOLIMA_VET_24_HORAS_24.png" alt="VET 24 HORAS 24" class="plan-image" />
+                            </a>
+                            <span class="aliados-label">VET 24 HORAS</span>
+                            <span class="plan-discount">24H</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Deporte_Magic_Bikes_12pct_Descu.png" alt="Magic Bikes" class="plan-image" />
-                    <span class="plan-discount">12% Descuento</span>
-                </a>
-                <span class="aliados-label">Magic Bikes</span>
-            </div>
-        </div>
+        </section>
 
-        <!-- Educación -->
-        <div class="section-title category-title">
-            <h3>Educación</h3>
-        </div>
-        <div class="cards pricing-cards">
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Educacion_AutoSport_7pct_Descu.png" alt="AutoSport" class="plan-image" />
-                    <span class="plan-discount">7% Descuento</span>
-                </a>
-                <span class="aliados-label">AutoSport</span>
+        <section id="contact" class="reveal">
+            <div class="container section-title">
+                <h2>Contáctanos</h2>
             </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Educacion_Danzarte_25pct_Descu.png" alt="Danzarte" class="plan-image" />
-                    <span class="plan-discount">25% Descuento</span>
-                </a>
-                <span class="aliados-label">Danzarte</span>
-            </div>
-        </div>
-
-        <!-- Estéticas -->
-        <div class="section-title category-title">
-            <h3>Estéticas</h3>
-        </div>
-        <div class="cards pricing-cards">
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Esteticas_DH_10pct_Descu.png" alt="DH" class="plan-image" />
-                    <span class="plan-discount">10% Descuento</span>
-                </a>
-                <span class="aliados-label">DH</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Esteticas_Rubias_10pct_Descu.png" alt="Rubias" class="plan-image" />
-                    <span class="plan-discount">10% Descuento</span>
-                </a>
-                <span class="aliados-label">Rubias</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Esteticas_Sol_Bronceo_15pct_Descu.png" alt="Sol & Bronceo" class="plan-image" />
-                    <span class="plan-discount">15% Descuento</span>
-                </a>
-                <span class="aliados-label">Sol & Bronceo</span>
-            </div>
-        </div>
-
-        <!-- Gastrobares -->
-        <div class="section-title category-title">
-            <h3>Gastrobares</h3>
-        </div>
-        <div class="cards pricing-cards">
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Gastrobares_El_Zurriago_10pct_Descu.png" alt="El Zurriago" class="plan-image" />
-                    <span class="plan-discount">10% Descuento</span>
-                </a>
-                <span class="aliados-label">El Zurriago</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Gastrobares_La_Poderosa_5pct_Descu.png" alt="La Poderosa" class="plan-image" />
-                    <span class="plan-discount">5% Descuento</span>
-                </a>
-                <span class="aliados-label">La Poderosa</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Gastrobares_Lenos_Carbon_Postre.png" alt="Leños & Carbon" class="plan-image" />
-                    <span class="plan-discount">Postre</span>
-                </a>
-                <span class="aliados-label">Leños & Carbon</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Gastrobares_MOMO_TEA_5pct_Descu.png" alt="MOMO TEA" class="plan-image" />
-                    <span class="plan-discount">5% Descuento</span>
-                </a>
-                <span class="aliados-label">MOMO TEA</span>
-            </div>
-        </div>
-
-        <!-- Hogar -->
-        <div class="section-title category-title">
-            <h3>Hogar</h3>
-        </div>
-        <div class="cards pricing-cards">
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Hogar_Albura_45pct_Descu.png" alt="Albura" class="plan-image" />
-                    <span class="plan-discount">45% Descuento</span>
-                </a>
-                <span class="aliados-label">Albura</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Hogar_Bambu_Floristeria_10pct_Descu.png" alt="Bambu Floristeria" class="plan-image" />
-                    <span class="plan-discount">10% Descuento</span>
-                </a>
-                <span class="aliados-label">Bambu Floristeria</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Hogar_Jota_Mundial_15pct_Descu.png" alt="Jota Mundial" class="plan-image" />
-                    <span class="plan-discount">15% Descuento</span>
-                </a>
-                <span class="aliados-label">Jota Mundial</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Hogar_Super_Redes_1_Mes_Gratis.png" alt="Super Redes" class="plan-image" />
-                    <span class="plan-discount">1 Mes Gratis</span>
-                </a>
-                <span class="aliados-label">Super Redes</span>
-            </div>
-        </div>
-
-        <!-- Naturistas -->
-        <div class="section-title category-title">
-            <h3>Naturistas</h3>
-        </div>
-        <div class="cards pricing-cards">
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Naturistas_Equimes.png" alt="Equimes" class="plan-image" />
-                </a>
-                <span class="aliados-label">Equimes</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Naturistas_Los_Auces_10pct_Descu.png" alt="Los Auces" class="plan-image" />
-                    <span class="plan-discount">10% Descuento</span>
-                </a>
-                <span class="aliados-label">Los Auces</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Naturistas_mADISALUD_10pct_Descu.png" alt="mADISALUD" class="plan-image" />
-                    <span class="plan-discount">10% Descuento</span>
-                </a>
-                <span class="aliados-label">mADISALUD</span>
-            </div>
-        </div>
-
-        <!-- Salud -->
-        <div class="section-title category-title">
-            <h3>Salud</h3>
-        </div>
-        <div class="cards pricing-cards">
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Salud_ABAD_15pct_Descu.png" alt="ABAD" class="plan-image" />
-                    <span class="plan-discount">15% Descuento</span>
-                </a>
-                <span class="aliados-label">ABAD</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Salud_CORED_10pct_Descu.png" alt="CORED" class="plan-image" />
-                    <span class="plan-discount">10% Descuento</span>
-                </a>
-                <span class="aliados-label">CORED</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Salud_DrFabian_20pct_Descu.png" alt="Dr.Fabian" class="plan-image" />
-                    <span class="plan-discount">20% Descuento</span>
-                </a>
-                <span class="aliados-label">Dr.Fabian</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Salud_Liga_contra_el_cancer_10pct_Descu.png" alt="Liga contra el cancer" class="plan-image" />
-                    <span class="plan-discount">10% Descuento</span>
-                </a>
-                <span class="aliados-label">Liga contra el cancer</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Salud_Multilentes_Bono.png" alt="Multilentes" class="plan-image" />
-                    <span class="plan-discount">Bono</span>
-                </a>
-                <span class="aliados-label">Multilentes</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Salud_NEC_10_12pct_Descu.png" alt="NEC" class="plan-image" />
-                    <span class="plan-discount">10% al 12% Descuento</span>
-                </a>
-                <span class="aliados-label">NEC</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Salud_Vison_Ultra_10_50pct_Descu.png" alt="Vison Ultra" class="plan-image" />
-                    <span class="plan-discount">10% al 50% Descuento</span>
-                </a>
-                <span class="aliados-label">Vison Ultra</span>
-            </div>
-        </div>
-
-        <!-- Turismo -->
-        <div class="section-title category-title">
-            <h3>Turismo</h3>
-        </div>
-        <div class="cards pricing-cards">
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Turismo_H_Alcura_10_15pct_Descu.png" alt="H Alcura" class="plan-image" />
-                    <span class="plan-discount">10% al 15% Descuento</span>
-                </a>
-                <span class="aliados-label">H Alcura</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Turismo_Trips_Koffe_10pct_Descu.png" alt="Trips & Koffe" class="plan-image" />
-                    <span class="plan-discount">10% Descuento</span>
-                </a>
-                <span class="aliados-label">Trips & Koffe</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Turismo_Villa_Monaco_10pct_Descu.png" alt="Villa Monaco" class="plan-image" />
-                    <span class="plan-discount">10% Descuento</span>
-                </a>
-                <span class="aliados-label">Villa Monaco</span>
-            </div>
-            <div class="plan-block">
-                <a href="https://maps.google.com/?q=Pereira" target="_blank" class="plan-img-top plan-hover-link">
-                    <img src="fotos/Aliados_logos/Risaralda_Turismo_z3_10pct_Descu.png" alt="z3" class="plan-image" />
-                    <span class="plan-discount">10% Descuento</span>
-                </a>
-                <span class="aliados-label">z3</span>
-            </div>
-        </div>
-
-    </section>
-
-    <!-- =========================================
-      BLOQUE: Sección de contacto
-      Explicación: Incluye los formularios y datos de contacto, cargando componentes reutilizables para mantener la coherencia y facilitar actualizaciones.
-    ========================================= -->
-    <section id="contact" class="reveal">
-        <div class="container section-title">
-            <h2>Contáctanos</h2>
-        </div>
-        <div id="contactos"></div>
-        <script>
-            fetch('contactos.html')
-                .then(res => res.text())
-                .then(html => { document.getElementById('contactos').innerHTML = html; });
-        </script>
-        <div id="contacto-extra"></div>
-        <script>
-            fetch('contacto_extra.html')
-                .then(res => res.text())
-                .then(html => { document.getElementById('contacto-extra').innerHTML = html; });
-        </script>
-    </section>
+            <div id="contactos"></div>
+            <div id="contacto-extra"></div>
+        </section>
+    </main>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     if (window.matchMedia('(max-width: 900px)').matches) {
@@ -418,7 +311,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-
     <div class="animated-wave-container footer-wave">
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -433,12 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </g>
         </svg>
     </div>
-    <div id="footer"></div>
-    <script>
-        fetch('footer.html')
-            .then(res => res.text())
-            .then(html => { document.getElementById('footer').innerHTML = html; });
-    </script>
+    <footer id="footer"></footer>
     <!-- Flotantes WhatsApp y Davivienda -->
     <a href="https://wa.me/573207053536?text=Hola,%20quiero%20más%20información%20sobre%20Renacer%20Mascotas"
         class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
