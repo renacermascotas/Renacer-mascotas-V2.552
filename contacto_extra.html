@@ -3,50 +3,44 @@
   Explicación: Muestra la ubicación de la empresa en Google Maps y un formulario para que los usuarios envíen mensajes o consultas directamente.
 ========================================= -->
 <div class="map-form-libre">
-    <div>
-        <div class="map-title">Nuestras Ubicaciones</div>
-        <div id="map">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.222383204944!2d-75.71960142512128!3d4.778844895180153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3532f518e38d73%3A0x6a19f96b29d47c49!2sCl.%2046%20%2310-47%2C%20Pereira%2C%20Risaralda!5e0!3m2!1ses-419!2sco!4v1693754877478!5m2!1ses-419!2sco"
-                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
+    <!-- Título solo para la vista móvil, oculto en escritorio -->
+    <div class="container section-title mobile-contact-title">
+        <h2>Nuestras Ubicaciones</h2>
     </div>
-    <div class="form-container floating-section">
-        <div class="form-title">Envíanos un mensaje</div>
-        <form id="contactForm" autocomplete="on">
-            <div class="form-grid">
-                <div class="field">
-                    <input type="text" id="nombre" name="nombre" class="input" placeholder=" " required />
-                    <label for="nombre">Nombre</label>
-                </div>
-                <div class="field">
-                    <input type="email" id="email" name="email" class="input" placeholder=" " required />
-                    <label for="email">Email</label>
-                </div>
-                <div class="field">
-                    <input type="text" id="asunto" name="asunto" class="input" placeholder=" " />
-                    <label for="asunto">Asunto (opcional)</label>
-                </div>
-                <div class="field">
-                    <input type="tel" id="telefono" name="telefono" class="input" placeholder=" " />
-                    <label for="telefono">Teléfono (opcional)</label>
-                </div>
-                <div class="field full-width">
-                    <textarea id="mensaje" name="mensaje" class="input" rows="4" placeholder=" " required></textarea>
-                    <label for="mensaje">Mensaje</label>
-                </div>
+    <!-- Contenedor único para mapa y formulario -->
+    <div class="floating-section contact-unified-container">
+        <!-- Columna del Mapa -->
+        <div class="contact-column">
+            <div class="map-title desktop-contact-title">Nuestras Ubicaciones</div>
+            <div id="map">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.222383204944!2d-75.71960142512128!3d4.778844895180153!2m3!1f0!2f0!3f0!3m2!i1024!2i768!4f13.1!3m3!1m2!1s0x8e3532f518e38d73%3A0x6a19f96b29d47c49!2sCl.%2046%20%2310-47%2C%20Pereira%2C%20Risaralda!5e0!3m2!1ses-419!2sco!4v1693754877478!5m2!1ses-419!2sco"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
             </div>
-            <div class="contact-buttons">
-                <a href="https://portalpagos.davivienda.com/#/comercio/6269/RENACER%20MASCOTAS%20SAS"
-                    class="btn davi-btn" target="_blank" title="Pagar">
-                    <img src="fotos/btn-davivienda.webp" alt="Davivienda"
-                        style="height: 1.5em; vertical-align: middle; margin-right: 8px;" />Pagar
-                </a>
-                <button class="btn whatsapp-btn" type="submit" aria-label="Enviar mensaje por WhatsApp">
-                    <i class="fab fa-whatsapp"></i> Enviar
-                </button>
-            </div>
-        </form>
+        </div>
+        <!-- Columna del Formulario -->
+        <div class="contact-column">
+            <div class="form-title">Envíanos un mensaje</div>
+            <form id="contactForm" autocomplete="on">
+                <div class="form-grid">
+                    <div class="field"><input type="text" id="nombre" name="nombre" class="input" placeholder=" " required /><label for="nombre">Nombre</label></div>
+                    <div class="field"><input type="email" id="email" name="email" class="input" placeholder=" " required /><label for="email">Email</label></div>
+                    <div class="field"><input type="text" id="asunto" name="asunto" class="input" placeholder=" " /><label for="asunto">Asunto (opcional)</label></div>
+                    <div class="field"><input type="tel" id="telefono" name="telefono" class="input" placeholder=" " /><label for="telefono">Teléfono (opcional)</label></div>
+                    <div class="field full-width"><textarea id="mensaje" name="mensaje" class="input" rows="4" placeholder=" " required></textarea><label for="mensaje">Mensaje</label></div>
+                </div>
+                <div class="contact-buttons">
+                    <a href="https://portalpagos.davivienda.com/#/comercio/6269/RENACER%20MASCOTAS%20SAS"
+                        class="btn davi-btn" target="_blank" title="Pagar">
+                        <img src="fotos/btn-davivienda.webp" alt="Davivienda"
+                            style="height: 1.5em; vertical-align: middle; margin-right: 8px;" />Pagar
+                    </a>
+                    <button class="btn whatsapp-btn" type="submit" aria-label="Enviar mensaje por WhatsApp">
+                        <i class="fab fa-whatsapp"></i> Enviar
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

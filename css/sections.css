@@ -507,6 +507,7 @@
     box-shadow: 0 2px 12px rgba(59,130,246,0.10);
     transition: box-shadow 0.3s, transform 0.2s, background 0.4s;
     text-align: center;
+    text-decoration: none; /* ¡Esta es la corrección! */
     animation: fadeInCard 0.7s;
 }
 .service-card:hover {
@@ -514,6 +515,9 @@
     transform: translateY(-6px) scale(1.03);
     background: linear-gradient(135deg, #0062ff 70%, #f8fafc 30%);
 }
+
+
+
 
 .redes-facebook .red-social-link,
 .redes-facebook .fa-facebook {
@@ -705,6 +709,12 @@
     padding: 4rem 0 2.5rem 0;
     margin: 0 auto 0 auto;
 }
+/* Asegura que el título de la sección de redes sociales sea siempre visible */
+#redes-sociales .section-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 #redes-sociales .section-title {
     text-align: center;
@@ -836,13 +846,33 @@
     flex-direction: row;
     gap: 2.5rem;
     justify-content: center;
-    align-items: stretch;
+    align-items: flex-start;
     margin: 2.5rem auto 3rem auto;
     max-width: 1200px;
-    min-height: 620px;
+    min-height: auto; /* Altura automática */
+    position: relative; /* Añadido para el z-index */
+    z-index: 3; /* Asegura que esté por encima de la ola del footer */
 }
 
-.map-form-libre>div:first-child {
+.contact-unified-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: stretch; /* Asegura que las columnas tengan la misma altura */
+    padding: 2rem;
+}
+
+.contact-column {
+    flex: 1 1 400px; /* Cada columna puede crecer y encogerse */
+    min-width: 320px;
+    display: flex; /* Añadido para controlar el contenido interno */
+    flex-direction: column; /* Apila el título y el mapa verticalmente */
+}
+
+/* Se elimina la regla anterior .map-form-libre>div:first-child */
+/*
+ .map-form-libre>div:first-child {
     flex: 1 1 400px;
     min-width: 340px;
     max-width: 600px;
@@ -851,8 +881,10 @@
     align-items: center;
     justify-content: flex-start;
 }
+*/
 
-.map-form-libre .map-title {
+/* Estilo para el título del mapa (dentro del contenedor) */
+.map-title {
     text-align: center;
     color: var(--secondary);
     font-size: 2rem;
@@ -861,10 +893,15 @@
     width: 100%;
 }
 
+/* Oculta el título móvil por defecto en escritorio */
+.mobile-contact-title {
+    display: none;
+}
+ 
 .map-form-libre #map {
     width: 100%;
-    height: 500px;
-    min-height: 340px;
+    flex-grow: 1; /* Hace que el mapa ocupe el espacio restante */
+    min-height: 400px; /* Altura mínima para mantener la proporción */
     border-radius: 2rem;
     overflow: hidden;
     box-shadow: 0 8px 32px rgba(86, 83, 83, 0.13);
@@ -881,21 +918,10 @@
     display: block;
 }
 
-.map-form-libre .form-container {
-    flex: 1 1 400px;
-    min-width: 340px;
-    max-width: 500px;
-    margin: 0 auto;
-    height: 500px;
-    min-height: 340px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: #fff;
-    border-radius: 2rem;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-    padding: 2.5rem 2rem;
-}
+/* Se eliminan las reglas para .form-container y .map-section que ya no son necesarias */
+/*
+... (reglas eliminadas) ...
+*/
 
 @media (max-width: 900px) {
     .map-form-libre {
@@ -904,18 +930,37 @@
         align-items: center;
         min-height: unset;
     }
-
-    .map-form-libre>div:first-child,
-    .map-form-libre .form-container {
-        max-width: 100vw;
-        min-width: 0;
-        height: 340px;
-        padding: 1.2rem 0.5rem;
+    .contact-unified-container {
+        padding: 1rem;
+        margin-top: 0; /* Restaura el margen superior del contenedor */
+        min-height:600px; /* Aumenta la altura del contenedor en móvil */
+    }
+    /* Apila las columnas en móvil */
+    .contact-column {
+        flex-basis: 100%; /* Cada columna ocupa todo el ancho */
+        min-width: 0; /* Resetea el ancho mínimo */
     }
 
-    .map-form-libre .map-title {
-        font-size: 1.3rem;
-        margin-bottom: 0.7rem;
+    /* Oculta la columna del formulario en móvil */
+    .contact-unified-container .contact-column:last-child {
+        display: none;
+    }
+
+    /* Aumenta la altura del mapa en móvil */
+    .map-form-libre #map {
+        min-height: 450px;
+    }
+
+    /* En móvil, oculta el título de escritorio y muestra el de móvil */
+    .desktop-contact-title {
+        display: none;
+    }
+    .mobile-contact-title {
+        display: block;
+        margin-bottom: 2.5rem; /* Restaura el espacio estándar debajo del título */
+        /* Asegura que el título sea visible en móvil sin depender de la animación */
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -1154,6 +1199,7 @@ body {
 .service-card a {
     text-decoration: none;
     color: inherit;
+    display: block; /* Asegura que el enlace ocupe todo el espacio de la tarjeta */
 }
 
 /* Blog cards en una sola línea horizontal */
@@ -2030,6 +2076,9 @@ form {
     transform: translateY(-6px);
 }
 
+/* Se elimina la regla .map-section */
+
+
 /* ========== OLA DEL FOOTER (NUEVO) ========== */
 .footer-wave {
     position: relative;
@@ -2038,7 +2087,7 @@ form {
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    margin-bottom: -1px;
+    margin-top: 3rem; /* Añade espacio sobre la ola */
     z-index: 2;
 }
 
@@ -2328,6 +2377,14 @@ footer a {
     }
     .contact-item i {
         margin-top: 0;
+    }
+
+    /* Nuevo: Poner Enlaces Rápidos y Contacto uno al lado del otro en móvil */
+    .footer-section.quick-links,
+    .footer-section.contact-info {
+        flex-basis: 45%; /* Cada uno ocupa casi la mitad */
+        flex-grow: 1;
+        margin-top: 1rem; /* Reduce el margen superior */
     }
 }
 

@@ -228,7 +228,7 @@ header .menu.show {
 }
 
 .section-title p {
-    color: #ffffff;
+    color: var(--text);
     font-size: 1.15rem;
 }
  
