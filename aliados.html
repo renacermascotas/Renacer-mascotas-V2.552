@@ -9,12 +9,11 @@
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/sections.css" />
     <link rel="icon" type="image/png" href="fotos/favicon.ico" />
-    <!-- Modularización JS -->
-    <script type="module" src="js/main.js" defer></script>
 </head>
 <body>
+    <!-- Los componentes se cargarán aquí vía JS -->
     <div id="topbar"></div>
-    <header id="header"></header>
+    <div id="header"></div>
 
     <main>
         <section id="aliados">
@@ -24,7 +23,7 @@
             </div>
             <div class="aliados-grupos">
                 <!-- RISARALDA -->
-                <div class="aliados-depto">
+                <div id="risaralda" class="aliados-depto">
                     <div class="section-title category-title">
                         <h2>Risaralda</h2>
                     </div>
@@ -105,7 +104,7 @@
                 </div>
 
                 <!-- QUINDÍO -->
-                <div class="aliados-depto">
+                <div id="quindio" class="aliados-depto">
                     <div class="section-title category-title">
                         <h2>Quindío</h2>
                     </div>
@@ -132,7 +131,7 @@
                 </div>
 
                 <!-- ANTIOQUIA -->
-                <div class="aliados-depto">
+                <div id="antioquia" class="aliados-depto">
                     <div class="section-title category-title">
                         <h2>Antioquia</h2>
                     </div>
@@ -195,7 +194,7 @@
                 </div>
 
                 <!-- CALDAS -->
-                <div class="aliados-depto">
+                <div id="caldas" class="aliados-depto">
                     <div class="section-title category-title">
                         <h2>Caldas</h2>
                     </div>
@@ -210,7 +209,7 @@
                 </div>
 
                 <!-- VALLE DEL CAUCA -->
-                <div class="aliados-depto">
+                <div id="valle-del-cauca" class="aliados-depto">
                     <div class="section-title category-title">
                         <h2>Valle del Cauca</h2>
                     </div>
@@ -225,7 +224,7 @@
                 </div>
 
                 <!-- TOLIMA -->
-                <div class="aliados-depto">
+                <div id="tolima" class="aliados-depto">
                     <div class="section-title category-title">
                         <h2>Tolima</h2>
                     </div>
@@ -262,6 +261,9 @@
             <div id="contacto-extra"></div>
         </section>
     </main>
+    <!-- Script principal que carga todo -->
+    <script type="module" src="js/main.js" defer></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     if (window.matchMedia('(max-width: 900px)').matches) {
