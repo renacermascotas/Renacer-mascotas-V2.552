@@ -73,51 +73,6 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-.testimonial-card {
-    background: linear-gradient(135deg, #f8fafc 70%, #1d3557 30%);
-    border-radius: 1.5rem;
-    box-shadow: 0 2px 12px rgba(29,53,87,0.10);
-    padding: 1.2rem 1rem;
-    margin: 1rem auto;
-    max-width: 400px;
-    min-width: 260px;
-    transition: box-shadow 0.3s, transform 0.2s, background 0.4s;
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
-    animation: fadeInCard 0.7s;
-}
-.testimonial-card:hover {
-    box-shadow: 0 8px 32px rgba(29,53,87,0.18);
-    transform: translateY(-6px) scale(1.03);
-    background: linear-gradient(135deg, #1d3557 70%, #f8fafc 30%);
-}
-.testimonial-card img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 0.7rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-}
-.testimonial-card .expand-btn {
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: 1em;
-    padding: 0.4em 1.1em;
-    margin-top: 0.7em;
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: background 0.3s;
-}
-.testimonial-card .expand-btn:hover {
-    background: var(--secondary);
-}
 .testimonial-card .testimonial-text {
     font-size: 1rem;
     color: #444;
@@ -139,6 +94,51 @@
     color: #fff;
     box-shadow: 0 8px 32px rgba(29,53,87,0.18);
 }
+
+/* Estilo unificado para testimonios, igual a la galería */
+.testimonial-card {
+    padding: 1.2rem 0.7rem 1.7rem 0.7rem;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(230,57,70,0.10);
+    transition: box-shadow 0.3s, transform 0.2s, background 0.4s;
+    cursor: pointer;
+    position: relative;
+    border-radius: 1.5rem;
+    background: linear-gradient(135deg, #f8fafc 70%, #e639476f 30%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 260px;
+    max-width: 340px;
+    margin-bottom: 1.5rem;
+    animation: fadeInCard 0.7s;
+}
+.testimonial-card:hover {
+    box-shadow: 0 8px 32px rgba(230,57,70,0.18);
+    transform: translateY(-6px) scale(1.03);
+    background: linear-gradient(135deg, #e639476d 70%, #f8fafc 30%);
+}
+.testimonial-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 1rem; /* Igual que la galería */
+    margin-bottom: 0.7rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.testimonial-card {
+    margin: 1rem 0; /* Eliminamos el margen horizontal para usar 'gap' */
+    flex-shrink: 0;   /* Evita que las tarjetas se encojan */
+}
+
+#testimonials .slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    cursor: grab; 
+    gap: 2rem; /* Usamos 'gap' para un espaciado consistente, igual que en el blog */
+}
+
 /* Flotantes profesionales WhatsApp y Davivienda */
 .whatsapp-float {
     position: fixed;
@@ -298,46 +298,34 @@
     margin: 2rem auto;
     max-width: 1200px;
 }
-.gallery-item {
-    background: #fff;
-    border-radius: 1.2rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-    padding: 1rem;
-    width: 318.56px;
-    min-width: 318.56px;
-    max-width: 318.56px;
-    height: 345.13px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start; /* Mantener el contenido arriba */
-    transition: box-shadow 0.3s, transform 0.2s;
-    box-sizing: border-box;
-}
-.gallery-item:hover {
-    box-shadow: 0 8px 32px rgba(0,53,128,0.18);
-    transform: translateY(-6px) scale(1.04);
-}
-.gallery-item img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 1rem;
-    margin-bottom: 0.7rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-}
-.gallery-desc {
-    font-size: 1rem;
-    color: #444;
-    text-align: center;
-    margin-top: 0.5rem;
-    word-break: break-word;
-}
 
 .gallery-item:hover {
     box-shadow: 0 8px 32px rgba(0,53,128,0.18);
     transform: translateY(-6px) scale(1.04);
 }
+.gallery-item {
+    padding: 1.2rem 0.7rem 1.7rem 0.7rem;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(230,57,70,0.10);
+    transition: box-shadow 0.3s, transform 0.2s, background 0.4s;
+    cursor: pointer;
+    position: relative;
+    border-radius: 1.5rem;
+    background: linear-gradient(135deg, #f8fafc 70%, #e639476f 30%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 260px;
+    max-width: 340px;
+    margin-bottom: 1.5rem;
+    animation: fadeInCard 0.7s;
+}
+.gallery-item:hover {
+    box-shadow: 0 8px 32px rgba(230,57,70,0.18);
+    transform: translateY(-6px) scale(1.03);
+    background: linear-gradient(135deg, #e639476d 70%, #f8fafc 30%);
+}
 .gallery-item img {
     width: 120px;
     height: 120px;
@@ -346,11 +334,17 @@
     margin-bottom: 0.7rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.10);
 }
-.gallery-desc {
+.gallery-item .gallery-desc {
     font-size: 1rem;
     color: #444;
     text-align: center;
     margin-top: 0.5rem;
+}
+
+/* Asegura que el enlace de la galería no tenga decoración de texto */
+.gallery-item {
+    text-decoration: none;
+    color: inherit;
 }
 
 @media (max-width: 900px) {
@@ -359,10 +353,10 @@
         max-width: 100vw;
     }
     .gallery-item {
-        width: 45vw;
-        min-width: 160px;
-        max-width: 90vw;
-        height: auto; /* La altura se ajusta al contenido en móvil */
+        width: 85vw;
+        min-width: 280px;
+        max-width: 350px; /* Un máximo más grande */
+        height: auto;
         margin-bottom: 1.2rem;
     }
     .gallery-item img {
@@ -1428,37 +1422,24 @@ body {
 
 @media (max-width: 900px) {
     .pricing-cards {
-        gap: 1.2rem;
-        flex-wrap: wrap;
-    }
-
-    .plan-img-box {
-        padding: 1rem;
-    }
-
-    .plan-image {
-        width: 260px;
-        height: 260px;
-        margin-bottom: 1.2rem;
-    }
-}
-
-@media (max-width: 600px) {
-    .pricing-cards {
-        flex-direction: column;
-        align-items: center;
+        display: flex;
+        flex-wrap: nowrap !important; /* Evita que los elementos salten de línea */
+        overflow-x: auto !important;  /* Permite el scroll horizontal */
+        justify-content: flex-start; /* Alinea las tarjetas al inicio */
+        -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+        scroll-snap-type: x mandatory; /* El scroll se "engancha" a cada tarjeta */
         gap: 1.5rem;
+        padding: 1rem 2rem; /* Padding para que no se pegue a los bordes */
+        scrollbar-width: none; /* Oculta la barra de scroll en Firefox */
     }
 
-    .plan-img-box {
-        width: 90vw;
-        max-width: 320px;
-        padding: 0.7rem;
+    .pricing-cards::-webkit-scrollbar {
+        display: none; /* Oculta la barra de scroll en Webkit */
     }
 
-    .plan-image {
-        width: 80px;
-        height: 80px;
+    .plan-block {
+        flex: 0 0 80vw; /* Cada plan ocupa el 80% del ancho de la pantalla */
+        scroll-snap-align: center; /* Centra la tarjeta al hacer snap */
     }
 }
 
@@ -1732,10 +1713,10 @@ body {
 
 /* 4. Implementar el carrusel en Testimonios */
 #testimonials .slider {
-    max-width: 900px;
+    max-width: 100%; /* Ocupa todo el ancho del contenedor padre */
     margin: 0 auto;
-    overflow: visible;
     position: relative;
+    overflow: hidden; /* Oculta las tarjetas que se salen del área visible */
 }
 
 /* =============================

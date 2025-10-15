@@ -21,40 +21,13 @@ export async function loadGallery(containerId) {
       container.innerHTML = '<p>No hay imágenes en la galería aún.</p>';
       return;
     }
-    container.innerHTML = items.map((item, idx) => `
-      <div class="gallery-item gallery-card" data-idx="${idx}">
+    // Modificado para que cada item sea un enlace a galeria.html y sin botón de expandir.
+    container.innerHTML = items.slice(0, 4).map(item => `
+      <a href="galeria.html" class="gallery-item gallery-card">
         <img src="${item.image_url || 'fotos/default.jpg'}" alt="${item.description || 'Imagen galería'}" loading="lazy" crossorigin="anonymous" />
-        <button class="expand-btn" aria-expanded="false">Ver más</button>
-        <div class="gallery-desc" style="max-height:0;opacity:0;overflow:hidden;transition:max-height 0.4s,opacity 0.3s;">${item.description || ''}</div>
-      </div>
+        <p class="gallery-desc">${item.description || ''}</p>
+      </a>
     `).join('');
-    // Lógica para expandir/cerrar la descripción
-    const cards = container.querySelectorAll('.gallery-card');
-    cards.forEach(card => {
-      const btn = card.querySelector('.expand-btn');
-      const desc = card.querySelector('.gallery-desc');
-      btn.addEventListener('click', () => {
-        const isActive = card.classList.contains('active');
-        // Cierra todos los demás
-        cards.forEach(c => {
-          c.classList.remove('active');
-          c.querySelector('.expand-btn').setAttribute('aria-expanded', 'false');
-          c.querySelector('.gallery-desc').style.maxHeight = '0';
-          c.querySelector('.gallery-desc').style.opacity = '0';
-        });
-        if (!isActive) {
-          card.classList.add('active');
-          btn.setAttribute('aria-expanded', 'true');
-          desc.style.maxHeight = '200px';
-          desc.style.opacity = '1';
-        } else {
-          card.classList.remove('active');
-          btn.setAttribute('aria-expanded', 'false');
-          desc.style.maxHeight = '0';
-          desc.style.opacity = '0';
-        }
-      });
-    });
   } catch (err) {
     console.error('Error cargando la galería:', err);
     container.innerHTML = '<p>Error al cargar la galería.</p>';

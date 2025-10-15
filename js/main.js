@@ -1,6 +1,6 @@
 // js/main.js: Lógica principal y orquestación de scripts
 import { initMenu } from './menu.js';
-import { initTestimonialSlider } from './slider.js'; // Asumiendo que existe o se creará
+import { initTestimonialSlider } from './slider.js';
 import { initLightbox } from './lightbox.js'; // Asumiendo que existe o se creará
 import { initContactForm } from './form.js'; // Asumiendo que existe o se creará
 import { initReveal } from './reveal.js'; // Asumiendo que existe o se creará
