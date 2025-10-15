@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/sections.css" />
+    <!-- Carga el script principal que inicializa todo -->
+    <script type="module" src="js/main.js" defer></script>
 </head>
 <body>
     <div id="topbar"></div>
@@ -22,7 +24,7 @@
             <p class="galeria-desc">Explora los mejores momentos y actividades de Renacer Mascotas.</p>
         </div>
         <div class="container cards gallery">
-            <div id="gallery-list-front"><!-- Las imágenes de la galería se cargarán dinámicamente desde el backend --></div>
+            <div id="gallery-grid"><!-- Las imágenes de la galería se cargarán dinámicamente aquí --></div>
         </div>
         </div>
     </section>
@@ -58,37 +60,20 @@
             </g>
         </svg>
     </div>
-        <div id="footer"></div>
-        <script type="module">
-            import { loadGallery } from './js/gallery.js';
-            document.addEventListener('DOMContentLoaded', () => {
-                loadGallery('gallery-list-front');
-            });
-        </script>
+    <div id="footer"></div>
     <!-- Flotantes WhatsApp y Davivienda -->
     <a href="https://wa.me/573207053536?text=Hola,%20quiero%20más%20información%20sobre%20Renacer%20Mascotas"
         class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
-    <a href="https://portalpagos.davivienda.com/#/comercio/6269/RENACER%20MASCOTAS%20SAS" class="davi-float" target="blank"
-        aria-label="Pagar con Davivienda" title="Pagar con Davivienda">
-        <img src="fotos/btn-davivienda.webp" alt="boton Davivienda" />
+    <a href="https://www.pse.com.co/persona" class="pse-float" target="_blank"
+        aria-label="Pagar con PSE" title="Pagar con PSE">
+        <img src="fotos/BotonPSE.png" alt="Boton PSE" />
     </a>
     <!-- Botón para volver arriba -->
     <a id="scrollToTop" class="scroll-to-top-btn" aria-label="Volver arriba">
         <i class="fas fa-arrow-up"></i>
     </a>
 
-    <script type="module" src="js/galeria.js"></script>
-    <script>
-        // Carga los componentes globales
-        document.addEventListener('DOMContentLoaded', () => {
-            Promise.all([
-                fetch('topbar.html').then(r => r.text()).then(html => document.getElementById('topbar').innerHTML = html),
-                fetch('header.html').then(r => r.text()).then(html => document.getElementById('header').innerHTML = html),
-                fetch('footer.html').then(r => r.text()).then(html => document.getElementById('footer').innerHTML = html)
-            ]);
-        });
-    </script>
 </body>
 </html>

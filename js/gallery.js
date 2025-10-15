@@ -21,8 +21,12 @@ export async function loadGallery(containerId) {
       container.innerHTML = '<p>No hay imágenes en la galería aún.</p>';
       return;
     }
-    // Modificado para que cada item sea un enlace a galeria.html y sin botón de expandir.
-    container.innerHTML = items.slice(0, 4).map(item => `
+
+    // Determinar si es la página de inicio (muestra 4) o la galería completa
+    const isHomePage = (containerId === 'gallery-list-front');
+    const itemsToRender = isHomePage ? items.slice(0, 4) : items;
+
+    container.innerHTML = itemsToRender.map(item => `
       <a href="galeria.html" class="gallery-item gallery-card">
         <img src="${item.image_url || 'fotos/default.jpg'}" alt="${item.description || 'Imagen galería'}" loading="lazy" crossorigin="anonymous" />
         <p class="gallery-desc">${item.description || ''}</p>
@@ -32,11 +36,4 @@ export async function loadGallery(containerId) {
     console.error('Error cargando la galería:', err);
     container.innerHTML = '<p>Error al cargar la galería.</p>';
   }
-}
-
-// Código para ejecutar solo en la página galeria.html
-if (document.getElementById('galeria-cards')) {
-  document.addEventListener('DOMContentLoaded', () => {
-    loadGallery('galeria-cards');
-  });
 }

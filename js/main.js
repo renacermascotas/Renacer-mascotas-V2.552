@@ -2,7 +2,7 @@
 import { initMenu } from './menu.js';
 import { initTestimonialSlider } from './slider.js';
 import { initLightbox } from './lightbox.js'; // Asumiendo que existe o se creará
-import { initContactForm } from './form.js'; // Asumiendo que existe o se creará
+import { initContactForm } from './form.js';
 import { initReveal } from './reveal.js'; // Asumiendo que existe o se creará
 import { initHeroCarousel } from './hero-carousel.js'; // Asumiendo que existe o se creará
 import { loadTestimonials } from './testimonial-loader.js'; // Asumiendo que existe o se creará
@@ -64,6 +64,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     if (document.getElementById('gallery-list-front')) {
         loadGallery('gallery-list-front');
+    }
+    if (document.getElementById('gallery-grid')) {
+        loadGallery('gallery-grid');
+    }
+
+    // Inicializar carrusel de planes solo si el contenedor existe
+    if (document.querySelector('.pricing-slider-container')) {
+        initPricingCarousel();
     }
 
     // Puedes añadir aquí la carga de otros contenidos dinámicos como blog, etc.

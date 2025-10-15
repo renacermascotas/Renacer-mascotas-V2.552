@@ -44,15 +44,30 @@ export function initMenu() {
     // ===== Navbar Scroll Effect =====
     const headerContainer = document.getElementById("header");
     if (headerContainer) {
+        let lastScrollY = window.scrollY;
+
         const handleScroll = () => {
+            const currentScrollY = window.scrollY;
             const headerElement = headerContainer.querySelector('header');
-            if (window.scrollY > 50) {
+
+            // Lógica para el estilo visual (cristal/oscuro)
+            if (currentScrollY > 50) {
                 headerContainer.classList.add("scrolled");
                 if (headerElement) headerElement.classList.add("scrolled-visual");
             } else {
                 headerContainer.classList.remove("scrolled");
                 if (headerElement) headerElement.classList.remove("scrolled-visual");
             }
+
+            // Lógica para ocultar/mostrar al hacer scroll
+            if (currentScrollY > lastScrollY && currentScrollY > 150) {
+                // Hacia abajo
+                headerContainer.classList.add('header-hidden');
+            } else {
+                // Hacia arriba
+                headerContainer.classList.remove('header-hidden');
+            }
+            lastScrollY = currentScrollY;
         };
         window.addEventListener("scroll", handleScroll);
         handleScroll(); // Ejecutar al cargar

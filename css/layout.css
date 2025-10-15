@@ -54,6 +54,11 @@
     top: 0.5rem;
 }
 
+/* Clase para ocultar el header al hacer scroll hacia abajo */
+#header.header-hidden {
+    transform: translateY(-120%);
+}
+
 /* ========== Estilo visual del Header (etiqueta <header>) ========== */
 header {
     /* Estado inicial: Sólido */
@@ -68,10 +73,18 @@ header {
 
 /* Estado visual del header al hacer scroll: Cristal */
 header.scrolled-visual {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: var(--secondary); /* Fondo oscuro al hacer scroll */
     box-shadow: 0 8px 32px rgba(0, 53, 128, 0.15); /* Sombra un poco más pronunciada */
+}
+
+/* Cambiar el color de los enlaces cuando el fondo es oscuro */
+header.scrolled-visual .nav-left a,
+header.scrolled-visual .nav-right a {
+    color: #fff;
+}
+header.scrolled-visual .nav-left a.active,
+header.scrolled-visual .nav-right a.active {
+    color: var(--primary); /* Resaltar el enlace activo con el color primario */
 }
 
 header .nav {

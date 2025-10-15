@@ -105,3 +105,13 @@ export function initTestimonialSlider() {
         '#testimonials .slider'
     );
 }
+
+export function initPricingCarousel() {
+    // Solo se activa en móvil
+    if (window.innerWidth <= 900) {
+        initInfiniteCarousel(
+            '.pricing-cards', 
+            '.pricing-slider-container'
+        );
+    }
+}
