@@ -1,30 +1,129 @@
 <!-- =========================================
-  BLOQUE: Sección de redes sociales
-  Explicación: Muestra los enlaces y widgets embebidos de Facebook, Instagram y TikTok para fomentar la interacción y el seguimiento en redes.
+  BLOQUE: Sección de redes sociales mejorada
+  Explicación: Muestra los enlaces y widgets de Facebook, Instagram, TikTok y WhatsApp con información actualizada.
 ========================================= -->
 <section id="redes-sociales" class="reveal">
   <div class="container section-title">
-    <h2>Síguenos en Nuestras Redes Sociales</h2>
-    <p>¡Mira nuestra actividad en vivo y únete a la comunidad!</p>
+    <h2>🌟 Síguenos en Nuestras Redes Sociales</h2>
+    <p>¡Únete a nuestra comunidad de amantes de las mascotas! 🐾</p>
   </div>
-  <div class="redes-sociales-row">
+  
+  <!-- Redes sociales simplificadas - Tamaño similar al blog -->
+  <div class="redes-sociales-simple" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 3rem;">
+    
     <!-- Facebook -->
-    <div class="red-social-embed redes-facebook">
-      <a class="red-social-link" href="https://www.facebook.com/profile.php?id=61562103178661" target="_blank" rel="noopener" title="Ver Facebook"><i class="fab fa-facebook"></i></a>
-      <h4><i class="fab fa-facebook"></i> Facebook</h4>
-      <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61562103178661&tabs=timeline&width=340&height=480&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+    <div class="social-card" style="background: #1877F2; color: white; padding: 1.5rem; border-radius: 15px; text-align: center; transition: transform 0.3s ease; box-shadow: 0 6px 20px rgba(24,119,242,0.3); min-width: 220px; max-width: 260px; flex: 0 0 auto;">
+      <i class="fab fa-facebook" style="font-size: 3rem; margin-bottom: 0.8rem;"></i>
+      <h4 style="margin-bottom: 0.5rem; font-size: 1.2rem;">Facebook</h4>
+      <p style="margin-bottom: 0.8rem; opacity: 0.9; font-size: 0.95rem;">2.5K seguidores</p>
+      <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 1rem;">Noticias veterinarias</p>
+      <a href="https://www.facebook.com/profile.php?id=61562103178661" target="_blank" 
+         style="background: white; color: #1877F2; padding: 0.6rem 1.2rem; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: all 0.3s ease;">
+        👍 Seguir
+      </a>
     </div>
+
     <!-- Instagram -->
-    <div class="red-social-embed redes-instagram">
-      <a class="red-social-link" href="https://www.instagram.com/renacermascotassas/" target="_blank" rel="noopener" title="Ver Instagram"><i class="fab fa-instagram" style="color:#E1306C;"></i></a>
-      <h4><i class="fab fa-instagram" style="color:#E1306C;"></i> Instagram</h4>
-      <!-- Pega aquí el código de tu widget de Snapwidget o Lightwidget -->
-      <iframe src="https://snapwidget.com/embed/1051232" title="Instagram Feed" class="snapwidget-widget" allowtransparency="true" frameborder="0" scrolling="no" style="border:none; overflow:hidden; width:100%; height:100%;"></iframe>
+    <div class="social-card" style="background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); color: white; padding: 1.5rem; border-radius: 15px; text-align: center; transition: transform 0.3s ease; box-shadow: 0 6px 20px rgba(225,48,108,0.3); min-width: 220px; max-width: 260px; flex: 0 0 auto;">
+      <i class="fab fa-instagram" style="font-size: 3rem; margin-bottom: 0.8rem;"></i>
+      <h4 style="margin-bottom: 0.5rem; font-size: 1.2rem;">Instagram</h4>
+      <p style="margin-bottom: 0.8rem; opacity: 0.9; font-size: 0.95rem;">1.8K seguidores</p>
+      <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 1rem;">Fotos de mascotas</p>
+      <a href="https://www.instagram.com/renacermascotassas/" target="_blank" 
+         style="background: white; color: #E1306C; padding: 0.6rem 1.2rem; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: all 0.3s ease;">
+        📸 Seguir
+      </a>
     </div>
+
     <!-- TikTok -->
-    <div class="red-social-embed redes-tiktok">
-      <a class="red-social-link" href="https://tiktok.com/@renacermascotas" target="_blank" rel="noopener" title="Ver TikTok"><i class="fab fa-tiktok"></i></a>
-      <h4><i class="fab fa-tiktok"></i> TikTok</h4>
+    <div class="social-card" style="background: #000; color: white; padding: 1.5rem; border-radius: 15px; text-align: center; transition: transform 0.3s ease; box-shadow: 0 6px 20px rgba(0,0,0,0.3); min-width: 220px; max-width: 260px; flex: 0 0 auto;">
+      <i class="fab fa-tiktok" style="font-size: 3rem; margin-bottom: 0.8rem;"></i>
+      <h4 style="margin-bottom: 0.5rem; font-size: 1.2rem;">TikTok</h4>
+      <p style="margin-bottom: 0.8rem; opacity: 0.9; font-size: 0.95rem;">950 seguidores</p>
+      <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 1rem;">Videos educativos</p>
+      <a href="https://tiktok.com/@renacermascotas" target="_blank" 
+         style="background: #ff0050; color: white; padding: 0.6rem 1.2rem; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: all 0.3s ease;">
+        🎵 Seguir
+      </a>
+    </div>
+
+    <!-- WhatsApp -->
+    <div class="social-card" style="background: #25D366; color: white; padding: 1.5rem; border-radius: 15px; text-align: center; transition: transform 0.3s ease; box-shadow: 0 6px 20px rgba(37,211,102,0.3); min-width: 220px; max-width: 260px; flex: 0 0 auto;">
+      <i class="fab fa-whatsapp" style="font-size: 3rem; margin-bottom: 0.8rem;"></i>
+      <h4 style="margin-bottom: 0.5rem; font-size: 1.2rem;">WhatsApp</h4>
+      <p style="margin-bottom: 0.8rem; opacity: 0.9; font-size: 0.95rem;">+57 320 705 3536</p>
+      <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 1rem;">Contacto 24/7</p>
+      <a href="https://wa.me/573207053536?text=Hola, necesito información sobre sus servicios veterinarios" target="_blank" 
+         style="background: white; color: #25D366; padding: 0.6rem 1.2rem; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.9rem; transition: all 0.3s ease;">
+        💬 Chatear
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Call to action final -->
+  <div class="social-cta" style="text-align: center; margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 10px;">
+    <h3 style="color: var(--primary); margin-bottom: 1rem;">🎉 ¡Únete a Nuestra Comunidad!</h3>
+    <p style="margin-bottom: 1.5rem;">Sigue nuestras redes sociales para tips de cuidado, promociones especiales y contenido exclusivo sobre el bienestar de tu mascota.</p>
+    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+      <a href="https://www.facebook.com/profile.php?id=61562103178661" target="_blank" class="btn" style="background: #1877F2; color: white;">
+        <i class="fab fa-facebook"></i> Facebook
+      </a>
+      <a href="https://www.instagram.com/renacermascotassas/" target="_blank" class="btn" style="background: #E1306C; color: white;">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+      <a href="https://tiktok.com/@renacermascotas" target="_blank" class="btn" style="background: #000; color: white;">
+        <i class="fab fa-tiktok"></i> TikTok
+      </a>
+      <a href="https://wa.me/573207053536" target="_blank" class="btn" style="background: #25D366; color: white;">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
     </div>
   </div>
 </section>
+
+<style>
+  .redes-sociales-simple {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .social-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25) !important;
+  }
+
+  .social-card a:hover {
+    transform: scale(1.08);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+  }
+
+  /* Responsivo */
+  @media (max-width: 768px) {
+    .redes-sociales-simple {
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    .social-card {
+      min-width: 200px !important;
+      max-width: 280px !important;
+      padding: 1.3rem !important;
+    }
+    
+    .social-card i {
+      font-size: 2.5rem !important;
+    }
+    
+    .social-card h4 {
+      font-size: 1.1rem !important;
+    }
+  }
+</style>

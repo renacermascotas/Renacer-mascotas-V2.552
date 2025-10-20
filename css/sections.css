@@ -1040,20 +1040,20 @@ body {
     Layout horizontal y responsive para video y texto
 ============================= */
 .about-horizontal {
-     display: flex;
-     flex-direction: row;
-     align-items: center;
-     justify-content: center;
-     gap: 3rem;
-     width: 100vw;
-     max-width: 100vw;
-     margin: 0 auto 3rem auto;
-     padding: 2.5rem 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0 auto 3rem auto;
+    padding: 2.5rem 0;
 }
 
 .about-video {
-    width: 420px;
-    max-width: 40vw;
+    width: 280px !important;
+    max-width: 30vw !important;
     border-radius: 1.5rem;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
     background: #000;
@@ -1083,8 +1083,8 @@ body {
     }
 
     .about-video {
-        max-width: 90vw;
-        width: 100%;
+        max-width: 90vw !important;
+        width: 100% !important;
     }
 
     .about-text,
@@ -2269,6 +2269,29 @@ footer a {
     margin-top: 5px;
 }
 
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    line-height: 1.4;
+}
+
+.contact-details strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+.contact-details span {
+    color: #e0e0e0;
+    font-size: 0.95rem;
+}
+
+.contact-details small {
+    color: #bbb;
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
 /* Sección de suscripción */
 .footer-section.newsletter {
     text-align: left;
@@ -3342,6 +3365,164 @@ footer a {
     .plan-image { width: 260px; height: 260px; margin-bottom: 1.2rem; }
 }
 
+/* =============================
+    Contenedores de testimonios - Tamaño uniforme
+    Garantiza que todas las tarjetas tengan exactamente el mismo tamaño
+============================= */
+.testimonios-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonial-card {
+    /* Tamaño fijo para todas las tarjetas */
+    width: 320px !important;
+    min-width: 320px !important;
+    max-width: 320px !important;
+    height: 300px !important;
+    min-height: 300px !important;
+    
+    /* Permitir expansión cuando está activo */
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    
+    /* Layout interno */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    
+    /* Espaciado interno uniforme */
+    padding: 1.5rem !important;
+    box-sizing: border-box !important;
+    
+    /* Efectos visuales */
+    background: #fff !important;
+    border-radius: 1.5rem !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: 0 8px 30px rgba(230,57,70,0.15) !important;
+}
+
+.testimonial-card img {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    margin-bottom: 1rem !important;
+    flex-shrink: 0 !important;
+}
+
+.testimonial-card .client-info {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    color: var(--secondary) !important;
+    margin: 0.5rem 0 !important;
+    flex-shrink: 0 !important;
+}
+
+.testimonial-card .expand-btn {
+    background: var(--primary) !important;
+    color: white !important;
+    border: none !important;
+    padding: 0.7rem 1.5rem !important;
+    border-radius: 25px !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    margin: 0.5rem 0 !important;
+    flex-shrink: 0 !important;
+}
+
+.testimonial-card .expand-btn:hover {
+    background: var(--secondary) !important;
+    transform: scale(1.05) !important;
+}
+
+.testimonial-card .testimonial-text {
+    flex-grow: 1 !important;
+    font-size: 0.95rem !important;
+    color: #555 !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    margin-top: 1rem !important;
+    
+    /* Animación para expandir/contraer */
+    max-height: 0 !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.3s ease !important;
+    
+    /* Scroll personalizado para cuando está expandido */
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) #f1f1f1;
+}
+
+/* Estado expandido del texto */
+.testimonial-card.active .testimonial-text {
+    max-height: 200px !important;
+    opacity: 1 !important;
+    overflow-y: auto !important;
+}
+
+.testimonial-card .testimonial-text::-webkit-scrollbar {
+    width: 6px;
+}
+
+.testimonial-card .testimonial-text::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.testimonial-card .testimonial-text::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+}
+
+/* Estado expandido de la tarjeta */
+.testimonial-card.active {
+    height: auto !important;
+    min-height: 350px !important;
+}
+
+/* Responsive - Móviles */
+@media (max-width: 768px) {
+    .testimonios-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+    
+    .testimonial-card {
+        width: 90% !important;
+        min-width: 280px !important;
+        max-width: 350px !important;
+        height: 280px !important;
+        min-height: 280px !important;
+    }
+    
+    .testimonial-card.active {
+        height: auto !important;
+        min-height: 320px !important;
+    }
+    
+    .testimonial-card img {
+        width: 80px !important;
+        height: 80px !important;
+    }
+}
+
 @media (max-width: 600px) {
     .service-card, .plan-card, .card { max-width: 100vw !important; padding: 0.7rem 0.2rem; }
     .services-munchkin { gap: 0.7rem; padding: 0.5rem 0.1rem; }
@@ -3350,4 +3531,17 @@ footer a {
     .hero-text h1 { font-size: 1.3rem; }
     .hero-carousel { width: 90vw; height: 90vw; max-width: 320px; max-height: 320px; min-width: 120px; min-height: 120px; }
     .plan-image { width: 80px; height: 80px; }
+    
+    .testimonial-card {
+        width: 95% !important;
+        min-width: 260px !important;
+        max-width: 300px !important;
+        height: 260px !important;
+        min-height: 260px !important;
+    }
+    
+    .testimonial-card.active {
+        height: auto !important;
+        min-height: 300px !important;
+    }
 }

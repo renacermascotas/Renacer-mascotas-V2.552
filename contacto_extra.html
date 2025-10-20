@@ -12,8 +12,23 @@
         <!-- Columna del Mapa -->
         <div class="contact-column">
             <div class="map-title desktop-contact-title">Nuestras Ubicaciones</div>
+            
+            <!-- Selector de ubicaciones -->
+            <div class="location-selector" style="margin-bottom: 1rem;">
+                <button class="location-btn active" data-location="pereira" onclick="changeLocation('pereira')">
+                    <i class="fas fa-map-marker-alt"></i> Pereira (Principal)
+                </button>
+                <button class="location-btn" data-location="dosquebradas" onclick="changeLocation('dosquebradas')">
+                    <i class="fas fa-map-marker-alt"></i> Dosquebradas
+                </button>
+                <button class="location-btn" data-location="manizales" onclick="changeLocation('manizales')">
+                    <i class="fas fa-map-marker-alt"></i> Manizales
+                </button>
+            </div>
+
             <div id="map">
-                <iframe
+                <!-- Mapa de Pereira (por defecto) -->
+                <iframe id="map-iframe"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.222383204944!2d-75.71960142512128!3d4.778844895180153!2m3!1f0!2f0!3f0!3m2!i1024!2i768!4f13.1!3m3!1m2!1s0x8e3532f518e38d73%3A0x6a19f96b29d47c49!2sCl.%2046%20%2310-47%2C%20Pereira%2C%20Risaralda!5e0!3m2!1ses-419!2sco!4v1693754877478!5m2!1ses-419!2sco"
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>

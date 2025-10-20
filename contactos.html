@@ -1,27 +1,90 @@
 <!-- =========================================
-  BLOQUE: Sección de contactos
-  Explicación: Muestra la información de contacto principal de la empresa, incluyendo dirección, teléfonos y correos, con íconos visuales para fácil identificación.
+  BLOQUE: Sección de contactos simplificada - Solo horarios de atención
+  Explicación: Muestra únicamente los horarios de atención de Renacer Mascotas.
 ========================================= -->
-<div id="contactos"></div>
 <div class="contact-section">
-    <div class="contact-info services-munchkin">
-        <div class="contact-card service-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" alt="Dirección" />
-            <h3>Dirección</h3>
-            <p>Calle 123 #45-67</p>
-            <p>Pereira, Risaralda</p>
-        </div>
-        <div class="contact-card service-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Teléfono" />
-            <h3>Teléfonos</h3>
-            <p>+57 300 000 0000</p>
-            <p>+57 311 111 1111</p>
-        </div>
-        <div class="contact-card service-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Email" />
-            <h3>Email</h3>
-            <p>info@renacermascotas.com</p>
-            <p>soporte@renacermascotas.com</p>
+    <!-- Horarios de Atención -->
+    <div class="schedule-section" style="text-align: center;">
+        <h3 style="color: var(--primary); margin-bottom: 2rem; font-size: 2rem;">🕒 Horarios de Atención</h3>
+        <!-- Horarios uno al lado del otro en escritorio -->
+        <div class="schedule-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; max-width: 1000px; margin: 0 auto;">
+            
+            <div class="schedule-card" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.8rem; border-radius: 15px; border-left: 6px solid var(--primary); box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease; flex: 1; min-width: 250px; max-width: 300px;">
+                <i class="fas fa-business-time" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <h4 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.2rem;">Lunes a Viernes</h4>
+                <p style="font-size: 1.1rem; font-weight: bold; color: #333;">8:00 AM - 6:00 PM</p>
+                <p style="color: #666; margin-top: 0.5rem; font-size: 0.9rem;">Atención completa</p>
+            </div>
+            
+            <div class="schedule-card" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.8rem; border-radius: 15px; border-left: 6px solid var(--secondary); box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease; flex: 1; min-width: 250px; max-width: 300px;">
+                <i class="fas fa-calendar-week" style="font-size: 2.2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                <h4 style="color: var(--secondary); margin-bottom: 1rem; font-size: 1.2rem;">Sábados</h4>
+                <p style="font-size: 1.1rem; font-weight: bold; color: #333;">8:00 AM - 4:00 PM</p>
+                <p style="color: #666; margin-top: 0.5rem; font-size: 0.9rem;">Servicio regular</p>
+            </div>
+            
+            <div class="schedule-card" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 1.8rem; border-radius: 15px; border-left: 6px solid #ffc107; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease; flex: 1; min-width: 250px; max-width: 300px;">
+                <i class="fas fa-sun" style="font-size: 2.2rem; color: #ffc107; margin-bottom: 1rem;"></i>
+                <h4 style="color: #ff0707; margin-bottom: 1rem; font-size: 1.2rem;">Domingos y Festivos</h4>
+                <p style="font-size: 1.1rem; font-weight: bold; color: #333;">9:00 AM - 2:00 PM</p>
+                <p style="color: #666; margin-top: 0.5rem; font-size: 0.9rem;">Horario especial</p>
+            </div>
         </div>
     </div>
 </div>
+
+<style>
+/* Horarios de atención - Layout optimizado */
+.schedule-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 1.5rem !important;
+}
+
+.schedule-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+/* Responsivo - Móviles */
+@media (max-width: 768px) {
+    .schedule-grid {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 1rem !important;
+    }
+    
+    .schedule-card {
+        min-width: 280px !important;
+        max-width: 350px !important;
+        width: 90% !important;
+    }
+    
+    .schedule-card i {
+        font-size: 2rem !important;
+    }
+    
+    .schedule-card h4 {
+        font-size: 1.1rem !important;
+    }
+    
+    .schedule-card p {
+        font-size: 1rem !important;
+    }
+}
+
+/* Escritorio - 3 columnas lado a lado */
+@media (min-width: 769px) {
+    .schedule-grid {
+        justify-content: space-between !important;
+        max-width: 950px !important;
+    }
+    
+    .schedule-card {
+        flex: 1 !important;
+        max-width: 300px !important;
+        min-width: 250px !important;
+    }
+}
+</style>

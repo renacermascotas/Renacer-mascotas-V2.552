@@ -1,12 +1,15 @@
-// js/main.js: Lógica principal y orquestación de scripts
+// js/main.js: Lógica principal y orquestación de scripts con seguridad integrada
 import { initMenu } from './menu.js';
 import { initTestimonialSlider } from './slider.js';
-import { initLightbox } from './lightbox.js'; // Asumiendo que existe o se creará
+import { initLightbox } from './lightbox.js';
 import { initContactForm } from './form.js';
-import { initReveal } from './reveal.js'; // Asumiendo que existe o se creará
-import { initHeroCarousel } from './hero-carousel.js'; // Asumiendo que existe o se creará
-import { loadTestimonials } from './testimonial-loader.js'; // Asumiendo que existe o se creará
-import { loadGallery } from './gallery.js'; // Asumiendo que existe o se creará
+import { initReveal } from './reveal.js';
+import { initHeroCarousel } from './hero-carousel.js';
+import { loadTestimonials } from './testimonial-loader.js';
+import { loadGallery } from './gallery.js';
+import { initLocations } from './locations.js';
+import { initPricingCarousel } from './pricing-carousel.js';
+import { validateOrigin, sanitizeText } from './security.js';
 
 async function includeHTML(elementId, filePath) {
     const element = document.getElementById(elementId);
@@ -25,10 +28,15 @@ async function includeHTML(elementId, filePath) {
 }
 
 // =========================================
-// BLOQUE: Orquestador principal del sitio
-// Explicación: Carga componentes HTML y luego inicializa todos los módulos necesarios en todas las páginas.
+// BLOQUE: Orquestador principal del sitio con validaciones de seguridad
+// Explicación: Carga componentes HTML y luego inicializa todos los módulos con verificaciones de seguridad.
 // =========================================
 document.addEventListener('DOMContentLoaded', async () => {
+    // Verificación de seguridad inicial
+    if (!validateOrigin()) {
+        console.error('Origen no válido detectado');
+        return;
+    }
     // 1. Cargar componentes HTML reutilizables
     await Promise.all([
         includeHTML('topbar', 'topbar.html'),
@@ -45,6 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initLightbox();
     initReveal();
     initHeroCarousel();
+    initLocations(); // Inicializar sistema de ubicaciones
 
     // 3. Lógica específica como el botón de "volver arriba"
     const scrollBtn = document.getElementById('scrollToTop');
