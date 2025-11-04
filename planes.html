@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Planes de servicios funerarios para mascotas - Renacer Mascotas">
+    <title>Planes - Renacer Mascotas</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/scroll-to-top.css">
+    
+    <style>
+        /* Estilos específicos para la página de planes */
+        .planes-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            min-height: 60vh;
+        }
+
+        #contact {
+            margin-top: 4rem;
+        }
+
+        .planes-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: center;
+        }
+
+        .planes-hero img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .planes-hero img:hover {
+            transform: scale(1.02);
+        }
+
+        .planes-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .plan-button {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            min-width: 180px;
+        }
+
+        .plan-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .plan-button:active {
+            transform: translateY(-1px);
+        }
+
+        .plan-display {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .plan-display.active {
+            display: block;
+        }
+
+        .plan-display img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 2rem;
+        }
+
+        .whatsapp-button {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+        }
+
+        .whatsapp-button img {
+            width: 200px;
+            height: auto;
+            cursor: pointer;
+            filter: drop-shadow(0 4px 15px rgba(37, 211, 102, 0.4));
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .planes-hero {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .planes-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .plan-button {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .whatsapp-button img {
+                width: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .planes-container {
+                padding: 1rem 0.5rem;
+            }
+
+            .plan-button {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Topbar -->
+    <div id="topbar"></div>
+
+    <!-- Header/Navbar -->
+    <header id="header"></header>
+
+    <!-- Main Content -->
+    <main class="planes-container">
+        <h1 style="text-align: center; margin-bottom: 2rem; color: #333; font-size: 2.5rem;">Nuestros Planes</h1>
+        
+        <!-- Hero Images -->
+        <div class="planes-hero">
+            <img src="fotos/mascotas_2_gat_dog.png" alt="Mascotas perro y gato" loading="lazy">
+            <img src="fotos/planes_1.jpg" alt="Planes Renacer Mascotas" loading="lazy">
+        </div>
+
+        <!-- Plan Selector Buttons -->
+        <div class="planes-selector">
+            <button class="plan-button" data-plan="dc" aria-label="Ver plan DC">
+                <i class="fas fa-paw"></i> Plan DC
+            </button>
+            <button class="plan-button" data-plan="quilla" aria-label="Ver plan Quilla">
+                <i class="fas fa-paw"></i> Plan Quilla
+            </button>
+            <button class="plan-button" data-plan="york" aria-label="Ver plan York">
+                <i class="fas fa-paw"></i> Plan York
+            </button>
+        </div>
+
+        <!-- Plan Display Areas -->
+        <div id="plan-dc" class="plan-display">
+            <img src="fotos/planes_dc.jpg" alt="Detalles del Plan DC" loading="lazy">
+            <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20DC" 
+               class="whatsapp-button" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Contactar por WhatsApp para Plan DC">
+                <img src="fotos/base.png" alt="Contactar por WhatsApp">
+            </a>
+        </div>
+
+        <div id="plan-quilla" class="plan-display">
+            <img src="fotos/planes_quilla.jpg" alt="Detalles del Plan Quilla" loading="lazy">
+            <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20Quilla" 
+               class="whatsapp-button" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Contactar por WhatsApp para Plan Quilla">
+                <img src="fotos/base.png" alt="Contactar por WhatsApp">
+            </a>
+        </div>
+
+        <div id="plan-york" class="plan-display">
+            <img src="fotos/planes_york.jpg" alt="Detalles del Plan York" loading="lazy">
+            <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20York" 
+               class="whatsapp-button" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Contactar por WhatsApp para Plan York">
+                <img src="fotos/base.png" alt="Contactar por WhatsApp">
+            </a>
+        </div>
+    </main>
+
+    <!-- Contactos -->
+    <section id="contact" class="reveal">
+        <div class="container section-title">
+            <h2>Contáctanos</h2>
+        </div>
+        <div id="contactos"></div>
+        <div id="contacto-extra"></div>
+    </section>
+
+    <!-- Footer Wave -->
+    <div class="animated-wave-container footer-wave">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" />
+                <use xlink:href="#gentle-wave" x="48" y="3" />
+                <use xlink:href="#gentle-wave" x="48" y="5" />
+                <use xlink:href="#gentle-wave" x="48" y="7" />
+            </g>
+        </svg>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Volver arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js" defer></script>
+    
+    <script>
+        // Plan selector functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const planButtons = document.querySelectorAll('.plan-button');
+            const planDisplays = document.querySelectorAll('.plan-display');
+
+            planButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const planName = this.getAttribute('data-plan');
+                    
+                    // Remove active class from all displays
+                    planDisplays.forEach(display => {
+                        display.classList.remove('active');
+                    });
+
+                    // Add active class to selected plan
+                    const selectedPlan = document.getElementById(`plan-${planName}`);
+                    if (selectedPlan) {
+                        selectedPlan.classList.add('active');
+                        
+                        // Smooth scroll to plan display
+                        selectedPlan.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                    }
+
+                    // Visual feedback on button
+                    planButtons.forEach(btn => {
+                        btn.style.opacity = '0.6';
+                    });
+                    this.style.opacity = '1';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
