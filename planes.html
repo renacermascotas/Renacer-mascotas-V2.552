@@ -31,23 +31,141 @@
         }
 
         .planes-hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            text-align: center;
             margin-bottom: 3rem;
-            align-items: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 3rem;
+            flex-wrap: wrap;
+            background: transparent;
+            border: none;
+            padding: 0;
+            box-shadow: none;
         }
 
-        .planes-hero img {
+        .planes-hero-main {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .planes-hero-main img {
             width: 100%;
+            max-width: 550px;
             height: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            object-fit: contain;
+            border-radius: 45px;
+            box-shadow: none;
+            transition: transform 0.3s ease;
+        }
+
+        .planes-hero-side {
+            flex: 0.8;
+            min-width: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .planes-hero-side img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            object-fit: contain;
+            border-radius: 30px;
+            box-shadow: none;
             transition: transform 0.3s ease;
         }
 
         .planes-hero img:hover {
             transform: scale(1.02);
+        }
+
+        .planes-sales-text {
+            background: linear-gradient(135deg, #f8fafc 0%, #e6394610 100%);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: left;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .planes-sales-text h3 {
+            color: var(--primary, #e63946);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .planes-sales-text p {
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 0.8rem;
+        }
+
+        .planes-sales-text .highlight {
+            color: var(--secondary, #1d3557);
+            font-weight: 600;
+        }
+
+        /* Sección de precios */
+        .precios-section {
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .precios-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem auto;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .precio-card {
+            transition: transform 0.3s ease, box-shadow none;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .precio-card a {
+            display: block;
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            line-height: 0;
+        }
+
+        .precio-card img {
+            width: 280px;
+            height: auto;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 210px;
+            box-shadow: none;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .precio-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .precio-card:hover img {
+            box-shadow: 0 8px 30px rgba(230, 57, 70, 0.3);
         }
 
         .planes-selector {
@@ -66,15 +184,16 @@
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #e63946 0%, #1d3557 100%);
             color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
             min-width: 180px;
         }
 
         .plan-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 6px 25px rgba(230, 57, 70, 0.5);
+            background: linear-gradient(135deg, #ff4757 0%, #2c4a6e 100%);
         }
 
         .plan-button:active {
@@ -93,9 +212,10 @@
 
         .plan-display img {
             max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            height: 500px;
+            object-fit: contain;
+            border-radius: var(--radius, 1.5rem);
+            box-shadow: none;
             margin-bottom: 2rem;
         }
 
@@ -128,9 +248,36 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .precios-grid {
+                gap: 1rem;
+            }
+
+            .precio-card img {
+                width: 130px;
+                max-height: 160px;
+            }
+
             .planes-hero {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .planes-hero-main,
+            .planes-hero-side {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .planes-hero-main img {
+                max-width: 100%;
+            }
+
+            .planes-hero-side img {
+                max-width: 280px;
+            }
+
+            .planes-sales-text {
+                max-width: 100%;
             }
 
             .planes-selector {
@@ -149,8 +296,34 @@
         }
 
         @media (max-width: 480px) {
+            .precios-grid {
+                gap: 0.8rem;
+                flex-direction: column;
+            }
+
+            .precio-card img {
+                width: 140px;
+                max-height: 170px;
+            }
+
             .planes-container {
                 padding: 1rem 0.5rem;
+            }
+
+            .planes-hero-side img {
+                max-width: 240px;
+            }
+
+            .planes-sales-text {
+                padding: 1.5rem;
+            }
+
+            .planes-sales-text h3 {
+                font-size: 1.3rem;
+            }
+
+            .planes-sales-text p {
+                font-size: 0.95rem;
             }
 
             .plan-button {
@@ -169,12 +342,64 @@
 
     <!-- Main Content -->
     <main class="planes-container">
-        <h1 style="text-align: center; margin-bottom: 2rem; color: #333; font-size: 2.5rem;">Nuestros Planes</h1>
+        <div class="container section-title">
+            <h2>Nuestros Planes</h2>
+        </div>
         
         <!-- Hero Images -->
         <div class="planes-hero">
-            <img src="fotos/mascotas_2_gat_dog.png" alt="Mascotas perro y gato" loading="lazy">
-            <img src="fotos/planes_1.jpg" alt="Planes Renacer Mascotas" loading="lazy">
+            <div class="planes-hero-side">
+                <img src="fotos/planes_2025.png" alt="Mascotas perro y gato" loading="lazy">
+                <div class="planes-sales-text">
+                    <h3>El bienestar de tu mascota, garantizado</h3>
+                    <p>Porque su salud no puede esperar. <span class="highlight">Acceso inmediato</span> a servicios veterinarios cuando más lo necesitas.</p>
+                    <p>Consultas, vacunas, desparasitación y más. Todo en un solo plan, sin complicaciones.</p>
+                    <p><span class="highlight">Cuida hoy</span>, ahorra mañana. Invierte en prevención, no en emergencias.</p>
+                    <p>✓ Atención prioritaria 24/7<br>
+                    ✓ Planes desde $18.000<br>
+                    ✓ Red de clínicas en toda la región</p>
+                </div>
+            </div>
+            <div class="planes-hero-main">
+                <img src="fotos/planes_1.jpg" alt="Planes Renacer Mascotas" loading="lazy">
+            </div>
+        </div>
+
+        <!-- Precios Section -->
+        <div class="precios-section">
+            <button id="toggle-precios-btn" class="plan-button" style="margin-bottom: 2rem;">
+                <i class="fas fa-tag"></i> Ver Tarifas
+            </button>
+            <div class="precios-grid" id="precios-grid" style="display: none;">
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20quiero%20información%20sobre%20el%20plan%20base" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base.png" alt="Plan Base" loading="lazy">
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20quiero%20información%20sobre%20el%20plan%20de%20$18.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base_18.png" alt="Plan $18.000" loading="lazy">
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20quiero%20información%20sobre%20el%20plan%20de%20$34.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base_34.000.png" alt="Plan $34.000" loading="lazy">
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20quiero%20información%20sobre%20el%20plan%20de%20$44.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base_44.000.png" alt="Plan $44.000" loading="lazy">
+                    </a>
+                </div>
+            </div>
         </div>
 
         <!-- Plan Selector Buttons -->
@@ -190,38 +415,112 @@
             </button>
         </div>
 
-        <!-- Plan Display Areas -->
         <div id="plan-dc" class="plan-display">
             <img src="fotos/planes_dc.jpg" alt="Detalles del Plan DC" loading="lazy">
-            <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20DC" 
-               class="whatsapp-button" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="Contactar por WhatsApp para Plan DC">
-                <img src="fotos/base.png" alt="Contactar por WhatsApp">
-            </a>
+            
+            <!-- Precios para Plan DC -->
+            <div class="precios-grid" style="margin-top: 2rem;">
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20DC%20-%20Base" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base.png" alt="Plan DC Base" loading="lazy">
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20DC%20-%20$23.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base_23.000.png" alt="Plan DC $23.000" loading="lazy">
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20DC%20-%20$39.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base_39.000.png" alt="Plan DC $39.000" loading="lazy">
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20DC%20-%20$49.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base_49.000.png" alt="Plan DC $49.000" loading="lazy">
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div id="plan-quilla" class="plan-display">
             <img src="fotos/planes_quilla.jpg" alt="Detalles del Plan Quilla" loading="lazy">
-            <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20Quilla" 
-               class="whatsapp-button" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="Contactar por WhatsApp para Plan Quilla">
-                <img src="fotos/base.png" alt="Contactar por WhatsApp">
-            </a>
+            
+            <!-- Precios para Plan Quilla -->
+            <div class="precios-grid" style="margin-top: 2rem;">
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20Quilla%20-%20Base" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base.png" alt="Plan Quilla Base" loading="lazy">
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20Quilla%20-%20$23.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base_23.000.png" alt="Plan Quilla $23.000" loading="lazy">
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20Quilla%20-%20$39.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base_39.000.png" alt="Plan Quilla $39.000" loading="lazy">
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20Quilla%20-%20$49.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base_49.000.png" alt="Plan Quilla $49.000" loading="lazy">
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div id="plan-york" class="plan-display">
             <img src="fotos/planes_york.jpg" alt="Detalles del Plan York" loading="lazy">
-            <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20York" 
-               class="whatsapp-button" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="Contactar por WhatsApp para Plan York">
-                <img src="fotos/base.png" alt="Contactar por WhatsApp">
-            </a>
+            
+            <!-- Precios para Plan York -->
+            <div class="precios-grid" style="margin-top: 2rem;">
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20York%20-%20Base" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base.png" alt="Plan York Base" loading="lazy">
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20York%20-%20$23.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base_23.000.png" alt="Plan York $23.000" loading="lazy">
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20York%20-%20$39.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base_39.000.png" alt="Plan York $39.000" loading="lazy">
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20estoy%20interesado%20en%20el%20Plan%20York%20-%20$49.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <img src="fotos/base_49.000.png" alt="Plan York $49.000" loading="lazy">
+                    </a>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -271,6 +570,9 @@
                 button.addEventListener('click', function() {
                     const planName = this.getAttribute('data-plan');
                     
+                    // Skip if this is the toggle precios button
+                    if (!planName) return;
+                    
                     // Remove active class from all displays
                     planDisplays.forEach(display => {
                         display.classList.remove('active');
@@ -290,10 +592,26 @@
 
                     // Visual feedback on button
                     planButtons.forEach(btn => {
-                        btn.style.opacity = '0.6';
+                        if (btn.getAttribute('data-plan')) {
+                            btn.style.opacity = '0.6';
+                        }
                     });
                     this.style.opacity = '1';
                 });
+            });
+
+            // Toggle precios functionality
+            const togglePreciosBtn = document.getElementById('toggle-precios-btn');
+            const preciosGrid = document.getElementById('precios-grid');
+            
+            togglePreciosBtn.addEventListener('click', function() {
+                if (preciosGrid.style.display === 'none' || preciosGrid.style.display === '') {
+                    preciosGrid.style.display = 'flex';
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i> Ocultar Tarifas';
+                } else {
+                    preciosGrid.style.display = 'none';
+                    this.innerHTML = '<i class="fas fa-tag"></i> Ver Tarifas';
+                }
             });
         });
     </script>
