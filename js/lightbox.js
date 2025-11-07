@@ -16,6 +16,7 @@ export function initLightbox() {
                     <img src="" alt="" class="lightbox-image">
                     <button class="lightbox-close" aria-label="Cerrar">&times;</button>
                     <p class="lightbox-caption"></p>
+                    <a href="galeria.html" class="lightbox-gallery-btn">Ir a Galería</a>
                 </div>
             `;
             document.body.appendChild(lightboxElement);
