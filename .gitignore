@@ -31,6 +31,12 @@ config/production.js
 backend/uploads/*
 !backend/uploads/.gitkeep
 
+# Videos grandes (subir a hosting externo)
+fotos/*.mov
+fotos/*.mp4
+fotos/*.avi
+fotos/*.mkv
+
 # Cache y archivos temporales
 .DS_Store
 Thumbs.db

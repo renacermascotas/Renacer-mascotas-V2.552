@@ -9,64 +9,419 @@
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/sections.css" />
+    <link rel="stylesheet" href="css/loader.css" />
+    <link rel="stylesheet" href="css/scroll-to-top.css" />
+    <link rel="stylesheet" href="css/contact-locations.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="icon" type="image/png" href="fotos/favicon.ico" />
+    
+    <style>
+        :root {
+            --primary: #e63946;
+            --secondary: #1d3557;
+            --accent: #f1faee;
+            --text: #333;
+            --light-gray: #f8f9fa;
+        }
+
+        /* Contenedor principal */
+        .veterinaria-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Sección Hero con video y texto */
+        .veterinaria-hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .veterinaria-video {
+            flex: 1;
+            min-width: 300px;
+            margin-top: 2.5rem;
+        }
+
+        .veterinaria-video video {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.8rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .instagram-btn {
+            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            box-shadow: 0 4px 15px rgba(188, 24, 136, 0.3);
+        }
+
+        .instagram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(188, 24, 136, 0.5);
+        }
+
+        .facebook-btn {
+            background: #1877f2;
+            box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+        }
+
+        .facebook-btn:hover {
+            background: #0d65d9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(24, 119, 242, 0.5);
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-btn:hover {
+            background: #20BA5A;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        .social-btn i {
+            font-size: 1.2rem;
+        }
+
+        .veterinaria-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .vet-image-container {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .vet-2025-img {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: none;
+            transition: transform 0.3s ease;
+        }
+
+        .vet-2025-img:hover {
+            transform: scale(1.05);
+        }
+
+        .veterinaria-text h1 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .veterinaria-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .veterinaria-text ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .veterinaria-text ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .veterinaria-text ul li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Sección de Misión, Visión, Filosofía */
+        .valores-section {
+            margin: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .valor-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            border-left: 6px solid var(--primary);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .valor-card:nth-child(2) {
+            border-left-color: var(--secondary);
+        }
+
+        .valor-card:nth-child(3) {
+            border-left-color: #457b9d;
+        }
+
+        .valor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .valor-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .valor-card:nth-child(2) h3 {
+            color: var(--secondary);
+        }
+
+        .valor-card:nth-child(3) h3 {
+            color: #457b9d;
+        }
+
+        .valor-card i {
+            font-size: 2rem;
+        }
+
+        .valor-card p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        /* Wave animado */
+        .animated-wave-container {
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .footer-wave {
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .veterinaria-hero {
+                flex-direction: column;
+            }
+
+            .veterinaria-text h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .valores-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .veterinaria-container {
+                padding: 1rem;
+            }
+
+            .social-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .social-btn {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- =========================================
-    BLOQUE: Inclusión de topbar y header reutilizables
-    Explicación: Carga la barra superior y el encabezado desde archivos externos para mantener la navegación y branding consistentes en todo el sitio.
-  ========================================= -->
+    <!-- Topbar -->
     <div id="topbar"></div>
-    <div id="header"></div>
-    <script>
-        fetch('topbar.html')
-            .then(res => res.text())
-            .then(html => { document.getElementById('topbar').innerHTML = html; })
-            .then(() => {
-                fetch('header.html')
-                    .then(res => res.text())
-                    .then(html => { document.getElementById('header').innerHTML = html; });
-            });
-    </script>
-    <!-- =========================================
-    BLOQUE: Título y mensaje principal
-    Explicación: Presenta el título de la página y un mensaje informativo sobre el servicio de veterinaria.
-  ========================================= -->
-    <h1>Veterinaria</h1>
-    <p>Próximamente información sobre el servicio de veterinaria.</p>
-    <!-- =========================================
-    BLOQUE: Sección de contacto
-    Explicación: Incluye los formularios y datos de contacto, cargando componentes reutilizables para mantener la coherencia y facilitar actualizaciones.
-  ========================================= -->
-    <section id="contact" class="reveal">
-        <div class="container section-title">
-            <h2>Contáctanos</h2>
-        </div>
-        <div id="contactos"></div>
-        <script>
-            fetch('contactos.html')
-                .then(res => res.text())
-                .then(html => { document.getElementById('contactos').innerHTML = html; });
-        </script>
-        <div id="contacto-extra"></div>
-        <script>
-            fetch('contacto_extra.html')
-                .then(res => res.text())
-                .then(html => { document.getElementById('contacto-extra').innerHTML = html; });
-        </script>
-    </section>
-    <!-- =========================================
-    BLOQUE: Inclusión del footer reutilizable
-    Explicación: Carga el pie de página común para mantener enlaces de contacto y redes sociales consistentes.
-  ========================================= -->
-    <div id="footer"></div>
-    <script>
-        fetch('footer.html')
-            .then(res => res.text())
-            .then(html => { document.getElementById('footer').innerHTML = html; });
-    </script>
+
+    <!-- Header/Navbar -->
+    <header id="header"></header>
+
+    <!-- Main Content -->
+    <main class="veterinaria-container">
+        <!-- Título Principal -->
+        <h2 class="section-title" style="text-align: center; margin: 3rem 0 2rem 0;">Servicios Veterinarios</h2>
+        
+        <!-- Hero Section con Video y Texto -->
+        <section class="veterinaria-hero">
+            <div class="veterinaria-video">
+                <video src="fotos/veterinaria_vi.mov" autoplay muted loop playsinline controls>
+                    Tu navegador no soporta el elemento de video.
+                </video>
+                <div class="social-buttons">
+                    <a href="https://www.instagram.com/renacermascotas/" class="social-btn instagram-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-instagram"></i>
+                        Instagram
+                    </a>
+                    <a href="https://www.facebook.com/renacermascotas" class="social-btn facebook-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </a>
+                    <a href="https://wa.me/573207053536?text=Hola,%20necesito%20información%20sobre%20servicios%20veterinarios" class="social-btn whatsapp-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp
+                    </a>
+                </div>
+            </div>
+            <div class="veterinaria-text">
+                <div class="vet-image-container">
+                    <img src="fotos/vet_2025.png" alt="Servicios Veterinarios 2025" class="vet-2025-img">
+                </div>
+                <p>En <strong>Renacer Mascotas</strong> ofrecemos atención veterinaria integral con profesionales especializados en el cuidado y bienestar de tus mascotas.</p>
+                <ul>
+                    <li>Consultas veterinarias generales</li>
+                    <li>Vacunación y desparasitación</li>
+                    <li>Cirugías y procedimientos especializados</li>
+                    <li>Medicina preventiva</li>
+                    <li>Exámenes de laboratorio</li>
+                    <li>Emergencias 24/7</li>
+                    <li>Planes de salud personalizados</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sección de Misión, Visión y Filosofía -->
+        <section class="valores-section">
+            <h2 class="section-title">Nuestros Valores</h2>
+            
+            <div class="valores-grid">
+                <!-- Misión -->
+                <div class="valor-card">
+                    <h3>
+                        <i class="fas fa-bullseye"></i>
+                        Misión
+                    </h3>
+                    <p>
+                        Fomentar una comunidad de bienestar animal en Colombia, proporcionando planes de salud integrales y asequibles para mascotas que promuevan una vida larga, saludable y feliz para nuestros compañeros animales.
+                    </p>
+                </div>
+
+                <!-- Visión -->
+                <div class="valor-card">
+                    <h3>
+                        <i class="fas fa-eye"></i>
+                        Visión
+                    </h3>
+                    <p>
+                        Ser reconocidos como la empresa líder en salud y bienestar animal en Colombia y Latinoamérica, impulsando un cambio positivo en la forma en que se cuida a las mascotas y fortaleciendo el vínculo entre los dueños y sus animales a través de servicios veterinarios excepcionales.
+                    </p>
+                </div>
+
+                <!-- Filosofía -->
+                <div class="valor-card">
+                    <h3>
+                        <i class="fas fa-heart"></i>
+                        Filosofía
+                    </h3>
+                    <p>
+                        Creemos en el poder de la comunidad y en la importancia de cuidar de nuestros compañeros animales con el mismo amor y dedicación que brindamos a nuestros seres queridos. Nuestra filosofía se basa en la compasión, la integridad y el compromiso con el bienestar animal. Trabajamos incansablemente para ofrecer servicios que no solo mejoren la salud de las mascotas, sino que también fortalezcan el lazo entre los animales y sus familias.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de contacto -->
+        <section id="contact" class="reveal">
+            <div class="container section-title">
+                <h2>Contáctanos</h2>
+            </div>
+            <div id="contactos"></div>
+            <div id="contacto-extra"></div>
+        </section>
+    </main>
+
+    <!-- Footer Wave -->
+    <div class="animated-wave-container footer-wave">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" />
+                <use xlink:href="#gentle-wave" x="48" y="3" />
+                <use xlink:href="#gentle-wave" x="48" y="5" />
+                <use xlink:href="#gentle-wave" x="48" y="7" />
+            </g>
+        </svg>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Volver arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js" defer></script>
 </body>
 
 </html>
