@@ -496,18 +496,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #f8fafc 70%, #3b82f6 30%);
+    background: rgba(128, 128, 128, 0.15);
     border-radius: 1.5rem;
-    box-shadow: 0 2px 12px rgba(59,130,246,0.10);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     transition: box-shadow 0.3s, transform 0.2s, background 0.4s;
     text-align: center;
-    text-decoration: none; /* ¡Esta es la corrección! */
+    text-decoration: none;
     animation: fadeInCard 0.7s;
 }
 .service-card:hover {
-    box-shadow: 0 8px 32px rgba(59,130,246,0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
     transform: translateY(-6px) scale(1.03);
-    background: linear-gradient(135deg, #0062ff 70%, #f8fafc 30%);
+    background: rgba(128, 128, 128, 0.25);
 }
 
 
@@ -805,6 +805,58 @@
     flex-wrap: wrap;
     width: 100%;
     margin: 0 auto 2.5rem auto;
+}
+
+/* Grid horizontal para la página de galería completa */
+#gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#gallery-grid .gallery-item,
+#gallery-grid .gallery-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    height: auto;
+}
+
+#gallery-grid .gallery-item img,
+#gallery-grid .gallery-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin-bottom: 0.7rem;
+}
+
+@media (max-width: 768px) {
+    #gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    #gallery-grid .gallery-item img,
+    #gallery-grid .gallery-card img {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    #gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    #gallery-grid .gallery-item img,
+    #gallery-grid .gallery-card img {
+        height: 220px;
+    }
 }
 
 /* Color rojo empresarial para el click de los dots de testimonios */

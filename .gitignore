@@ -31,6 +31,14 @@ config/production.js
 backend/uploads/*
 !backend/uploads/.gitkeep
 
+# Backup de imágenes originales (antes de conversión a WebP)
+fotos/backup-originales/
+
+# Scripts de conversión temporal
+convert-to-webp.js
+update-images-to-webp.js
+replace-with-webp.js
+
 # Cache y archivos temporales
 .DS_Store
 Thumbs.db
