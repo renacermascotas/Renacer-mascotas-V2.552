@@ -291,19 +291,15 @@
 }
 
 .gallery-list-front {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 2rem;
     justify-content: center;
     margin: 2rem auto;
     max-width: 1200px;
 }
 
-.gallery-item:hover {
-    box-shadow: 0 8px 32px rgba(0,53,128,0.18);
-    transform: translateY(-6px) scale(1.04);
-}
-.gallery-item {
+.gallery-list-front .gallery-item {
     padding: 1.2rem 0.7rem 1.7rem 0.7rem;
     text-align: center;
     box-shadow: 0 2px 12px rgba(230,57,70,0.10);
@@ -316,54 +312,64 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    min-width: 260px;
-    max-width: 340px;
-    margin-bottom: 1.5rem;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    text-decoration: none;
+    color: inherit;
     animation: fadeInCard 0.7s;
 }
-.gallery-item:hover {
+
+.gallery-list-front .gallery-item:hover {
     box-shadow: 0 8px 32px rgba(230,57,70,0.18);
     transform: translateY(-6px) scale(1.03);
     background: linear-gradient(135deg, #e639476d 70%, #f8fafc 30%);
 }
-.gallery-item img {
-    width: 120px;
-    height: 120px;
+
+.gallery-list-front .gallery-item img {
+    display: block;
+    margin: 0 auto 1.2rem auto;
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
     object-fit: cover;
-    border-radius: 1rem;
-    margin-bottom: 0.7rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
-.gallery-item .gallery-desc {
+
+.gallery-list-front .gallery-item .gallery-desc {
     font-size: 1rem;
     color: #444;
     text-align: center;
     margin-top: 0.5rem;
 }
 
-/* Asegura que el enlace de la galería no tenga decoración de texto */
-.gallery-item {
-    text-decoration: none;
-    color: inherit;
-}
-
 @media (max-width: 900px) {
     .gallery-list-front {
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.5rem;
         max-width: 100vw;
     }
-    .gallery-item {
-        width: 85vw;
-        min-width: 280px;
-        max-width: 350px; /* Un máximo más grande */
-        height: auto;
-        margin-bottom: 1.2rem;
+    .gallery-list-front .gallery-item {
+        width: 100%;
+        min-width: 0;
     }
-    .gallery-item img {
-        width: 90px;
-        height: 90px;
+    .gallery-list-front .gallery-item img {
+        width: 180px;
+        height: 180px;
     }
 }
+
+@media (max-width: 480px) {
+    .gallery-list-front {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .gallery-list-front .gallery-item img {
+        width: 180px;
+        height: 180px;
+    }
+}
+
 /* ================= MENÚ HAMBURGUESA: VISIBILIDAD Y TRANSICIÓN ================= */
 @media (max-width: 900px) {
     .menu {
@@ -2454,15 +2460,10 @@ footer a {
 
 /* === Galería, Testimonios y Slider (Migrados desde styles.css) === */
 #gallery .cards {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 2rem;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    padding: 1rem 0 2rem 0;
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary) #eee;
+    display: block;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* =============================
