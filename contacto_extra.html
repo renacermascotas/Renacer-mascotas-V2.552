@@ -39,11 +39,11 @@
             <div class="form-title">Envíanos un mensaje</div>
             <form id="contactForm" autocomplete="on">
                 <div class="form-grid">
-                    <div class="field"><input type="text" id="nombre" name="nombre" class="input" placeholder=" " required /><label for="nombre">Nombre</label></div>
-                    <div class="field"><input type="email" id="email" name="email" class="input" placeholder=" " required /><label for="email">Email</label></div>
-                    <div class="field"><input type="text" id="asunto" name="asunto" class="input" placeholder=" " /><label for="asunto">Asunto (opcional)</label></div>
-                    <div class="field"><input type="tel" id="telefono" name="telefono" class="input" placeholder=" " /><label for="telefono">Teléfono (opcional)</label></div>
-                    <div class="field full-width"><textarea id="mensaje" name="mensaje" class="input" rows="4" placeholder=" " required></textarea><label for="mensaje">Mensaje</label></div>
+                    <div class="field"><input type="text" id="nombre" name="nombre" class="input" placeholder=" " autocomplete="name" required /><label for="nombre">Nombre</label></div>
+                    <div class="field"><input type="email" id="email" name="email" class="input" placeholder=" " autocomplete="email" required /><label for="email">Email</label></div>
+                    <div class="field"><input type="text" id="asunto" name="asunto" class="input" placeholder=" " autocomplete="off" /><label for="asunto">Asunto (opcional)</label></div>
+                    <div class="field"><input type="tel" id="telefono" name="telefono" class="input" placeholder=" " autocomplete="tel" /><label for="telefono">Teléfono (opcional)</label></div>
+                    <div class="field full-width"><textarea id="mensaje" name="mensaje" class="input" rows="4" placeholder=" " autocomplete="off" required></textarea><label for="mensaje">Mensaje</label></div>
                 </div>
                 <div class="contact-buttons">
                     <button class="btn whatsapp-btn" type="submit" aria-label="Enviar mensaje por WhatsApp">

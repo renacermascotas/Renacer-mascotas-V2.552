@@ -91,14 +91,14 @@
         </section>
         <section id="tab-blog" class="tab-section">
           <h3><i class="fa-solid fa-newspaper"></i> Entradas de Blog</h3>
-          <form id="blog-form">
+          <form id="blog-form" autocomplete="off">
               <input type="hidden" id="blog-post-id">
-              <input type="text" id="blog-title" placeholder="Título del post" required>
+              <input type="text" id="blog-title" placeholder="Título del post" autocomplete="off" required>
               <div class="file-row">
                   <input type="file" id="blog-image-file" accept="image/*">
-                  <input type="text" id="blog-image-url" placeholder="O pega la URL de una imagen">
+                  <input type="text" id="blog-image-url" placeholder="O pega la URL de una imagen" autocomplete="url">
               </div>
-              <textarea id="blog-content" placeholder="Contenido del post..." rows="5" required></textarea>
+              <textarea id="blog-content" placeholder="Contenido del post..." rows="5" autocomplete="off" required></textarea>
               <div class="form-actions">
                 <button type="submit" id="blog-submit-btn">Guardar Post</button>
                 <button type="button" id="blog-cancel-btn" style="display:none;">Cancelar</button>
@@ -112,14 +112,14 @@
         </section>
         <section id="tab-testimonios" class="tab-section">
           <h3><i class="fa-solid fa-quote-left"></i> Testimonios</h3>
-          <form id="testimonial-form">
+          <form id="testimonial-form" autocomplete="off">
               <input type="hidden" id="testimonial-id">
-              <input type="text" id="testimonial-author" placeholder="Autor del testimonio" required>
+              <input type="text" id="testimonial-author" placeholder="Autor del testimonio" autocomplete="name" required>
               <div class="file-row">
                 <input type="file" id="testimonial-image-file" accept="image/*">
-                <input type="text" id="testimonial-image-url" placeholder="O pega la URL de una imagen">
+                <input type="text" id="testimonial-image-url" placeholder="O pega la URL de una imagen" autocomplete="url">
               </div>
-              <textarea id="testimonial-text" placeholder="Texto del testimonio..." rows="3" required></textarea>
+              <textarea id="testimonial-text" placeholder="Texto del testimonio..." rows="3" autocomplete="off" required></textarea>
               <div class="form-actions">
                 <button type="submit" id="testimonial-submit-btn">Guardar Testimonio</button>
                 <button type="button" id="testimonial-cancel-btn" style="display:none;">Cancelar</button>
@@ -133,10 +133,10 @@
         </section>
         <section id="tab-galeria" class="tab-section">
           <h3><i class="fa-solid fa-images"></i> Galería</h3>
-          <form id="gallery-form">
+          <form id="gallery-form" autocomplete="off">
               <input type="hidden" id="gallery-id">
               <input type="file" id="gallery-image-file" accept="image/*" required>
-              <input type="text" id="gallery-description" placeholder="Descripción de la imagen">
+              <input type="text" id="gallery-description" placeholder="Descripción de la imagen" autocomplete="off">
               <button type="submit" id="gallery-submit-btn">Añadir a la Galería</button>
               <button type="button" id="gallery-cancel-btn" style="display:none;">Cancelar</button>
           </form>

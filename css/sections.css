@@ -172,8 +172,8 @@
 .pse-float {
     position: fixed;
     bottom: 110px;
-    right: 23px; /* Lo movemos a la derecha */
-    z-index: 9998;
+    right: 23px;
+    z-index: 9997;
     background: #fff;
     border-radius: 50%;
     width: 64px;
@@ -192,10 +192,24 @@
     transform: scale(1.08);
 }
 .pse-float img {
-    width: 100px; /* Aumentamos el tamaño */
-    height: 100px; /* Aumentamos el tamaño */
+    width: 100px;
+    height: 100px;
     object-fit: contain;
     display: block;
+}
+
+/* Títulos de categorías de convenios - Escritorio */
+#convenios .category-title {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+#convenios .category-title h2 {
+    font-size: 2rem;
+    color: var(--secondary);
+    font-weight: 700;
+    margin: 2.5rem 0 1.5rem 0;
+    text-align: center;
 }
 
 @media (max-width: 900px) {
@@ -341,24 +355,50 @@
     margin-top: 0.5rem;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
+    /* Galería como carrusel horizontal en móvil */
     #gallery-list-front {
-        gap: 1.5rem !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+        overflow-x: auto !important;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 1rem !important;
+        padding-bottom: 1rem;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary) #eee;
     }
+    
+    #gallery-list-front::-webkit-scrollbar {
+        height: 8px;
+    }
+    
+    #gallery-list-front::-webkit-scrollbar-track {
+        background: #eee;
+        border-radius: 10px;
+    }
+    
+    #gallery-list-front::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 10px;
+    }
+    
     #gallery-list-front .gallery-item {
-        width: 240px;
+        width: 280px;
+        flex-shrink: 0;
+        scroll-snap-align: center;
     }
+    
     #gallery-list-front .gallery-item img {
-        height: 180px;
+        height: 200px;
     }
 }
 
 @media (max-width: 480px) {
-    #gallery-list-front {
-        gap: 1rem !important;
-    }
     #gallery-list-front .gallery-item {
-        width: 90%;
+        width: 85vw;
     }
     #gallery-list-front .gallery-item img {
         height: 220px;
@@ -1976,7 +2016,7 @@ body {
     position: fixed;
     right: 20px;
     border-radius: 50%;
-    z-index: 2000;
+    z-index: 9997;
     transition: var(--transition);
 }
 
@@ -2009,6 +2049,53 @@ body {
 .davi-float:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 30px rgba(255, 0, 0, 0.2);
+}
+
+/* Ajustes para móvil */
+@media (max-width: 900px) {
+    .whatsapp-float {
+        display: flex !important;
+        width: 56px !important;
+        height: 56px !important;
+        bottom: 20px !important;
+        right: 15px !important;
+        font-size: 1.8rem !important;
+        z-index: 9997 !important;
+        position: fixed !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+    
+    .davi-float,
+    .pse-float {
+        display: flex !important;
+        width: 56px !important;
+        height: 56px !important;
+        bottom: 85px !important;
+        right: 15px !important;
+        z-index: 9997 !important;
+        position: fixed !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+    
+    .pse-float img {
+        width: 85px !important;
+        height: 85px !important;
+    }
+    
+    .scroll-to-top {
+        z-index: 9996 !important;
+        display: flex !important;
+        visibility: visible !important;
+    }
+    
+    .scroll-to-top.show {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
 }
 
 /* ========== Animaciones Generales ========== */

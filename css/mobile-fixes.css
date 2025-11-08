@@ -1,0 +1,222 @@
+/* Fixes críticos para móvil - Carga al final para máxima prioridad */
+
+/* Tablets y dispositivos medianos (hasta 900px) */
+@media (max-width: 900px) {
+    /* Botón WhatsApp - FORZADO */
+    .whatsapp-float,
+    a.whatsapp-float {
+        display: flex !important;
+        position: fixed !important;
+        width: 56px !important;
+        height: 56px !important;
+        bottom: 20px !important;
+        right: 15px !important;
+        font-size: 1.8rem !important;
+        z-index: 99999 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        background: #25d366 !important;
+        color: #fff !important;
+        border-radius: 50% !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5) !important;
+        transform: none !important;
+    }
+    
+    .whatsapp-float i,
+    a.whatsapp-float i {
+        color: #fff !important;
+        font-size: 1.8rem !important;
+    }
+    
+    /* Botón PSE/Davivienda - FORZADO */
+    .pse-float,
+    .davi-float,
+    a.pse-float,
+    a.davi-float {
+        display: flex !important;
+        position: fixed !important;
+        width: 56px !important;
+        height: 56px !important;
+        bottom: 85px !important;
+        right: 15px !important;
+        z-index: 99999 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        background: #fff !important;
+        border-radius: 50% !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+        transform: none !important;
+    }
+    
+    .pse-float img,
+    .davi-float img,
+    a.pse-float img,
+    a.davi-float img {
+        width: 85px !important;
+        height: 85px !important;
+        object-fit: contain !important;
+    }
+    
+    /* Botón Scroll to Top - FORZADO */
+    .scroll-to-top,
+    #scrollToTop,
+    button.scroll-to-top,
+    a.scroll-to-top-btn {
+        display: flex !important;
+        position: fixed !important;
+        left: 1rem !important;
+        bottom: 5.5rem !important;
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 1.5rem !important;
+        z-index: 99998 !important;
+        background: var(--primary) !important;
+        color: #fff !important;
+        border: none !important;
+        border-radius: 50% !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 4px 20px rgba(230, 57, 70, 0.4) !important;
+        cursor: pointer !important;
+        text-decoration: none !important;
+        transition: opacity 0.3s !important;
+        transform: none !important;
+    }
+    
+    .scroll-to-top.show,
+    #scrollToTop.show,
+    button.scroll-to-top.show,
+    a.scroll-to-top-btn.show {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+    
+    /* Asegurar que los íconos de Font Awesome se vean */
+    .whatsapp-float .fa-whatsapp,
+    .scroll-to-top .fa-chevron-up,
+    #scrollToTop .fa-chevron-up {
+        display: block !important;
+        color: #fff !important;
+    }
+}
+
+/* Móviles pequeños (hasta 480px) */
+@media (max-width: 480px) {
+    .whatsapp-float,
+    a.whatsapp-float {
+        width: 50px !important;
+        height: 50px !important;
+        bottom: 15px !important;
+        right: 12px !important;
+        font-size: 1.6rem !important;
+    }
+    
+    .whatsapp-float i,
+    a.whatsapp-float i {
+        font-size: 1.6rem !important;
+    }
+    
+    .pse-float,
+    .davi-float,
+    a.pse-float,
+    a.davi-float {
+        width: 50px !important;
+        height: 50px !important;
+        bottom: 75px !important;
+        right: 12px !important;
+    }
+    
+    .pse-float img,
+    .davi-float img,
+    a.pse-float img,
+    a.davi-float img {
+        width: 75px !important;
+        height: 75px !important;
+    }
+    
+    .scroll-to-top,
+    #scrollToTop,
+    button.scroll-to-top,
+    a.scroll-to-top-btn {
+        width: 44px !important;
+        height: 44px !important;
+        left: 0.8rem !important;
+        bottom: 5rem !important;
+        font-size: 1.3rem !important;
+    }
+}
+
+/* Móviles muy pequeños (hasta 360px) */
+@media (max-width: 360px) {
+    .whatsapp-float,
+    a.whatsapp-float {
+        width: 46px !important;
+        height: 46px !important;
+        bottom: 12px !important;
+        right: 10px !important;
+        font-size: 1.4rem !important;
+    }
+    
+    .whatsapp-float i,
+    a.whatsapp-float i {
+        font-size: 1.4rem !important;
+    }
+    
+    .pse-float,
+    .davi-float,
+    a.pse-float,
+    a.davi-float {
+        width: 46px !important;
+        height: 46px !important;
+        bottom: 68px !important;
+        right: 10px !important;
+    }
+    
+    .pse-float img,
+    .davi-float img,
+    a.pse-float img,
+    a.davi-float img {
+        width: 70px !important;
+        height: 70px !important;
+    }
+    
+    .scroll-to-top,
+    #scrollToTop,
+    button.scroll-to-top,
+    a.scroll-to-top-btn {
+        width: 40px !important;
+        height: 40px !important;
+        left: 0.6rem !important;
+        bottom: 4.5rem !important;
+        font-size: 1.2rem !important;
+    }
+}
+
+/* Tablets en modo paisaje (landscape) */
+@media (max-width: 900px) and (orientation: landscape) {
+    .scroll-to-top,
+    #scrollToTop,
+    button.scroll-to-top,
+    a.scroll-to-top-btn {
+        bottom: 2rem !important;
+    }
+    
+    .whatsapp-float,
+    a.whatsapp-float {
+        bottom: 15px !important;
+    }
+    
+    .pse-float,
+    .davi-float,
+    a.pse-float,
+    a.davi-float {
+        bottom: 75px !important;
+    }
+}

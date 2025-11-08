@@ -71,6 +71,12 @@
     gap: 0.5rem;
 }
 
+/* Ocultar solo los botones de Dosquebradas y Manizales */
+.location-btn[data-location="dosquebradas"],
+.location-btn[data-location="manizales"] {
+    display: none !important;
+}
+
 .location-btn:hover {
     background: var(--primary);
     color: white;
@@ -236,18 +242,6 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .location-selector {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.6rem;
-    }
-    
-    .location-btn {
-        width: 100%;
-        max-width: 280px;
-        justify-content: center;
-    }
-    
     .social-stats {
         flex-direction: column;
         gap: 1rem;

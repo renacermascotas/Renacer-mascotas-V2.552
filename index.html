@@ -9,7 +9,7 @@
     <meta name="description"
         content="Renacer Mascotas: cuidado premium, veterinaria, spa, nutrición y más para tus mascotas en Pereira, Dosquebradas y Manizales." />
     <!-- Security Headers - CSP corregido -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdn.jsdelivr.net https://cdn.skypack.dev; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: blob: https: https://cdn-icons-png.flaticon.com; media-src 'self' blob:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://obsshvmadmfmqigivjkb.supabase.co https://api.ipify.org https://snapwidget.com; frame-src 'self' https://www.google.com https://www.facebook.com https://snapwidget.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdn.jsdelivr.net https://cdn.skypack.dev; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: blob: https: https://cdn-icons-png.flaticon.com https://obsshvmadmfmqigivjkb.supabase.co; media-src 'self' blob:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://obsshvmadmfmqigivjkb.supabase.co https://api.ipify.org https://snapwidget.com https://*.supabase.co https://cdn.jsdelivr.net; frame-src 'self' https://www.google.com https://www.facebook.com https://snapwidget.com; object-src 'none'; base-uri 'self'; form-action 'self';">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Renacer Mascotas</title>
@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="css/sections.css" />
     <link rel="stylesheet" href="css/scroll-to-top.css" />
     <link rel="stylesheet" href="css/contact-locations.css" />
+    <link rel="stylesheet" href="css/mobile-fixes.css" />
     <!-- Modularización JS -->
     <script type="module" src="js/main.js" defer></script>
     <!-- Google Fonts optimizado -->
@@ -72,8 +73,8 @@
                 <div class="hero-visual reveal">
                     <div class="hero-carousel">
                         <picture>
-      <source srcset="fotos/gatos perro.webp" type="image/webp">
-      <img src="fotos/gatos perro.webp" alt="Mascota feliz 1" class="carousel-img active" loading="lazy" />
+      <source srcset="fotos/gatos_perro.webp" type="image/webp">
+      <img src="fotos/gatos_perro.webp" alt="Mascota feliz 1" class="carousel-img active" loading="lazy" />
     </picture>
                         <picture>
       <source srcset="fotos/4.webp" type="image/webp">
@@ -191,7 +192,7 @@
                     </p>
                 </div>
                 <video src="/fotos/encontraras_index.mp4" autoplay muted loop playsinline
-                    controls poster="fotos/4.jpg" class="about-video" autoplay muted
+                    controls poster="fotos/4.webp" class="about-video"
                     playsinline></video>
             </div>
         </section>

@@ -4,13 +4,39 @@ export function initMenu() {
     // ===== Mobile Menu Toggle =====
     const navToggle = document.querySelector(".nav-toggle");
     const menu = document.querySelector(".menu");
+    const brand = document.querySelector(".brand");
 
     if (navToggle && menu) {
-        navToggle.addEventListener("click", () => {
+        // Función para toggle del menú
+        const toggleMenu = () => {
             const isExpanded = navToggle.getAttribute("aria-expanded") === "true";
             navToggle.setAttribute("aria-expanded", !isExpanded);
             menu.classList.toggle("show");
-        });
+        };
+        
+        // Click en hamburguesa
+        navToggle.addEventListener("click", toggleMenu);
+        
+        // Click en logo (solo en móvil)
+        if (brand) {
+            brand.addEventListener("click", (e) => {
+                if (window.innerWidth <= 900) {
+                    e.preventDefault();
+                    toggleMenu();
+                }
+            });
+            
+            // Agregar cursor pointer en móvil
+            const updateBrandCursor = () => {
+                if (window.innerWidth <= 900) {
+                    brand.style.cursor = 'pointer';
+                } else {
+                    brand.style.cursor = '';
+                }
+            };
+            updateBrandCursor();
+            window.addEventListener('resize', updateBrandCursor);
+        }
 
         // Manejo del submenú en móvil
         const dropdowns = menu.querySelectorAll(".dropdown");
@@ -20,14 +46,25 @@ export function initMenu() {
 
             if (toggle && submenu) {
                 toggle.addEventListener("click", (e) => {
-                    const href = toggle.getAttribute('href');
-                    const isAnchor = href && href.startsWith('#');
-                    const hasSubmenu = dropdown.classList.contains('has-submenu');
-
-                    if (isAnchor || hasSubmenu) {
+                    // En móvil, siempre prevenir el comportamiento por defecto para los dropdowns
+                    if (window.innerWidth <= 900) {
                         e.preventDefault();
+                        e.stopPropagation();
+                        
+                        // Toggle del submenu
+                        const isOpen = submenu.style.display === "block";
+                        
+                        // Cerrar otros submenus del mismo nivel
+                        const allSubmenus = menu.querySelectorAll(".submenu");
+                        allSubmenus.forEach(sm => {
+                            if (sm !== submenu && sm.parentElement.parentElement === dropdown.parentElement) {
+                                sm.style.display = "none";
+                            }
+                        });
+                        
+                        // Toggle del submenu actual
+                        submenu.style.display = isOpen ? "none" : "block";
                     }
-                    submenu.style.display = submenu.style.display === "block" ? "none" : "block";
                 });
             }
         });

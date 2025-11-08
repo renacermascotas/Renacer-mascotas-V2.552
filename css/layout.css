@@ -236,28 +236,77 @@ header .brand img:hover {
 
 /* Ajustes para el menú móvil */
 .menu .submenu {
-    display: none; /* Oculto por defecto */
+    display: none !important; /* Oculto por defecto */
     position: static; /* No absoluto en móvil */
     transform: none;
     box-shadow: none;
     padding: 0.5rem 0 0.5rem 1.5rem; /* Indentación */
     min-width: unset;
     background: #f8f9fa;
+    border-left: 2px solid var(--primary);
+    margin-top: 0.5rem;
+}
+
+.menu .submenu[style*="display: block"] {
+    display: block !important;
+}
+
+.menu .submenu a {
+    display: block;
+    padding: 0.7rem 1rem;
+    color: var(--dark) !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+}
+
+.menu .submenu a:hover {
+    background-color: #e9ecef;
+    color: var(--primary) !important;
 }
 
 .menu .submenu-level-2 {
     position: static;
     padding-left: 1rem; /* Mayor indentación para el nivel 2 */
+    background: #e9ecef;
+    border-left: 2px solid var(--secondary);
+}
+
+.menu .submenu-level-2 a {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    color: var(--dark) !important;
+}
+
+.menu .submenu-level-2 a:hover {
+    background-color: #dee2e6;
+    color: var(--secondary) !important;
+}
+
+.menu .dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: var(--dark) !important;
+}
+
+.menu .dropdown-toggle i {
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
 }
 
 .nav-toggle {
-    display: none;
+    display: none !important;
     font-size: 2rem;
     background: none;
     border: none;
     color: var(--secondary);
     cursor: pointer;
     z-index: 1002;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 .hamburger {
@@ -368,34 +417,68 @@ header .menu.show {
     }
 
     .nav-toggle {
-        display: block; /* Mostrar el botón hamburguesa */
+        display: none !important; /* Ocultar el botón hamburguesa */
+    }
+
+    header .nav {
+        justify-content: center; /* Centrar todo el contenido */
         position: relative;
-        z-index: 1002;
-        order: 1; /* Botón a la izquierda */
     }
 
     header .brand {
-        padding: 0; /* Quitar padding extra del logo */
-        position: relative; /* Cambiar de absolute a relative */
+        padding: 0.5rem 0; /* Padding vertical */
+        position: relative;
         left: auto;
         transform: none;
-        order: 2; /* Logo en el centro */
-        flex: 1;
+        order: 1;
+        flex: 0 0 auto; /* No expandir, tamaño natural */
         display: flex;
         justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 0.5rem;
     }
 
     header .brand img {
-        height: 60px; /* Reducir tamaño en móvil */
-        max-width: 100px;
+        height: 80px; /* Más grande en móvil */
+        max-width: 140px;
+        transition: transform 0.3s ease;
+    }
+    
+    header .brand:active img {
+        transform: scale(0.95); /* Efecto al tocar */
+    }
+    
+    /* Mensaje tooltip para el logo en móvil */
+    header .brand::after {
+        content: 'Toca el logo para ver nuestro menú';
+        position: absolute;
+        bottom: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary);
+        color: white;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+        animation: fadeInOut 4s ease-in-out;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 10001;
+    }
+    
+    @keyframes fadeInOut {
+        0% { opacity: 0; transform: translateX(-50%) translateY(-5px); }
+        15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        100% { opacity: 0; transform: translateX(-50%) translateY(-5px); }
     }
 
-    /* Espacio reservado a la derecha para equilibrio visual */
+    /* Espacio reservado - ya no necesario */
     header .nav::after {
-        content: '';
-        display: block;
-        width: 28px; /* Mismo ancho que el hamburger */
-        order: 3;
+        display: none;
     }
 
     header .menu {
@@ -426,7 +509,51 @@ header .menu.show {
 
     .menu a {
         padding: 0.8rem 1rem;
-        text-align: center;
+        text-align: left;
+        color: #111 !important;
+        font-size: 1rem;
+        font-weight: 500;
+        border-bottom: 1px solid #e9ecef;
+        text-decoration: none !important;
+        background-color: transparent;
+    }
+    
+    .menu a:hover {
+        background-color: #f8f9fa;
+        color: #e63946 !important;
+    }
+    
+    .menu > a {
+        display: block;
+        width: 100%;
+    }
+    
+    .menu > .nav-item {
+        border-bottom: 1px solid #e9ecef;
+        width: 100%;
+    }
+    
+    .menu > .nav-item:last-child {
+        border-bottom: none;
+    }
+    
+    /* Submenús en móvil - forzar visibilidad */
+    .menu .submenu a {
+        color: #111 !important;
+        background-color: #f8f9fa;
+        padding-left: 2rem;
+        font-size: 0.95rem;
+    }
+    
+    .menu .submenu-level-2 a {
+        color: #111 !important;
+        background-color: #e9ecef;
+        padding-left: 3rem;
+        font-size: 0.9rem;
+    }
+    
+    .menu .dropdown-toggle {
+        color: #111 !important;
     }
 }
 /* ================= LAYOUT ================= */

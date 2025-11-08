@@ -8,8 +8,12 @@
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/sections.css" />
+    <link rel="stylesheet" href="css/contact-locations.css" />
+    <link rel="stylesheet" href="css/scroll-to-top.css" />
+    <link rel="stylesheet" href="css/mobile-fixes.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="icon" type="image/png" href="fotos/favicon.ico" />
+    <script type="module" src="js/main.js" defer></script>
 </head>
 <body>
     <!-- =========================================
@@ -37,7 +41,7 @@
     <section id="convenios" class="container reveal">
         <div class="section-title">
             <h1>Convenios Renacer Mascotas</h1>
-            <p>Descubre nuestros aliados en cada ciudad. Haz clic en "Ver más" para ver la ubicación en Google Maps.</p>
+            <p>Descubre nuestros Convenios Veterinarios en cada ciudad. Haz clic y habla con nuestros asesores para agendar tu cita.</p>
         </div>
 
         <!-- Convenios Pereira -->
@@ -230,5 +234,21 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(res => res.text())
             .then(html => { document.getElementById('footer').innerHTML = html; });
     </script>
+
+    <!-- Botón para volver arriba -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Volver arriba" title="Volver arriba">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Botones flotantes WhatsApp y PSE -->
+    <a href="https://wa.me/573207053536?text=Hola,%20quiero%20más%20información%20sobre%20Renacer%20Mascotas"
+        class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://www.pse.com.co/persona" class="pse-float" target="_blank"
+        aria-label="Pagar con PSE" title="PSE">
+        <img src="fotos/BotonPSE.webp" alt="Boton PSE" />
+    </a>
+
 </body>
 </html>

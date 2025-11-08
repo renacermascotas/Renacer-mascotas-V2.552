@@ -106,24 +106,40 @@
 
   /* Responsivo */
   @media (max-width: 768px) {
+    /* Ocultar tarjetas de redes sociales en móvil */
     .redes-sociales-simple {
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
+      display: none !important;
     }
     
     .social-card {
-      min-width: 200px !important;
-      max-width: 280px !important;
-      padding: 1.3rem !important;
+      display: none !important;
+    }
+    
+    /* Mantener visible solo el Call to Action */
+    .social-cta {
+      display: block !important;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .redes-sociales-simple {
+      flex-direction: row;
+      align-items: stretch;
+      gap: 2rem;
+    }
+    
+    .social-card {
+      min-width: 220px !important;
+      max-width: 260px !important;
+      padding: 1.5rem !important;
     }
     
     .social-card i {
-      font-size: 2.5rem !important;
+      font-size: 3rem !important;
     }
     
     .social-card h4 {
-      font-size: 1.1rem !important;
+      font-size: 1.2rem !important;
     }
   }
 </style>

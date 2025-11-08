@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/sections.css" />
+    <link rel="stylesheet" href="css/contact-locations.css" />
+    <link rel="stylesheet" href="css/scroll-to-top.css" />
+    <link rel="stylesheet" href="css/mobile-fixes.css" />
+    <!-- FontAwesome optimizado vía jsDelivr CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" type="image/png" href="fotos/favicon.ico" />
 </head>
 <body>
@@ -19,7 +25,7 @@
         <section id="aliados">
             <div class="container section-title">
                 <h2>Nuestros Aliados</h2>
-                <p>Conoce nuestros aliados por departamento</p>
+                <p>Descubre nuestros Aliados y Descuentos en cada ciudad. Haz clic y habla con nuestros asesores para agendar tu cita.</p>
             </div>
             <div class="aliados-grupos">
                 <!-- RISARALDA -->
@@ -328,10 +334,19 @@ document.addEventListener('DOMContentLoaded', function() {
         </svg>
     </div>
     <footer id="footer"></footer>
-    <!-- Flotantes WhatsApp y Davivienda -->
+    <!-- Flotantes WhatsApp y PSE -->
     <a href="https://wa.me/573207053536?text=Hola,%20quiero%20más%20información%20sobre%20Renacer%20Mascotas"
         class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
+    <a href="https://www.pse.com.co/persona" class="pse-float" target="_blank"
+        aria-label="Pagar con PSE" title="PSE">
+        <img src="fotos/BotonPSE.webp" alt="Boton PSE" />
+    </a>
+
+    <!-- Botón para volver arriba -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Volver arriba" title="Volver arriba">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 </body>
 </html>
