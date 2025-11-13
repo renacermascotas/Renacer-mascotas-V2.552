@@ -47,17 +47,13 @@ async function loadAliados() {
 
         // Crear secciones por departamento (usando las clases CSS originales)
         Object.keys(aliadosPorDepartamento).sort().forEach(departamento => {
-            const departamentoSection = document.createElement('div');
-            departamentoSection.id = departamento.toLowerCase().replace(/\s+/g, '-');
-            departamentoSection.className = 'aliados-depto';
+            const ciudades = aliadosPorDepartamento[departamento];
             
             // Título del departamento
             const departamentoTitle = document.createElement('div');
             departamentoTitle.className = 'section-title category-title';
             departamentoTitle.innerHTML = `<h2>${departamento}</h2>`;
-            departamentoSection.appendChild(departamentoTitle);
-
-            const ciudades = aliadosPorDepartamento[departamento];
+            container.appendChild(departamentoTitle);
             
             // Grid de cards para todos los aliados del departamento
             const grid = document.createElement('div');
@@ -83,8 +79,7 @@ async function loadAliados() {
                 });
             });
 
-            departamentoSection.appendChild(grid);
-            container.appendChild(departamentoSection);
+            container.appendChild(grid);
         });
 
     } catch (error) {
