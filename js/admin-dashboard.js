@@ -142,6 +142,8 @@ tabBtns.forEach(btn => {
       case 'blog': renderBlogList(1); break;
       case 'testimonios': renderTestimonialList(1); break;
       case 'galeria': renderGalleryList(1); break;
+      case 'aliados': renderAliadosList(1); break;
+      case 'convenios': renderConveniosList(1); break;
     }
   });
 });
@@ -695,3 +697,405 @@ function showToast(message, type = 'success') {
     setTimeout(() => toast.remove(), 500);
   }, 3000);
 }
+
+// ====================================
+// SECCIÓN: ALIADOS
+// ====================================
+
+let aliadosCurrentPage = 1;
+let editingAliadoId = null;
+
+async function renderAliadosList(page = 1) {
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+
+  const { data, error, count } = await supabase
+    .from('aliados')
+    .select('*', { count: 'exact' })
+    .order('created_at', { ascending: false })
+    .range(from, to);
+
+  if (error) {
+    console.error('Error al cargar aliados:', error);
+    showToast('Error al cargar aliados', 'error');
+    return;
+  }
+
+  const tbody = document.querySelector('#aliados-table tbody');
+  tbody.innerHTML = '';
+
+  data.forEach(aliado => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><img src="${aliado.logo_url}" alt="${aliado.nombre}" style="width:80px;height:60px;object-fit:contain;"></td>
+      <td>${aliado.nombre}</td>
+      <td>${aliado.departamento}</td>
+      <td>${aliado.ciudad}</td>
+      <td>
+        <button onclick="editAliado('${aliado.id}')" class="btn-edit"><i class="fa-solid fa-pen"></i></button>
+        <button onclick="deleteAliado('${aliado.id}')" class="btn-delete"><i class="fa-solid fa-trash"></i></button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  renderPagination('aliados-pagination', page, count, PAGE_SIZE, renderAliadosList);
+  aliadosCurrentPage = page;
+}
+
+document.getElementById('aliados-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const nombre = document.getElementById('aliado-nombre').value.trim();
+  const departamento = document.getElementById('aliado-departamento').value.trim();
+  const ciudad = document.getElementById('aliado-ciudad').value.trim();
+  const website = document.getElementById('aliado-website').value.trim();
+  const descripcion = document.getElementById('aliado-descripcion').value.trim();
+  const logoFile = document.getElementById('aliado-logo-file').files[0];
+  const logoUrl = document.getElementById('aliado-logo-url').value.trim();
+
+  if (!nombre || !departamento || !ciudad) {
+    showToast('Nombre, departamento y ciudad son requeridos', 'error');
+    return;
+  }
+
+  try {
+    let finalLogoUrl = logoUrl;
+
+    if (logoFile) {
+      const fileExt = logoFile.name.split('.').pop();
+      const fileName = `aliado_${Date.now()}.${fileExt}`;
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('media')
+        .upload(fileName, logoFile);
+
+      if (uploadError) throw uploadError;
+
+      const { data: publicUrlData } = supabase.storage.from('media').getPublicUrl(fileName);
+      finalLogoUrl = publicUrlData.publicUrl;
+    }
+
+    if (!finalLogoUrl) {
+      showToast('Debes proporcionar un logo (archivo o URL)', 'error');
+      return;
+    }
+
+    const aliadoData = {
+      nombre,
+      departamento,
+      ciudad,
+      logo_url: finalLogoUrl,
+      website: website || null,
+      descripcion: descripcion || null
+    };
+
+    if (editingAliadoId) {
+      const { error } = await supabase
+        .from('aliados')
+        .update(aliadoData)
+        .eq('id', editingAliadoId);
+      if (error) throw error;
+      showToast('Aliado actualizado correctamente', 'success');
+    } else {
+      const { error } = await supabase
+        .from('aliados')
+        .insert([aliadoData]);
+      if (error) throw error;
+      showToast('Aliado agregado correctamente', 'success');
+    }
+
+    document.getElementById('aliados-form').reset();
+    editingAliadoId = null;
+    document.getElementById('aliado-submit-btn').textContent = 'Guardar Aliado';
+    document.getElementById('aliado-cancel-btn').style.display = 'none';
+    document.getElementById('aliado-current-logo').style.display = 'none';
+    document.getElementById('aliado-logo-file').required = true;
+    await renderAliadosList(aliadosCurrentPage);
+  } catch (err) {
+    console.error('Error al guardar aliado:', err);
+    showToast(`Error: ${err.message}`, 'error');
+  }
+});
+
+document.getElementById('aliado-cancel-btn')?.addEventListener('click', () => {
+  document.getElementById('aliados-form').reset();
+  editingAliadoId = null;
+  document.getElementById('aliado-submit-btn').textContent = 'Guardar Aliado';
+  document.getElementById('aliado-cancel-btn').style.display = 'none';
+  document.getElementById('aliado-current-logo').style.display = 'none';
+  document.getElementById('aliado-logo-file').required = true;
+});
+
+window.editAliado = async function(id) {
+  const { data: aliado, error } = await supabase
+    .from('aliados')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error('Error al cargar aliado:', error);
+    showToast('Error al cargar aliado', 'error');
+    return;
+  }
+
+  document.getElementById('aliado-nombre').value = aliado.nombre;
+  document.getElementById('aliado-departamento').value = aliado.departamento;
+  document.getElementById('aliado-ciudad').value = aliado.ciudad;
+  document.getElementById('aliado-website').value = aliado.website || '';
+  document.getElementById('aliado-descripcion').value = aliado.descripcion || '';
+  
+  // Mostrar vista previa del logo actual
+  if (aliado.logo_url) {
+    document.getElementById('aliado-logo-preview').src = aliado.logo_url;
+    document.getElementById('aliado-current-logo').style.display = 'block';
+  }
+  
+  editingAliadoId = id;
+  document.getElementById('aliado-submit-btn').textContent = 'Actualizar';
+  document.getElementById('aliado-cancel-btn').style.display = 'inline-block';
+  document.getElementById('aliado-logo-file').required = false;
+  showToast('Editando aliado. Puedes cambiar el logo o mantener el actual.', 'success');
+  document.querySelector('#tab-aliados').scrollIntoView({ behavior: 'smooth' });
+};
+
+window.deleteAliado = async function(id) {
+  if (!confirm('¿Eliminar este aliado?')) return;
+  try {
+    const { data: aliado, error: fetchError } = await supabase
+      .from('aliados')
+      .select('logo_url')
+      .eq('id', id)
+      .single();
+    if (fetchError) throw fetchError;
+
+    const { error: deleteError } = await supabase
+      .from('aliados')
+      .delete()
+      .eq('id', id);
+    if (deleteError) throw deleteError;
+
+    if (aliado.logo_url && aliado.logo_url.includes('supabase.co')) {
+      const filePath = new URL(aliado.logo_url).pathname.split('/media/')[1];
+      if (filePath) {
+        await supabase.storage.from('media').remove([filePath]);
+      }
+    }
+
+    const { count } = await supabase.from('aliados').select('*', { count: 'exact' });
+    const totalPages = Math.ceil(count / PAGE_SIZE);
+    if (aliadosCurrentPage > totalPages && totalPages > 0) {
+      aliadosCurrentPage = totalPages;
+    }
+    showToast('Aliado eliminado correctamente', 'success');
+    await renderAliadosList(aliadosCurrentPage);
+  } catch (err) {
+    console.error('Error al eliminar aliado:', err);
+    showToast(`Error: ${err.message}`, 'error');
+  }
+};
+
+// ====================================
+// SECCIÓN: CONVENIOS
+// ====================================
+
+let conveniosCurrentPage = 1;
+let editingConvenioId = null;
+
+async function renderConveniosList(page = 1) {
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+
+  const { data, error, count } = await supabase
+    .from('convenios')
+    .select('*', { count: 'exact' })
+    .order('departamento', { ascending: true })
+    .order('ciudad', { ascending: true })
+    .order('nombre', { ascending: true })
+    .range(from, to);
+
+  if (error) {
+    console.error('Error al cargar convenios:', error);
+    showToast('Error al cargar convenios', 'error');
+    return;
+  }
+
+  const tbody = document.querySelector('#convenios-table tbody');
+  tbody.innerHTML = '';
+
+  data.forEach(convenio => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><img src="${convenio.logo_url}" alt="${convenio.nombre}" style="width:80px;height:60px;object-fit:contain;"></td>
+      <td>${convenio.nombre}</td>
+      <td>${convenio.departamento}</td>
+      <td>${convenio.ciudad}</td>
+      <td>${convenio.horario || '-'}</td>
+      <td>
+        <button onclick="editConvenio('${convenio.id}')" class="btn-edit"><i class="fa-solid fa-pen"></i></button>
+        <button onclick="deleteConvenio('${convenio.id}')" class="btn-delete"><i class="fa-solid fa-trash"></i></button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  renderPagination('convenios-pagination', page, count, PAGE_SIZE, renderConveniosList);
+  conveniosCurrentPage = page;
+}
+
+document.getElementById('convenios-form')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const nombre = document.getElementById('convenio-nombre').value.trim();
+  const departamento = document.getElementById('convenio-departamento').value.trim();
+  const ciudad = document.getElementById('convenio-ciudad').value.trim();
+  const direccion = document.getElementById('convenio-direccion').value.trim();
+  const telefono = document.getElementById('convenio-telefono').value.trim();
+  const horario = document.getElementById('convenio-horario').value.trim();
+  const descripcion = document.getElementById('convenio-descripcion').value.trim();
+  const logoFile = document.getElementById('convenio-logo-file').files[0];
+  const logoUrl = document.getElementById('convenio-logo-url').value.trim();
+
+  if (!nombre || !departamento || !ciudad) {
+    showToast('Nombre, departamento y ciudad son requeridos', 'error');
+    return;
+  }
+
+  try {
+    let finalLogoUrl = logoUrl;
+
+    if (logoFile) {
+      const fileExt = logoFile.name.split('.').pop();
+      const fileName = `convenio_${Date.now()}.${fileExt}`;
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('media')
+        .upload(fileName, logoFile);
+
+      if (uploadError) throw uploadError;
+
+      const { data: publicUrlData } = supabase.storage.from('media').getPublicUrl(fileName);
+      finalLogoUrl = publicUrlData.publicUrl;
+    }
+
+    if (!finalLogoUrl) {
+      showToast('Debes proporcionar un logo (archivo o URL)', 'error');
+      return;
+    }
+
+    const convenioData = {
+      nombre,
+      departamento,
+      ciudad,
+      logo_url: finalLogoUrl,
+      direccion: direccion || null,
+      telefono: telefono || null,
+      horario: horario || null,
+      descripcion: descripcion || null
+    };
+
+    if (editingConvenioId) {
+      const { error } = await supabase
+        .from('convenios')
+        .update(convenioData)
+        .eq('id', editingConvenioId);
+      if (error) throw error;
+      showToast('Convenio actualizado correctamente', 'success');
+    } else {
+      const { error } = await supabase
+        .from('convenios')
+        .insert([convenioData]);
+      if (error) throw error;
+      showToast('Convenio agregado correctamente', 'success');
+    }
+
+    document.getElementById('convenios-form').reset();
+    editingConvenioId = null;
+    document.getElementById('convenio-submit-btn').textContent = 'Guardar Convenio';
+    document.getElementById('convenio-cancel-btn').style.display = 'none';
+    document.getElementById('convenio-current-logo').style.display = 'none';
+    document.getElementById('convenio-logo-file').required = true;
+    await renderConveniosList(conveniosCurrentPage);
+  } catch (err) {
+    console.error('Error al guardar convenio:', err);
+    showToast(`Error: ${err.message}`, 'error');
+  }
+});
+
+document.getElementById('convenio-cancel-btn')?.addEventListener('click', () => {
+  document.getElementById('convenios-form').reset();
+  editingConvenioId = null;
+  document.getElementById('convenio-submit-btn').textContent = 'Guardar Convenio';
+  document.getElementById('convenio-cancel-btn').style.display = 'none';
+  document.getElementById('convenio-current-logo').style.display = 'none';
+  document.getElementById('convenio-logo-file').required = true;
+});
+
+window.editConvenio = async function(id) {
+  const { data: convenio, error } = await supabase
+    .from('convenios')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error('Error al cargar convenio:', error);
+    showToast('Error al cargar convenio', 'error');
+    return;
+  }
+
+  document.getElementById('convenio-nombre').value = convenio.nombre;
+  document.getElementById('convenio-departamento').value = convenio.departamento;
+  document.getElementById('convenio-ciudad').value = convenio.ciudad;
+  document.getElementById('convenio-direccion').value = convenio.direccion || '';
+  document.getElementById('convenio-telefono').value = convenio.telefono || '';
+  document.getElementById('convenio-horario').value = convenio.horario || '';
+  document.getElementById('convenio-descripcion').value = convenio.descripcion || '';
+  
+  // Mostrar vista previa del logo actual
+  if (convenio.logo_url) {
+    document.getElementById('convenio-logo-preview').src = convenio.logo_url;
+    document.getElementById('convenio-current-logo').style.display = 'block';
+  }
+  
+  editingConvenioId = id;
+  document.getElementById('convenio-submit-btn').textContent = 'Actualizar';
+  document.getElementById('convenio-cancel-btn').style.display = 'inline-block';
+  document.getElementById('convenio-logo-file').required = false;
+  showToast('Editando convenio. Puedes cambiar el logo o mantener el actual.', 'success');
+  document.querySelector('#tab-convenios').scrollIntoView({ behavior: 'smooth' });
+};
+
+window.deleteConvenio = async function(id) {
+  if (!confirm('¿Eliminar este convenio?')) return;
+  try {
+    const { data: convenio, error: fetchError } = await supabase
+      .from('convenios')
+      .select('logo_url')
+      .eq('id', id)
+      .single();
+    if (fetchError) throw fetchError;
+
+    const { error: deleteError } = await supabase
+      .from('convenios')
+      .delete()
+      .eq('id', id);
+    if (deleteError) throw deleteError;
+
+    if (convenio.logo_url && convenio.logo_url.includes('supabase.co')) {
+      const filePath = new URL(convenio.logo_url).pathname.split('/media/')[1];
+      if (filePath) {
+        await supabase.storage.from('media').remove([filePath]);
+      }
+    }
+
+    const { count } = await supabase.from('convenios').select('*', { count: 'exact' });
+    const totalPages = Math.ceil(count / PAGE_SIZE);
+    if (conveniosCurrentPage > totalPages && totalPages > 0) {
+      conveniosCurrentPage = totalPages;
+    }
+    showToast('Convenio eliminado correctamente', 'success');
+    await renderConveniosList(conveniosCurrentPage);
+  } catch (err) {
+    console.error('Error al eliminar convenio:', err);
+    showToast(`Error: ${err.message}`, 'error');
+  }
+};
+

@@ -202,10 +202,13 @@
         }
 
         .plan-display {
-            display: block;
+            display: none;
             text-align: center;
             animation: fadeInUp 0.5s ease;
-            margin-bottom: 3rem;
+        }
+
+        .plan-display.active {
+            display: block;
         }
 
         .plan-display img {
@@ -427,62 +430,69 @@
             </div>
         </div>
 
-        <!-- Tarifas Generales -->
-        <div class="section-title" style="text-align: center; margin: 3rem 0 2rem 0;">
-            <h2 style="font-size: 2.5rem; color: var(--secondary); position: relative; padding-bottom: 1rem;">
-                Tarifas Generales
-            </h2>
-        </div>
-        <div class="precios-grid">
-            <div class="precio-card">
-                <a href="https://wa.me/573207053536?text=Hola,%20quiero%20información%20sobre%20el%20plan%20base" 
-                   target="_blank" 
-                   rel="noopener noreferrer">
-                    <picture>
+        <!-- Precios Section -->
+        <div class="precios-section">
+            <button id="toggle-precios-btn" class="plan-button" style="margin-bottom: 2rem;">
+                <i class="fas fa-tag"></i> Ver Tarifas
+            </button>
+            <div class="precios-grid" id="precios-grid" style="display: none;">
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20quiero%20información%20sobre%20el%20plan%20base" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <picture>
       <source srcset="fotos/base.webp" type="image/webp">
       <img src="fotos/base.webp" alt="Plan Base" loading="lazy">
     </picture>
-                </a>
-            </div>
-            <div class="precio-card">
-                <a href="https://wa.me/573207053536?text=Hola,%20quiero%20información%20sobre%20el%20plan%20de%20$18.000" 
-                   target="_blank" 
-                   rel="noopener noreferrer">
-                    <picture>
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20quiero%20información%20sobre%20el%20plan%20de%20$18.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <picture>
       <source srcset="fotos/base_18.webp" type="image/webp">
       <img src="fotos/base_18.webp" alt="Plan $18.000" loading="lazy">
     </picture>
-                </a>
-            </div>
-            <div class="precio-card">
-                <a href="https://wa.me/573207053536?text=Hola,%20quiero%20información%20sobre%20el%20plan%20de%20$34.000" 
-                   target="_blank" 
-                   rel="noopener noreferrer">
-                    <picture>
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20quiero%20información%20sobre%20el%20plan%20de%20$34.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <picture>
       <source srcset="fotos/base_34.000.webp" type="image/webp">
       <img src="fotos/base_34.000.webp" alt="Plan $34.000" loading="lazy">
     </picture>
-                </a>
-            </div>
-            <div class="precio-card">
-                <a href="https://wa.me/573207053536?text=Hola,%20quiero%20información%20sobre%20el%20plan%20de%20$44.000" 
-                   target="_blank" 
-                   rel="noopener noreferrer">
-                    <picture>
+                    </a>
+                </div>
+                <div class="precio-card">
+                    <a href="https://wa.me/573207053536?text=Hola,%20quiero%20información%20sobre%20el%20plan%20de%20$44.000" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        <picture>
       <source srcset="fotos/base_44.000.webp" type="image/webp">
       <img src="fotos/base_44.000.webp" alt="Plan $44.000" loading="lazy">
     </picture>
-                </a>
+                    </a>
+                </div>
             </div>
         </div>
 
-        <!-- Plan DC -->
-        <div class="section-title" style="text-align: center; margin: 4rem 0 2rem 0;">
-            <h2 style="font-size: 2.5rem; color: var(--secondary); position: relative; padding-bottom: 1rem;">
-                <i class="fas fa-paw" style="color: var(--primary);"></i> Plan DC
-            </h2>
+        <!-- Plan Selector Buttons -->
+        <div class="planes-selector">
+            <button class="plan-button" data-plan="dc" aria-label="Ver Plan Bogota">
+                <i class="fas fa-paw"></i> Plan Bogota
+            </button>
+            <button class="plan-button" data-plan="quilla" aria-label="Ver Plan Barranquilla">
+                <i class="fas fa-paw"></i> Plan Barranquilla
+            </button>
+            <button class="plan-button" data-plan="york" aria-label="Ver Plan Medellin">
+                <i class="fas fa-paw"></i> Plan Medellin
+            </button>
         </div>
-        <div class="plan-display active">
+
+        <div id="plan-dc" class="plan-display">
             <picture>
       <source srcset="fotos/planes_dc.webp" type="image/webp">
       <img src="fotos/planes_dc.webp" alt="Detalles del Plan DC" loading="lazy">
@@ -531,13 +541,7 @@
             </div>
         </div>
 
-        <!-- Plan Quilla -->
-        <div class="section-title" style="text-align: center; margin: 4rem 0 2rem 0;">
-            <h2 style="font-size: 2.5rem; color: var(--secondary); position: relative; padding-bottom: 1rem;">
-                <i class="fas fa-paw" style="color: var(--primary);"></i> Plan Quilla
-            </h2>
-        </div>
-        <div class="plan-display active">
+        <div id="plan-quilla" class="plan-display">
             <picture>
       <source srcset="fotos/planes_quilla.webp" type="image/webp">
       <img src="fotos/planes_quilla.webp" alt="Detalles del Plan Quilla" loading="lazy">
@@ -586,13 +590,7 @@
             </div>
         </div>
 
-        <!-- Plan York -->
-        <div class="section-title" style="text-align: center; margin: 4rem 0 2rem 0;">
-            <h2 style="font-size: 2.5rem; color: var(--secondary); position: relative; padding-bottom: 1rem;">
-                <i class="fas fa-paw" style="color: var(--primary);"></i> Plan York
-            </h2>
-        </div>
-        <div class="plan-display active">
+        <div id="plan-york" class="plan-display">
             <picture>
       <source srcset="fotos/planes_york.webp" type="image/webp">
       <img src="fotos/planes_york.webp" alt="Detalles del Plan York" loading="lazy">
@@ -677,5 +675,61 @@
 
     <!-- Scripts -->
     <script type="module" src="js/main.js" defer></script>
+    
+    <script>
+        // Plan selector functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const planButtons = document.querySelectorAll('.plan-button');
+            const planDisplays = document.querySelectorAll('.plan-display');
+
+            planButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const planName = this.getAttribute('data-plan');
+                    
+                    // Skip if this is the toggle precios button
+                    if (!planName) return;
+                    
+                    // Remove active class from all displays
+                    planDisplays.forEach(display => {
+                        display.classList.remove('active');
+                    });
+
+                    // Add active class to selected plan
+                    const selectedPlan = document.getElementById(`plan-${planName}`);
+                    if (selectedPlan) {
+                        selectedPlan.classList.add('active');
+                        
+                        // Smooth scroll to plan display
+                        selectedPlan.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                    }
+
+                    // Visual feedback on button
+                    planButtons.forEach(btn => {
+                        if (btn.getAttribute('data-plan')) {
+                            btn.style.opacity = '0.6';
+                        }
+                    });
+                    this.style.opacity = '1';
+                });
+            });
+
+            // Toggle precios functionality
+            const togglePreciosBtn = document.getElementById('toggle-precios-btn');
+            const preciosGrid = document.getElementById('precios-grid');
+            
+            togglePreciosBtn.addEventListener('click', function() {
+                if (preciosGrid.style.display === 'none' || preciosGrid.style.display === '') {
+                    preciosGrid.style.display = 'flex';
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i> Ocultar Tarifas';
+                } else {
+                    preciosGrid.style.display = 'none';
+                    this.innerHTML = '<i class="fas fa-tag"></i> Ver Tarifas';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
