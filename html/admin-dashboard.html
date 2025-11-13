@@ -150,6 +150,12 @@
         </section>
         <section id="tab-aliados" class="tab-section">
           <h3><i class="fa-solid fa-handshake"></i> Aliados</h3>
+          
+          <!-- Buscador de Aliados -->
+          <div style="margin-bottom: 20px;">
+            <input type="text" id="aliados-search" placeholder="🔍 Buscar por nombre de aliado..." autocomplete="off" style="width: 100%; padding: 12px 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+          </div>
+          
           <form id="aliados-form" autocomplete="off">
               <input type="hidden" id="aliado-id">
               <input type="text" id="aliado-nombre" placeholder="Nombre del aliado" autocomplete="off" required>
@@ -179,7 +185,13 @@
           <div id="aliados-pagination" class="pagination-controls"></div>
         </section>
         <section id="tab-convenios" class="tab-section">
-          <h3><i class="fa-solid fa-building"></i> Convenios</h3>
+          <h3><i class="fa-solid fa-hospital"></i> Convenios</h3>
+          
+          <!-- Buscador de Convenios -->
+          <div style="margin-bottom: 20px;">
+            <input type="text" id="convenios-search" placeholder="🔍 Buscar por nombre de convenio..." autocomplete="off" style="width: 100%; padding: 12px 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px;">
+          </div>
+          
           <form id="convenios-form" autocomplete="off">
               <input type="hidden" id="convenio-id">
               <input type="text" id="convenio-nombre" placeholder="Nombre del convenio" autocomplete="off" required>

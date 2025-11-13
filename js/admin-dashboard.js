@@ -704,16 +704,23 @@ function showToast(message, type = 'success') {
 
 let aliadosCurrentPage = 1;
 let editingAliadoId = null;
+let aliadosSearchTerm = '';
 
 async function renderAliadosList(page = 1) {
   const from = (page - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
 
-  const { data, error, count } = await supabase
+  let query = supabase
     .from('aliados')
     .select('*', { count: 'exact' })
-    .order('created_at', { ascending: false })
-    .range(from, to);
+    .order('created_at', { ascending: false });
+
+  // Aplicar filtro de búsqueda si existe
+  if (aliadosSearchTerm) {
+    query = query.ilike('nombre', `%${aliadosSearchTerm}%`);
+  }
+
+  const { data, error, count } = await query.range(from, to);
 
   if (error) {
     console.error('Error al cargar aliados:', error);
@@ -825,6 +832,13 @@ document.getElementById('aliado-cancel-btn')?.addEventListener('click', () => {
   document.getElementById('aliado-logo-file').required = true;
 });
 
+// Buscador de Aliados
+document.getElementById('aliados-search')?.addEventListener('input', (e) => {
+  aliadosSearchTerm = e.target.value.trim();
+  aliadosCurrentPage = 1; // Resetear a primera página
+  renderAliadosList(1);
+});
+
 window.editAliado = async function(id) {
   const { data: aliado, error } = await supabase
     .from('aliados')
@@ -900,18 +914,25 @@ window.deleteAliado = async function(id) {
 
 let conveniosCurrentPage = 1;
 let editingConvenioId = null;
+let conveniosSearchTerm = '';
 
 async function renderConveniosList(page = 1) {
   const from = (page - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
 
-  const { data, error, count } = await supabase
+  let query = supabase
     .from('convenios')
     .select('*', { count: 'exact' })
     .order('departamento', { ascending: true })
     .order('ciudad', { ascending: true })
-    .order('nombre', { ascending: true })
-    .range(from, to);
+    .order('nombre', { ascending: true });
+
+  // Aplicar filtro de búsqueda si existe
+  if (conveniosSearchTerm) {
+    query = query.ilike('nombre', `%${conveniosSearchTerm}%`);
+  }
+
+  const { data, error, count } = await query.range(from, to);
 
   if (error) {
     console.error('Error al cargar convenios:', error);
@@ -1026,6 +1047,13 @@ document.getElementById('convenio-cancel-btn')?.addEventListener('click', () => 
   document.getElementById('convenio-cancel-btn').style.display = 'none';
   document.getElementById('convenio-current-logo').style.display = 'none';
   document.getElementById('convenio-logo-file').required = true;
+});
+
+// Buscador de Convenios
+document.getElementById('convenios-search')?.addEventListener('input', (e) => {
+  conveniosSearchTerm = e.target.value.trim();
+  conveniosCurrentPage = 1; // Resetear a primera página
+  renderConveniosList(1);
 });
 
 window.editConvenio = async function(id) {
