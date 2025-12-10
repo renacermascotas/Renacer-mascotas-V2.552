@@ -350,6 +350,96 @@ python -m http.server 8000
 
 ---
 
+## ⚙️ Configuración de Supabase
+
+### 1. Crear Proyecto en Supabase
+1. Ve a [supabase.com](https://supabase.com) y crea una cuenta
+2. Crea un nuevo proyecto
+3. Guarda las credenciales que te proporciona
+
+### 2. Configurar Variables de Entorno
+
+**Crear archivo `.env` en la raíz del proyecto:**
+```bash
+cp .env.template .env
+```
+
+**Edita `.env` con tus credenciales:**
+```env
+SUPABASE_URL=https://tu-proyecto.supabase.co
+SUPABASE_ANON_KEY=tu_anon_key_aqui
+SUPABASE_SERVICE_KEY=tu_service_role_key_aqui
+```
+
+⚠️ **IMPORTANTE**: Nunca subas el archivo `.env` a Git (ya está en `.gitignore`)
+
+### 3. Ejecutar Schema SQL
+
+1. Ve a tu proyecto en Supabase Dashboard
+2. Click en **SQL Editor** en el menú lateral
+3. Copia todo el contenido de `supabase/schema.sql`
+4. Pégalo en el editor y ejecuta con `Run`
+
+Esto creará:
+- ✅ Tablas: `admin_users`, `testimonios`, `galeria`, `aliados`, `convenios`, `blog_posts`, `analytics_events`
+- ✅ Funciones de autenticación y seguridad
+- ✅ Row Level Security (RLS) en todas las tablas
+- ✅ Usuario admin por defecto (usuario: `admin`, contraseña: `admin123`)
+
+### 4. Crear Storage Buckets
+
+En Supabase Dashboard → **Storage**:
+1. Crea bucket `galeria` (público)
+2. Crea bucket `aliados` (público)
+3. Crea bucket `convenios` (público)
+4. Crea bucket `blog` (público)
+
+### 5. Actualizar Archivos de Configuración
+
+Los archivos ya están configurados para usar las variables de entorno:
+- `js/supabase-client.js` - Cliente frontend
+- `backend/supabase-client.js` - Cliente backend
+
+### 6. Configurar Vercel (Opcional)
+
+Si vas a desplegar en Vercel:
+1. Ve a tu proyecto en Vercel Dashboard
+2. Settings → Environment Variables
+3. Agrega las mismas variables del archivo `.env`:
+   - `SUPABASE_URL`
+   - `SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_KEY`
+4. Redeploy el proyecto
+
+### 7. Primer Acceso al Admin
+
+1. Abre `html/admin-login.html`
+2. Usuario: `admin`
+3. Contraseña: `admin123`
+4. ⚠️ **CAMBIA LA CONTRASEÑA** inmediatamente después del primer login
+
+**Para cambiar contraseña:**
+- Opción 1: Panel Admin → Usuarios Admin → Editar usuario
+- Opción 2: Usa "¿Olvidaste tu contraseña?" en el login
+- Opción 3: SQL: `UPDATE admin_users SET password_hash = crypt('nueva_pass', gen_salt('bf')) WHERE username = 'admin';`
+
+---
+
+## 🔐 Sistema de Autenticación
+
+Ver documentación completa en [`AUTENTICACION.md`](./AUTENTICACION.md)
+
+### Características:
+- ✅ Login seguro con bcrypt
+- ✅ Recuperación de contraseña con tokens
+- ✅ Gestión de usuarios administradores
+- ✅ Sistema de roles
+- ✅ Sesiones validadas
+- ✅ Tokens de recuperación expiran en 1 hora
+
+---
+---
+
 ## 🎨 Guía de Estilos
 
 ### Convenciones de Código

@@ -99,29 +99,57 @@ function initializeDashboard() {
   }
 }
 
-// --- Seguridad: Redirige a login si no hay token ---
+// --- Seguridad: Redirige a login si no hay sesión ---
 document.addEventListener('DOMContentLoaded', async () => {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) {
+  // Verificar si hay datos de admin en sessionStorage
+  const adminUser = sessionStorage.getItem('admin_user');
+  
+  if (!adminUser) {
+    // No hay sesión, redirigir al login
     window.location.href = 'admin-login.html';
-  } else {
-    // Si hay sesión, inicializamos el dashboard
+    return;
+  }
+  
+  try {
+    // Verificar que el usuario sigue activo en la base de datos
+    const userData = JSON.parse(adminUser);
+    const { data: user, error } = await supabase
+      .from('admin_users')
+      .select('id, activo')
+      .eq('id', userData.id)
+      .eq('activo', true)
+      .single();
+    
+    if (error || !user) {
+      // Usuario no encontrado o inactivo
+      sessionStorage.removeItem('admin_user');
+      window.location.href = 'admin-login.html';
+      return;
+    }
+    
+    // Sesión válida, inicializar dashboard
     initializeDashboard();
-    // Inicializamos los formularios de las secciones CRUD una sola vez para mejorar el rendimiento.
     initBlogSection();
     initTestimonialSection();
     initGallerySection();
+    
+  } catch (err) {
+    console.error('Error verificando sesión:', err);
+    sessionStorage.removeItem('admin_user');
+    window.location.href = 'admin-login.html';
   }
 });
 
-// --- Logout: Cierra sesión y limpia token ---
+// --- Logout: Cierra sesión y limpia datos ---
 const logoutBtn = document.getElementById('logout-btn');
 if (logoutBtn) {
   logoutBtn.addEventListener('click', async () => {
-    await supabase.auth.signOut();
+    sessionStorage.removeItem('admin_user');
+    sessionStorage.removeItem('justLoggedIn');
     window.location.href = 'admin-login.html';
   });
 }
+
 
 // --- Tabs: Cambia entre secciones del dashboard ---
 const tabBtns = document.querySelectorAll('.tab-btn');

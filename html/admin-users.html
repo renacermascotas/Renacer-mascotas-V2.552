@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios Admin | Renacer Mascotas</title>
+    <link rel="icon" type="image/png" href="../fotos/favicon.ico">
+    <link rel="stylesheet" href="../css/admin-glass.css">
+    <style>
+        .user-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .user-card h3 {
+            margin-top: 0;
+            color: #6366f1;
+        }
+        
+        .user-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .user-info-item {
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+        }
+        
+        .user-info-item label {
+            font-weight: bold;
+            color: #94a3b8;
+            font-size: 0.85em;
+            display: block;
+            margin-bottom: 3px;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #6366f1;
+            color: white;
+        }
+        
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-content h2 {
+            margin-top: 0;
+            color: #1e293b;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #475569;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        
+        .badge-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .badge-inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1>👥 Gestión de Usuarios Administradores</h1>
+            <div>
+                <button class="btn btn-success" id="btn-new-user">➕ Crear Nuevo Usuario</button>
+                <button class="btn btn-primary" onclick="window.location.href='admin-dashboard.html'">← Volver al Dashboard</button>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <div id="users-list"></div>
+        </div>
+    </div>
+
+    <!-- Modal para crear/editar usuario -->
+    <div id="user-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modal-title">Crear Nuevo Usuario</h2>
+            <form id="user-form">
+                <input type="hidden" id="user-id">
+                
+                <div class="form-group">
+                    <label for="username">Usuario *</label>
+                    <input type="text" id="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Correo Electrónico *</label>
+                    <input type="email" id="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nombre-completo">Nombre Completo</label>
+                    <input type="text" id="nombre-completo">
+                </div>
+                
+                <div class="form-group" id="password-group">
+                    <label for="password">Contraseña *</label>
+                    <input type="password" id="password" minlength="6">
+                    <small style="color: #64748b;">Mínimo 6 caracteres. Dejar vacío para no cambiar (en edición)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rol">Rol</label>
+                    <select id="rol">
+                        <option value="admin">Admin</option>
+                        <option value="super_admin">Super Admin</option>
+                        <option value="editor">Editor</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="activo">Estado</label>
+                    <select id="activo">
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Guardar</button>
+                    <button type="button" class="btn btn-danger" id="btn-cancel" style="flex: 1;">Cancelar</button>
+                </div>
+                
+                <div id="form-error" class="error" style="display: none; margin-top: 10px;"></div>
+                <div id="form-success" class="success" style="display: none; margin-top: 10px;"></div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="../js/admin-users.js"></script>
+</body>
+</html>

@@ -7,12 +7,18 @@ yarn-error.log*
 
 # Variables de entorno (CRÍTICO)
 .env
+.env.*
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 backend/.env
 backend/.env.*
+
+# Archivos con credenciales sensibles
+.env.example
+supabase/.env
+*.local.js
 
 # Archivos de logs
 logs
