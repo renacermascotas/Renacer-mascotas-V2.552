@@ -18,6 +18,7 @@ backend/.env.*
 # Archivos con credenciales sensibles
 .env.example
 supabase/.env
+supabase/schema.sql
 *.local.js
 
 # Archivos de logs
