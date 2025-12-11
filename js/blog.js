@@ -37,10 +37,10 @@ document.addEventListener('DOMContentLoaded', function () {
       blogCards.innerHTML = posts.map(post => `
         <div class="plan-img-box">
           <a href="blog.html" style="text-decoration:none; color:inherit;">
-            <img src="${sanitizeText(post.image_url) || 'fotos/4.jpg'}" alt="${sanitizeText(post.title)}" crossorigin="anonymous">
+            <img src="${sanitizeText(post.imagen_destacada) || 'fotos/4.jpg'}" alt="${sanitizeText(post.titulo)}" crossorigin="anonymous">
             <div style="width:100%;text-align:center;margin-top:1.2rem;">
-              <h3 style="color:var(--secondary);font-size:1.15rem;font-weight:800;margin-bottom:0.7rem;">${sanitizeText(post.title)}</h3>
-              <p style="color:#444;font-size:1.05rem;">${post.content ? sanitizeText(post.content.substring(0, 80)) + '...' : ''}</p>
+              <h3 style="color:var(--secondary);font-size:1.15rem;font-weight:800;margin-bottom:0.7rem;">${sanitizeText(post.titulo)}</h3>
+              <p style="color:#444;font-size:1.05rem;">${post.contenido ? sanitizeText(post.contenido.substring(0, 80)) + '...' : ''}</p>
             </div>
           </a>
         </div>

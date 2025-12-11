@@ -254,8 +254,8 @@ function initBlogSection() {
     submitBtn.disabled = true;
     submitBtn.textContent = 'Guardando...';
 
-    const title = document.getElementById('blog-title').value;
-    const content = document.getElementById('blog-content').value;
+    const titulo = document.getElementById('blog-title').value;
+    const contenido = document.getElementById('blog-content').value;
     let imageUrl = imageUrlInput.value;
 
     try {
@@ -267,7 +267,7 @@ function initBlogSection() {
         imageUrl = publicUrl;
       }
 
-      const postData = { title, content, image_url: imageUrl };
+      const postData = { titulo, contenido, imagen_destacada: imageUrl };
 
       let response;
       if (editingBlogId) {
@@ -336,8 +336,8 @@ async function renderBlogList(page = 1) {
   }
   tableBody.innerHTML = blogs.map(blog => `
       <tr>
-        <td>${blog.title}</td>
-        <td>${blog.image_url ? `<img src="${blog.image_url}" width="80" height="50" style="object-fit: cover; border-radius: 5px;">` : 'N/A'}</td>
+        <td>${blog.titulo}</td>
+        <td>${blog.imagen_destacada ? `<img src="${blog.imagen_destacada}" width="80" height="50" style="object-fit: cover; border-radius: 5px;">` : 'N/A'}</td>
         <td>${new Date(blog.created_at).toLocaleDateString()}</td>
         <td>
           <button onclick="editBlog('${blog.id}')">Editar</button>
@@ -354,9 +354,9 @@ window.editBlog = async function(id) {
   const { data: blog, error } = await supabase.from('blog_posts').select('*').eq('id', id).single();
   if (error || !blog) { showToast('No se pudo encontrar la entrada.', 'error'); return; }
 
-  document.getElementById('blog-title').value = blog.title;
-  document.getElementById('blog-image-url').value = blog.image_url || '';
-  document.getElementById('blog-content').value = blog.content;
+  document.getElementById('blog-title').value = blog.titulo;
+  document.getElementById('blog-image-url').value = blog.imagen_destacada || '';
+  document.getElementById('blog-content').value = blog.contenido;
   editingBlogId = id;
   document.getElementById('blog-submit-btn').textContent = 'Actualizar Post';
   document.getElementById('blog-cancel-btn').style.display = 'inline-block';
@@ -367,7 +367,7 @@ window.deleteBlog = async function(id) {
   if (!confirm('¿Eliminar esta entrada?')) return;
   try {
     // 1. Obtener el post para encontrar la URL de la imagen
-    const { data: post, error: fetchError } = await supabase.from('blog_posts').select('image_url').eq('id', id).single();
+    const { data: post, error: fetchError } = await supabase.from('blog_posts').select('imagen_destacada').eq('id', id).single();
     if (fetchError) throw fetchError;
 
     // 2. Borrar el registro de la base de datos
@@ -375,8 +375,8 @@ window.deleteBlog = async function(id) {
     if (deleteDbError) throw deleteDbError;
 
     // 3. Si tenía una imagen en Supabase, borrarla también del Storage
-    if (post.image_url && post.image_url.includes('supabase.co')) {
-      const filePath = new URL(post.image_url).pathname.split('/media/')[1];
+    if (post.imagen_destacada && post.imagen_destacada.includes('supabase.co')) {
+      const filePath = new URL(post.imagen_destacada).pathname.split('/media/')[1];
       if (filePath) {
         await supabase.storage.from('media').remove([filePath]);
       }
