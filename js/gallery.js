@@ -46,8 +46,8 @@ export async function loadGallery(containerId) {
     console.log('Renderizando', itemsToRender.length, 'imágenes de galería');
     container.innerHTML = itemsToRender.map(item => `
       <a href="galeria.html" class="gallery-item gallery-card">
-        <img src="${sanitizeText(item.image_url) || 'fotos/4.jpg'}" alt="${sanitizeText(item.description) || 'Imagen galería'}" loading="lazy" crossorigin="anonymous" />
-        <p class="gallery-desc">${sanitizeText(item.description) || ''}</p>
+        <img src="${sanitizeText(item.imagen_url) || 'fotos/4.jpg'}" alt="${sanitizeText(item.descripcion) || 'Imagen galería'}" loading="lazy" crossorigin="anonymous" />
+        <p class="gallery-desc">${sanitizeText(item.descripcion) || ''}</p>
       </a>
     `).join('');
   } catch (err) {

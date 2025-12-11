@@ -574,7 +574,7 @@ function initGallerySection() {
     submitBtn.disabled = true;
     submitBtn.textContent = 'Subiendo...';
 
-    const description = document.getElementById('gallery-description').value;
+    const descripcion = document.getElementById('gallery-description').value;
     if (!galleryImageFile && !editingGalleryId) {
       showToast('Debes seleccionar una imagen para subir.', 'error');
       submitBtn.disabled = false;
@@ -583,14 +583,14 @@ function initGallerySection() {
     }
 
     try {
-      const galleryData = { description };
+      const galleryData = { descripcion };
 
       if (galleryImageFile) {
         const filePath = `gallery/${Date.now()}-${galleryImageFile.name}`;
         const { error: uploadError } = await supabase.storage.from('media').upload(filePath, galleryImageFile);
         if (uploadError) throw uploadError;
         const { data: { publicUrl } } = supabase.storage.from('media').getPublicUrl(filePath);
-        galleryData.image_url = publicUrl;
+        galleryData.imagen_url = publicUrl;
       }
 
       let response;
@@ -659,8 +659,8 @@ async function renderGalleryList(page = 1) {
   }
   tableBody.innerHTML = galleryItems.map(item => `
       <tr>
-        <td>${item.image_url ? `<img src="${item.image_url}" width="80" height="50" style="object-fit: cover; border-radius: 5px;">` : ''}</td>
-        <td>${item.description || ''}</td>
+        <td>${item.imagen_url ? `<img src="${item.imagen_url}" width="80" height="50" style="object-fit: cover; border-radius: 5px;">` : ''}</td>
+        <td>${item.descripcion || ''}</td>
         <td>
           <button onclick="editGallery('${item.id}')">Editar</button>
           <button onclick="deleteGallery('${item.id}')">Eliminar</button>
@@ -675,7 +675,7 @@ window.editGallery = async function(id) {
   const { data: item, error } = await supabase.from('galeria').select('*').eq('id', id).single();
   if (error || !item) { showToast('No se pudo encontrar la imagen.', 'error'); return; }
 
-  document.getElementById('gallery-description').value = item.description || '';
+  document.getElementById('gallery-description').value = item.descripcion || '';
   editingGalleryId = id;
   document.getElementById('gallery-submit-btn').textContent = 'Actualizar';
   document.getElementById('gallery-cancel-btn').style.display = 'inline-block';
@@ -688,7 +688,7 @@ window.deleteGallery = async function(id) {
   if (!confirm('¿Eliminar esta imagen de la galería?')) return;
   try {
     // 1. Obtener el item para encontrar la URL de la imagen
-    const { data: item, error: fetchError } = await supabase.from('galeria').select('image_url').eq('id', id).single();
+    const { data: item, error: fetchError } = await supabase.from('galeria').select('imagen_url').eq('id', id).single();
     if (fetchError) throw fetchError;
 
     // 2. Borrar el registro de la base de datos
@@ -696,8 +696,8 @@ window.deleteGallery = async function(id) {
     if (deleteDbError) throw deleteDbError;
 
     // 3. Si tenía una imagen en Supabase, borrarla también del Storage
-    if (item.image_url && item.image_url.includes('supabase.co')) {
-      const filePath = new URL(item.image_url).pathname.split('/media/')[1];
+    if (item.imagen_url && item.imagen_url.includes('supabase.co')) {
+      const filePath = new URL(item.imagen_url).pathname.split('/media/')[1];
       if (filePath) {
         await supabase.storage.from('media').remove([filePath]);
       }
