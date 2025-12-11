@@ -7,16 +7,16 @@
 window.addEventListener('DOMContentLoaded', function() {
   const loader = document.createElement('div');
   loader.className = 'loader-bg';
-  loader.innerHTML = '<div class="loader-logo"><img src="../fotos/nuevo-logo-Rm-300x195.png" alt="Renacer Mascotas"></div>';
+  loader.innerHTML = '<div class="loader-logo"><img src="../fotos/nuevo-logo-Rm-300x195.webp" alt="Renacer Mascotas"></div>';
   document.body.appendChild(loader);
 
-  // --- Ocultar loader automáticamente tras 1.2s o al recibir error de login ---
+  // --- Ocultar loader automáticamente tras 800ms ---
   function hideLoader() {
     loader.classList.add('hide');
     setTimeout(() => loader.remove(), 500);
   }
 
-  setTimeout(hideLoader, 1200);
+  setTimeout(hideLoader, 800);
 
   // --- Mostrar loader mientras se envía el formulario de login ---
   const form = document.getElementById('login-form');

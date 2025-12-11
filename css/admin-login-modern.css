@@ -6,10 +6,9 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-image: url('../fotos/dogs-background-lw584jj85npdc6w6.jpg'); /* Nueva imagen de fondo */
+    background-image: url('../fotos/dogs-background-lw584jj85npdc6w6.webp'); /* Imagen de fondo corregida */
     background-size: cover;
     background-position: center;
-
 }
 
 /* Contenedor principal */
