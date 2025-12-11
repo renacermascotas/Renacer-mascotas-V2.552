@@ -579,7 +579,7 @@ El sitio cuenta con un sistema de gestión de contenidos que permite actualizar:
 
 ## 📝 Changelog Reciente
 
-### v2.0.0 - Optimización Móvil Completa (Nov 2024)
+### v2.0.0 - Optimización Móvil Completa (Nov 2025)
 
 **✨ Nuevas Características**
 - Logo como activador del menú en móvil
@@ -632,5 +632,5 @@ Para consultas sobre el proyecto:
 
 ---
 
-**Última actualización**: Noviembre 2024  
+**Última actualización**: Noviembre 2025 
 **Versión**: 2.0.0

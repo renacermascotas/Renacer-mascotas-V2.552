@@ -58,7 +58,7 @@ export async function loadTestimonials(containerId) {
         }
 
         console.log('Cargando testimonios desde Supabase...');
-        const { data: testimonios, error } = await supabase.from('testimonials').select('*').order('created_at', { ascending: false });
+        const { data: testimonios, error } = await supabase.from('testimonios').select('*').order('created_at', { ascending: false });
         
         if (error) {
             console.error('Error de Supabase:', error);

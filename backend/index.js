@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
@@ -9,23 +9,9 @@ const validator = require('validator');
 
 const app = express();
 
-// Security middleware
+// Security middleware - CSP deshabilitado para usar el del HTML
 app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://www.googletagmanager.com", "https://cdn.jsdelivr.net", "https://cdn.skypack.dev"],
-            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
-            fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
-            imgSrc: ["'self'", "data:", "blob:", "https:", "https://cdn-icons-png.flaticon.com"],
-            mediaSrc: ["'self'", "blob:"],
-            connectSrc: ["'self'", "https://www.google-analytics.com", "https://analytics.google.com", "https://obsshvmadmfmqigivjkb.supabase.co", "https://api.ipify.org", "https://snapwidget.com"],
-            frameSrc: ["'self'", "https://www.google.com", "https://www.facebook.com", "https://snapwidget.com"],
-            objectSrc: ["'none'"],
-            baseUri: ["'self'"],
-            formAction: ["'self'"]
-        }
-    },
+    contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false,
     frameguard: { action: 'sameorigin' }
 }));
@@ -185,6 +171,9 @@ app.post('/api/upload', uploadLimiter, upload.single('file'), (req, res) => {
 
 // Servir archivos estáticos subidos
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Servir archivos estáticos del frontend
+app.use(express.static(path.join(__dirname, '..')));
 
 // Rutas de autenticación y recursos
 const authRoutes = require('./routes/auth');

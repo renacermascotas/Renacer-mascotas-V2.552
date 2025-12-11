@@ -3,7 +3,7 @@
 // Explicación: Centraliza la configuración segura del cliente de Supabase con validaciones y configuración robusta.
 // =========================================
 
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 // Configuración de Supabase - Las credenciales deberían venir de variables de entorno en producción
 const SUPABASE_URL = window.SUPABASE_CONFIG?.url || 'https://jpzpvxinodynotpdjbzh.supabase.co';

@@ -25,7 +25,7 @@ export async function loadGallery(containerId) {
     }
 
     console.log('Cargando galería desde Supabase...');
-    const { data: items, error } = await supabase.from('gallery').select('*').order('created_at', { ascending: false });
+    const { data: items, error } = await supabase.from('galeria').select('*').order('created_at', { ascending: false });
     
     if (error) {
       console.error('Error de Supabase en galería:', error);
