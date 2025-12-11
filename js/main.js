@@ -84,4 +84,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Puedes añadir aquí la carga de otros contenidos dinámicos como blog, etc.
+
+    // Ocultar loader cuando todo esté cargado
+    const loader = document.getElementById('page-loader');
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add('hide');
+            setTimeout(() => loader.remove(), 400); // Remover después de la animación
+        }, 300); // Pequeño delay para asegurar que todo está renderizado
+    }
 });

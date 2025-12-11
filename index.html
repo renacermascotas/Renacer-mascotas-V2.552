@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/sections.css" />
+    <link rel="stylesheet" href="css/loader.css" />
     <link rel="stylesheet" href="css/scroll-to-top.css" />
     <link rel="stylesheet" href="css/contact-locations.css" />
     <link rel="stylesheet" href="css/mobile-fixes.css" />
@@ -46,6 +47,13 @@
 </head>
 
 <body>
+    <!-- Loader mientras carga la página -->
+    <div id="page-loader" class="loader-bg">
+        <div class="loader-logo">
+            <img src="fotos/favicon.ico" alt="Cargando...">
+        </div>
+    </div>
+    
     <!-- --- TOPBAR y HEADER: Incluidos dinámicamente para modularidad --- -->
     <!-- topbar.html y header.html contienen el menú principal y barra superior, se cargan vía fetch para reutilización -->
     <div id="topbar"></div>
