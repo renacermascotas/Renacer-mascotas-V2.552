@@ -544,7 +544,7 @@ window.deleteTestimonial = async function(id) {
       }
     }
 
-    const { count } = await supabase.from('testimonials').select('*', { count: 'exact' });
+    const { count } = await supabase.from('testimonios').select('*', { count: 'exact' });
     const totalPages = Math.ceil(count / PAGE_SIZE);
     if (testimonialsCurrentPage > totalPages && totalPages > 0) { testimonialsCurrentPage = totalPages; }
     showToast('Testimonio eliminado.', 'success');
@@ -595,9 +595,9 @@ function initGallerySection() {
 
       let response;
       if (editingGalleryId) {
-        response = await supabase.from('gallery').update(galleryData).eq('id', editingGalleryId);
+        response = await supabase.from('galeria').update(galleryData).eq('id', editingGalleryId);
       } else {
-        response = await supabase.from('gallery').insert([galleryData]);
+        response = await supabase.from('galeria').insert([galleryData]);
       }
 
       if (response.error) throw response.error;
@@ -646,7 +646,7 @@ async function renderGalleryList(page = 1) {
   const to = from + PAGE_SIZE - 1;
 
   const { data: galleryItems, error, count } = await supabase
-    .from('gallery')
+    .from('galeria')
     .select('*', { count: 'exact' })
     .order('created_at', { ascending: false })
     .range(from, to);
@@ -672,7 +672,7 @@ async function renderGalleryList(page = 1) {
 }
 
 window.editGallery = async function(id) {
-  const { data: item, error } = await supabase.from('gallery').select('*').eq('id', id).single();
+  const { data: item, error } = await supabase.from('galeria').select('*').eq('id', id).single();
   if (error || !item) { showToast('No se pudo encontrar la imagen.', 'error'); return; }
 
   document.getElementById('gallery-description').value = item.description || '';
@@ -688,11 +688,11 @@ window.deleteGallery = async function(id) {
   if (!confirm('¿Eliminar esta imagen de la galería?')) return;
   try {
     // 1. Obtener el item para encontrar la URL de la imagen
-    const { data: item, error: fetchError } = await supabase.from('gallery').select('image_url').eq('id', id).single();
+    const { data: item, error: fetchError } = await supabase.from('galeria').select('image_url').eq('id', id).single();
     if (fetchError) throw fetchError;
 
     // 2. Borrar el registro de la base de datos
-    const { error: deleteDbError } = await supabase.from('gallery').delete().eq('id', id);
+    const { error: deleteDbError } = await supabase.from('galeria').delete().eq('id', id);
     if (deleteDbError) throw deleteDbError;
 
     // 3. Si tenía una imagen en Supabase, borrarla también del Storage
@@ -703,7 +703,7 @@ window.deleteGallery = async function(id) {
       }
     }
 
-    const { count } = await supabase.from('gallery').select('*', { count: 'exact' });
+    const { count } = await supabase.from('galeria').select('*', { count: 'exact' });
     const totalPages = Math.ceil(count / PAGE_SIZE);
     if (galleryCurrentPage > totalPages && totalPages > 0) { galleryCurrentPage = totalPages; }
     showToast('Imagen eliminada de la galería.', 'success');
