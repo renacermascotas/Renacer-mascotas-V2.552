@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             container.innerHTML = testimonios.map(t => `
         <div class="testimonial">
-          <img src="${t.image || 'fotos/perro_jugando.jpg'}" alt="Foto del cliente ${t.author || ''}" />
-          <p>“${t.text || ''}”</p>
-          <b class="client-info">- ${t.author || 'Cliente'}</b>
+          <img src="${t.imagen_url || 'fotos/perro_jugando.jpg'}" alt="Foto del cliente ${t.nombre || ''}" />
+          <p>"${t.testimonio || ''}"</p>
+          <b class="client-info">- ${t.nombre || 'Cliente'}</b>
         </div>
       `).join('');
         })

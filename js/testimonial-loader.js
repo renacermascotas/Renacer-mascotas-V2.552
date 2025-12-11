@@ -14,9 +14,9 @@ import { sanitizeText, sanitizeHTML } from './security.js';
  * @returns {string} HTML del testimonio.
  */
 function createTestimonialHTML(t, idx, isMainPage = false) {
-        const image = sanitizeText(t.image_url || 'fotos/perro_jugando.jpg');
-        const author = sanitizeText(t.author || 'Cliente');
-        const text = sanitizeHTML(t.text || '');
+        const image = sanitizeText(t.imagen_url || 'fotos/perro_jugando.jpg');
+        const author = sanitizeText(t.nombre || 'Cliente');
+        const text = sanitizeHTML(t.testimonio || '');
         
         // En página principal: botón redirige a testimonios.html
         // En página testimonios: botón despliega el contenido
