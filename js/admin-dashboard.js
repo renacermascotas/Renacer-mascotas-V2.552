@@ -267,7 +267,16 @@ function initBlogSection() {
         imageUrl = publicUrl;
       }
 
-      const postData = { titulo, contenido, imagen_destacada: imageUrl };
+      // Generar slug desde el título
+      const slug = titulo.toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Eliminar acentos
+        .replace(/[^a-z0-9\s-]/g, '') // Eliminar caracteres especiales
+        .trim()
+        .replace(/\s+/g, '-') // Reemplazar espacios por guiones
+        .replace(/-+/g, '-') // Eliminar guiones duplicados
+        + '-' + Date.now(); // Agregar timestamp para unicidad
+
+      const postData = { titulo, slug, contenido, imagen_destacada: imageUrl };
 
       let response;
       if (editingBlogId) {
