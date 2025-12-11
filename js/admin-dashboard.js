@@ -783,7 +783,7 @@ document.getElementById('aliados-form')?.addEventListener('submit', async (e) =>
   const nombre = document.getElementById('aliado-nombre').value.trim();
   const departamento = document.getElementById('aliado-departamento').value.trim();
   const ciudad = document.getElementById('aliado-ciudad').value.trim();
-  const website = document.getElementById('aliado-website').value.trim();
+  const sitio_web = document.getElementById('aliado-website').value.trim();
   const descripcion = document.getElementById('aliado-descripcion').value.trim();
   const logoFile = document.getElementById('aliado-logo-file').files[0];
   const logoUrl = document.getElementById('aliado-logo-url').value.trim();
@@ -819,7 +819,7 @@ document.getElementById('aliados-form')?.addEventListener('submit', async (e) =>
       departamento,
       ciudad,
       logo_url: finalLogoUrl,
-      website: website || null,
+      sitio_web: sitio_web || null,
       descripcion: descripcion || null
     };
 
@@ -883,7 +883,7 @@ window.editAliado = async function(id) {
   document.getElementById('aliado-nombre').value = aliado.nombre;
   document.getElementById('aliado-departamento').value = aliado.departamento;
   document.getElementById('aliado-ciudad').value = aliado.ciudad;
-  document.getElementById('aliado-website').value = aliado.website || '';
+  document.getElementById('aliado-website').value = aliado.sitio_web || '';
   document.getElementById('aliado-descripcion').value = aliado.descripcion || '';
   
   // Mostrar vista previa del logo actual
