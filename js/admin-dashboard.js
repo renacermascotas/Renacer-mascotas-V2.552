@@ -423,20 +423,20 @@ function initTestimonialSection() {
 
     try {
       if (testimonialImageFile) {
-        const filePath = `testimonials/${Date.now()}-${testimonialImageFile.name}`;
-        const { error: uploadError } = await supabase.storage.from('media').upload(filePath, testimonialImageFile);
+        const filePath = `${Date.now()}-${testimonialImageFile.name}`;
+        const { error: uploadError } = await supabase.storage.from('testimonios').upload(filePath, testimonialImageFile);
         if (uploadError) throw uploadError;
-        const { data: { publicUrl } } = supabase.storage.from('media').getPublicUrl(filePath);
+        const { data: { publicUrl } } = supabase.storage.from('testimonios').getPublicUrl(filePath);
         imageUrl = publicUrl;
       }
 
-      const testimonialData = { author, text, image_url: imageUrl };
+      const testimonialData = { nombre: author, testimonio: text, imagen_url: imageUrl, calificacion: 5 };
 
       let response;
       if (editingTestimonialId) {
-        response = await supabase.from('testimonials').update(testimonialData).eq('id', editingTestimonialId);
+        response = await supabase.from('testimonios').update(testimonialData).eq('id', editingTestimonialId);
       } else {
-        response = await supabase.from('testimonials').insert([testimonialData]);
+        response = await supabase.from('testimonios').insert([testimonialData]);
       }
 
       if (response.error) throw response.error;
@@ -486,7 +486,7 @@ async function renderTestimonialList(page = 1) {
   const to = from + PAGE_SIZE - 1;
 
   const { data: testimonials, error, count } = await supabase
-    .from('testimonials')
+    .from('testimonios')
     .select('*', { count: 'exact' })
     .order('created_at', { ascending: false })
     .range(from, to);
@@ -499,9 +499,9 @@ async function renderTestimonialList(page = 1) {
   }
   tableBody.innerHTML = testimonials.map(t => `
       <tr>
-        <td>${t.author}</td>
-        <td>${t.image_url ? `<img src="${t.image_url}" width="80" height="50" style="object-fit: cover; border-radius: 5px;">` : 'N/A'}</td>
-        <td>${t.text.substring(0, 50)}...</td>
+        <td>${t.nombre}</td>
+        <td>${t.imagen_url ? `<img src="${t.imagen_url}" width="80" height="50" style="object-fit: cover; border-radius: 5px;">` : 'N/A'}</td>
+        <td>${t.testimonio.substring(0, 50)}...</td>
         <td>
           <button onclick="editTestimonial('${t.id}')">Editar</button>
           <button onclick="deleteTestimonial('${t.id}')">Eliminar</button>
@@ -513,11 +513,11 @@ async function renderTestimonialList(page = 1) {
 }
 
 window.editTestimonial = async function(id) {
-  const { data: t, error } = await supabase.from('testimonials').select('*').eq('id', id).single();
+  const { data: t, error } = await supabase.from('testimonios').select('*').eq('id', id).single();
   if (error || !t) { showToast('No se pudo encontrar el testimonio.', 'error'); return; }
 
-  document.getElementById('testimonial-author').value = t.author;
-  document.getElementById('testimonial-text').value = t.text;
+  document.getElementById('testimonial-author').value = t.nombre;
+  document.getElementById('testimonial-text').value = t.testimonio;
   document.getElementById('testimonial-image-url').value = t.image_url || '';
   editingTestimonialId = id;
   document.getElementById('testimonial-submit-btn').textContent = 'Actualizar';
@@ -529,11 +529,11 @@ window.deleteTestimonial = async function(id) {
   if (!confirm('¿Eliminar este testimonio?')) return;
   try {
     // 1. Obtener el testimonio para encontrar la URL de la imagen
-    const { data: testimonial, error: fetchError } = await supabase.from('testimonials').select('image_url').eq('id', id).single();
+    const { data: testimonial, error: fetchError } = await supabase.from('testimonios').select('imagen_url').eq('id', id).single();
     if (fetchError) throw fetchError;
 
     // 2. Borrar el registro de la base de datos
-    const { error: deleteDbError } = await supabase.from('testimonials').delete().eq('id', id);
+    const { error: deleteDbError } = await supabase.from('testimonios').delete().eq('id', id);
     if (deleteDbError) throw deleteDbError;
 
     // 3. Si tenía una imagen en Supabase, borrarla también del Storage
