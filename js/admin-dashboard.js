@@ -978,7 +978,7 @@ async function renderConveniosList(page = 1) {
       <td>${convenio.nombre}</td>
       <td>${convenio.departamento}</td>
       <td>${convenio.ciudad}</td>
-      <td>${convenio.horario || '-'}</td>
+
       <td>
         <button onclick="editConvenio('${convenio.id}')" class="btn-edit"><i class="fa-solid fa-pen"></i></button>
         <button onclick="deleteConvenio('${convenio.id}')" class="btn-delete"><i class="fa-solid fa-trash"></i></button>
@@ -998,7 +998,6 @@ document.getElementById('convenios-form')?.addEventListener('submit', async (e) 
   const ciudad = document.getElementById('convenio-ciudad').value.trim();
   const direccion = document.getElementById('convenio-direccion').value.trim();
   const telefono = document.getElementById('convenio-telefono').value.trim();
-  const horario = document.getElementById('convenio-horario').value.trim();
   const descripcion = document.getElementById('convenio-descripcion').value.trim();
   const logoFile = document.getElementById('convenio-logo-file').files[0];
   const logoUrl = document.getElementById('convenio-logo-url').value.trim();
@@ -1036,7 +1035,6 @@ document.getElementById('convenios-form')?.addEventListener('submit', async (e) 
       logo_url: finalLogoUrl,
       direccion: direccion || null,
       telefono: telefono || null,
-      horario: horario || null,
       descripcion: descripcion || null
     };
 
@@ -1102,7 +1100,6 @@ window.editConvenio = async function(id) {
   document.getElementById('convenio-ciudad').value = convenio.ciudad;
   document.getElementById('convenio-direccion').value = convenio.direccion || '';
   document.getElementById('convenio-telefono').value = convenio.telefono || '';
-  document.getElementById('convenio-horario').value = convenio.horario || '';
   document.getElementById('convenio-descripcion').value = convenio.descripcion || '';
   
   // Mostrar vista previa del logo actual
