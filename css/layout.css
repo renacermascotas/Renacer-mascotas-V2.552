@@ -297,16 +297,17 @@ header .brand img:hover {
 }
 
 .nav-toggle {
-    display: none !important;
+    display: none;
     font-size: 2rem;
     background: none;
     border: none;
     color: var(--secondary);
     cursor: pointer;
     z-index: 1002;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
+    padding: 0.5rem;
+    position: fixed;
+    top: 15px;
+    right: 15px;
 }
 
 .hamburger {
@@ -417,11 +418,14 @@ header .menu.show {
     }
 
     .nav-toggle {
-        display: none !important; /* Ocultar el botón hamburguesa */
+        display: block !important; /* Mostrar el botón hamburguesa */
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: all !important;
     }
 
     header .nav {
-        justify-content: center; /* Centrar todo el contenido */
+        justify-content: space-between; /* Espacio entre logo y hamburguesa */
         position: relative;
     }
 
@@ -431,17 +435,15 @@ header .menu.show {
         left: auto;
         transform: none;
         order: 1;
-        flex: 0 0 auto; /* No expandir, tamaño natural */
+        flex: 1; /* Ocupar espacio disponible */
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
-        gap: 0.5rem;
     }
 
     header .brand img {
-        height: 80px; /* Más grande en móvil */
-        max-width: 140px;
+        height: 70px; /* Tamaño apropiado para dejar espacio al hamburguesa */
+        max-width: 120px;
         transition: transform 0.3s ease;
     }
     
@@ -449,31 +451,9 @@ header .menu.show {
         transform: scale(0.95); /* Efecto al tocar */
     }
     
-    /* Mensaje tooltip para el logo en móvil */
+    /* Eliminar mensaje tooltip del logo */
     header .brand::after {
-        content: 'Toca el logo para ver nuestro menú';
-        position: absolute;
-        bottom: -35px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: var(--primary);
-        color: white;
-        padding: 0.4rem 1rem;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        white-space: nowrap;
-        box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
-        animation: fadeInOut 4s ease-in-out;
-        opacity: 0;
-        pointer-events: none;
-        z-index: 10001;
-    }
-    
-    @keyframes fadeInOut {
-        0% { opacity: 0; transform: translateX(-50%) translateY(-5px); }
-        15% { opacity: 1; transform: translateX(-50%) translateY(0); }
-        85% { opacity: 1; transform: translateX(-50%) translateY(0); }
-        100% { opacity: 0; transform: translateX(-50%) translateY(-5px); }
+        display: none;
     }
 
     /* Espacio reservado - ya no necesario */

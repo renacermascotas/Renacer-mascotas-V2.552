@@ -4,7 +4,6 @@ export function initMenu() {
     // ===== Mobile Menu Toggle =====
     const navToggle = document.querySelector(".nav-toggle");
     const menu = document.querySelector(".menu");
-    const brand = document.querySelector(".brand");
 
     if (navToggle && menu) {
         // Función para toggle del menú
@@ -16,27 +15,6 @@ export function initMenu() {
         
         // Click en hamburguesa
         navToggle.addEventListener("click", toggleMenu);
-        
-        // Click en logo (solo en móvil)
-        if (brand) {
-            brand.addEventListener("click", (e) => {
-                if (window.innerWidth <= 900) {
-                    e.preventDefault();
-                    toggleMenu();
-                }
-            });
-            
-            // Agregar cursor pointer en móvil
-            const updateBrandCursor = () => {
-                if (window.innerWidth <= 900) {
-                    brand.style.cursor = 'pointer';
-                } else {
-                    brand.style.cursor = '';
-                }
-            };
-            updateBrandCursor();
-            window.addEventListener('resize', updateBrandCursor);
-        }
 
         // Manejo del submenú en móvil
         const dropdowns = menu.querySelectorAll(".dropdown");
