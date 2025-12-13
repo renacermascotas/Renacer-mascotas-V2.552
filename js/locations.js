@@ -6,11 +6,11 @@
 const locations = {
     pereira: {
         name: "Renacer Mascotas - Pereira",
-        address: "Calle 46 #10-47, Centro, Pereira",
+        address: "Carrera 10 #46-47, Barrio Maraya, Pereira",
         phone: "+57 320 705 3536",
         schedule: "Lun-Vie: 8:00 AM - 6:00 PM",
         whatsapp: "573207053536",
-        mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.222383204944!2d-75.71960142512128!3d4.778844895180153!2m3!1f0!2f0!3f0!3m2!i1024!2i768!4f13.1!3m3!1m2!1s0x8e3532f518e38d73%3A0x6a19f96b29d47c49!2sCl.%2046%20%2310-47%2C%20Pereira%2C%20Risaralda!5e0!3m2!1ses-419!2sco!4v1693754877478!5m2!1ses-419!2sco"
+        mapUrl: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3976.2833!2d-75.7176!3d4.8147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNMKwNDgnNTIuOCJOIDc1wrA0MycwMy41Ilc!5e0!3m2!1ses-419!2sco!4v1702483200000!5m2!1ses-419!2sco"
     },
     dosquebradas: {
         name: "Renacer Mascotas - Dosquebradas",

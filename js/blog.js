@@ -34,17 +34,21 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       console.log('✅ Blog cargado desde Supabase -', posts.length, 'posts');
-      blogCards.innerHTML = posts.map(post => `
-        <div class="plan-img-box">
-          <a href="blog.html" style="text-decoration:none; color:inherit;">
+      blogCards.innerHTML = posts.map((post, idx) => `
+        <div class="plan-img-box" data-post-id="${idx}">
+          <div style="cursor: pointer;" onclick="openBlogModal(${idx})">
             <img src="${sanitizeText(post.imagen_destacada) || 'fotos/4.jpg'}" alt="${sanitizeText(post.titulo)}" crossorigin="anonymous">
             <div style="width:100%;text-align:center;margin-top:1.2rem;">
               <h3 style="color:var(--secondary);font-size:1.15rem;font-weight:800;margin-bottom:0.7rem;">${sanitizeText(post.titulo)}</h3>
               <p style="color:#444;font-size:1.05rem;">${post.contenido ? sanitizeText(post.contenido.substring(0, 80)) + '...' : ''}</p>
+              <button class="btn" style="margin-top:0.5rem;">Leer más</button>
             </div>
-          </a>
+          </div>
         </div>
       `).join('');
+      
+      // Guardar posts para el modal
+      window.blogPosts = posts;
     } catch (err) {
       console.error('Error cargando el blog:', err);
       loadDefaultBlogPosts();
@@ -85,3 +89,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
   loadBlogPosts();
 });
+
+// Modal para mostrar blog completo
+window.openBlogModal = function(idx) {
+  const posts = window.blogPosts || [];
+  if (!posts[idx]) return;
+  
+  const post = posts[idx];
+  
+  // Crear modal
+  const modal = document.createElement('div');
+  modal.className = 'blog-modal';
+  modal.innerHTML = `
+    <div class="blog-modal-content">
+      <button class="blog-modal-close" onclick="closeBlogModal()">&times;</button>
+      <img src="${sanitizeText(post.imagen_destacada) || 'fotos/4.jpg'}" alt="${sanitizeText(post.titulo)}" style="width:100%;max-height:400px;object-fit:cover;border-radius:12px;margin-bottom:1.5rem;">
+      <h2 style="color:var(--secondary);margin-bottom:1rem;">${sanitizeText(post.titulo)}</h2>
+      <div style="color:#666;line-height:1.8;text-align:justify;">${sanitizeHTML(post.contenido)}</div>
+      <div style="margin-top:2rem;text-align:center;">
+        <a href="blog.html" class="btn">Ir a Blog</a>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  setTimeout(() => modal.classList.add('show'), 10);
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeBlogModal = function() {
+  const modal = document.querySelector('.blog-modal');
+  if (modal) {
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.remove();
+      document.body.style.overflow = '';
+    }, 300);
+  }
+};

@@ -42,15 +42,15 @@
 /* ========== Contenedor del Header (#header) ========== */
 /* Aplicamos el posicionamiento al DIV contenedor para que respete el flujo */
 #header {
-    position: relative; /* Posición normal en el flujo del documento */
-    top: 0;
+    position: sticky; /* Siempre pegajoso */
+    top: 0.5rem;
     z-index: 1000;
     transition: all 0.4s ease; /* Transición suave para todos los cambios */
 }
 
 /* Estado del contenedor al hacer scroll */
 #header.scrolled {
-    position: sticky; /* Se vuelve pegajoso al hacer scroll */
+    position: sticky;
     top: 0.5rem;
 }
 
@@ -71,16 +71,16 @@ header {
     transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Estado visual del header al hacer scroll: Cristal */
+/* Estado visual del header al hacer scroll: Mantener blanco */
 header.scrolled-visual {
-    background: var(--secondary); /* Fondo oscuro al hacer scroll */
+    background: #fff; /* Mantener fondo blanco al hacer scroll */
     box-shadow: 0 8px 32px rgba(0, 53, 128, 0.15); /* Sombra un poco más pronunciada */
 }
 
-/* Cambiar el color de los enlaces cuando el fondo es oscuro */
+/* Mantener el color de los enlaces igual */
 header.scrolled-visual .nav-left a,
 header.scrolled-visual .nav-right a {
-    color: #fff;
+    color: var(--secondary);
 }
 header.scrolled-visual .nav-left a.active,
 header.scrolled-visual .nav-right a.active {
